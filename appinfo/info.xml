@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<info>
+    <id>integration_jira</id>
+    <name>Jira integration</name>
+    <summary>Integration of Jira user support/ticketing solution</summary>
+    <description><![CDATA[Jira integration provides a dashboard widget displaying your important notifications.]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author>Julien Veyssier</author>
+    <namespace>Jira</namespace>
+    <documentation>
+        <developer>https://github.com/eneiluj/integration_jira/wikis</developer>
+    </documentation>
+    <category>integration</category>
+    <category>dashboard</category>
+    <website>https://github.com/eneiluj/integration_jira</website>
+    <bugs>https://github.com/eneiluj/integration_jira/issues</bugs>
+    <screenshot>https://github.com/eneiluj/integration_jira/raw/master/img/screenshot1.jpg</screenshot>
+    <dependencies>
+        <database min-version="9.4">pgsql</database>
+        <database>sqlite</database>
+        <database min-version="5.5">mysql</database>
+        <nextcloud min-version="20" max-version="21"/>
+    </dependencies>
+    <settings>
+        <admin>OCA\Jira\Settings\Admin</admin>
+        <admin-section>OCA\Jira\Settings\AdminSection</admin-section>
+        <personal>OCA\Jira\Settings\Personal</personal>
+        <personal-section>OCA\Jira\Settings\PersonalSection</personal-section>
+    </settings>
+</info>
