@@ -50,6 +50,7 @@ export default {
 			state: 'loading',
 			settingsUrl: generateUrl('/settings/user/linked-accounts'),
 			themingColor: OCA.Theming ? OCA.Theming.color.replace('#', '') : '0082C9',
+			darkThemeColor: OCA.Accessibility.theme === 'dark' ? 'ffffff' : '181818',
 		}
 	},
 
@@ -62,8 +63,8 @@ export default {
 				return {
 					id: this.getUniqueKey(n),
 					targetUrl: this.getNotificationTarget(n),
-					avatarUrl: this.getAuthorAvatarUrl(n),
-					avatarUsername: this.getAuthorShortName(n),
+					avatarUrl: this.getCreatorAvatarUrl(n),
+					avatarUsername: this.getCreatorDisplayName(n),
 					overlayIconUrl: this.getNotificationTypeImage(n),
 					mainText: this.getTargetTitle(n),
 					subText: this.getSubline(n),
@@ -135,52 +136,39 @@ export default {
 			return notifications
 		},
 		getNotificationTarget(n) {
-			return n.o_id
+			return n.jiraUrl + '/browse/' + n.key
 		},
 		getUniqueKey(n) {
-			return n.id + ':' + n.updated_at
+			return n.id + ':' + n.fields.statuscategorychangedate
 		},
-		getAuthorShortName(n) {
-			if (!n.firstname && !n.lastname) {
-				return '?'
-			} else {
-				return (n.firstname ? n.firstname[0] : '')
-					+ (n.lastname ? n.lastname[0] : '')
-			}
+		getCreatorDisplayName(n) {
+			return n.fields.creator.displayName
 		},
-		getAuthorFullName(n) {
-			return n.firstname + ' ' + n.lastname
-		},
-		getAuthorAvatarUrl(n) {
-			return (n.image)
-				? generateUrl('/apps/integration_jira/avatar?') + encodeURIComponent('image') + '=' + encodeURIComponent(n.image)
+		getCreatorAvatarUrl(n) {
+			return (n.fields.creator && n.fields.creator.avatarUrls)
+				? n.fields.creator.avatarUrls
+					? n.fields.creator.avatarUrls['48x48']
+						? generateUrl('/apps/integration_jira/avatar?') + encodeURIComponent('image') + '=' + encodeURIComponent(n.fields.creator.avatarUrls['48x48'])
+						: ''
+					: ''
 				: ''
 		},
-		getNotificationProjectName(n) {
-			return ''
-		},
-		getNotificationContent(n) {
-			return ''
-		},
 		getNotificationTypeImage(n) {
-			if (n.type_lookup_id === 2 || n.type === 'update') {
-				return generateUrl('/svg/integration_jira/rename?color=ffffff')
-			} else if (n.type_lookup_id === 3 || n.type === 'create') {
-				return generateUrl('/svg/integration_jira/add?color=ffffff')
-			}
-			return generateUrl('/svg/core/actions/sound?color=' + this.themingColor)
+			// if (n.type_lookup_id === 2 || n.type === 'update') {
+			// return generateUrl('/svg/integration_jira/rename?color=ffffff')
+			// } else if (n.type_lookup_id === 3 || n.type === 'create') {
+			// return generateUrl('/svg/integration_jira/add?color=ffffff')
+			// }
+			return generateUrl('/svg/core/actions/sound?color=' + this.darkThemeColor)
 		},
 		getSubline(n) {
-			return this.getAuthorFullName(n) + ' #' + n.o_id
+			return this.getCreatorDisplayName(n) + ' #' + n.id
 		},
 		getTargetTitle(n) {
-			return n.title
-		},
-		getTargetIdentifier(n) {
-			return n.o_id
+			return n.fields.summary
 		},
 		getFormattedDate(n) {
-			return moment(n.updated_at).format('LLL')
+			return moment(n.fields.statuscategorychangedate).format('LLL')
 		},
 	},
 }

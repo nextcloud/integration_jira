@@ -133,10 +133,20 @@ export default {
 			const redirectEndpoint = generateUrl('/apps/integration_jira/oauth-redirect')
 			const redirectUri = window.location.protocol + '//' + window.location.host + redirectEndpoint
 			const oauthState = Math.random().toString(36).substring(3)
+			const scopes = [
+				'offline_access',
+				'read:me',
+				'read:jira-work',
+				'read:jira-user',
+				'write:jira-work',
+				'manage:jira-project',
+				'manage:jira-configuration',
+				'manage:jira-data-provider',
+			]
 			// const requestUrl = this.state.oauth_instance_url + '/oauth/authorize?client_id=' + encodeURIComponent(this.state.client_id)
 			const requestUrl = 'https://auth.atlassian.com/authorize?client_id=' + encodeURIComponent(this.state.client_id)
 				+ '&audience=api.atlassian.com'
-				+ '&scope=' + encodeURIComponent('offline_access read:me read:jira-work read:jira-user write:jira-work')
+				+ '&scope=' + encodeURIComponent(scopes.join(' '))
 				+ '&response_type=code'
 				+ '&prompt=consent'
 				+ '&redirect_uri=' + encodeURIComponent(redirectUri)

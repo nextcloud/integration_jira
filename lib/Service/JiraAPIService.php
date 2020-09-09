@@ -89,7 +89,6 @@ class JiraAPIService {
                                 $nbOpen++;
                             }
                         }
-                        error_log('NB OPEN for '.$me['lastname'].': '.$nbOpen);
                         if ($nbOpen > 0) {
                             $this->sendNCNotification($userId, 'new_open_tickets', [
                                 'nbOpen' => $nbOpen,
@@ -115,77 +114,46 @@ class JiraAPIService {
         $manager->notify($notification);
     }
 
+    private function getJiraResources(string $userId): array {
+        $strRes = $this->config->getUserValue($userId, Application::APP_ID, 'resources', '');
+        $resources = json_decode($strRes, true);
+        $resources = ($resources && count($resources) > 0) ? $resources : [];
+        return $resources;
+    }
+
     public function getNotifications(string $accessToken,
                                     string $refreshToken, string $clientID, string $clientSecret, string $userId,
                                     ?string $since = null, ?int $limit = null): array {
-        $params = [
-            'state' => 'pending',
-        ];
-        $result = $this->request(
-            $accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'online_notifications', $params
-        );
-        if (isset($result['error'])) {
-            return $result;
-        }
-        // filter seen ones
-        $result = array_filter($result, function($elem) {
-            return !$elem['seen'];
-        });
-        // filter results by date
-        if (!is_null($since)) {
-            $sinceDate = new \DateTime($since);
-            $sinceTimestamp = $sinceDate->getTimestamp();
-            $result = array_filter($result, function($elem) use ($sinceTimestamp) {
-                $date = new \Datetime($elem['updated_at']);
-                $ts = $date->getTimestamp();
-                return $ts > $sinceTimestamp;
-            });
-        }
-        if ($limit) {
-            $result = array_slice($result, 0, $limit);
-        }
-        $result = array_values($result);
-        // get details
-        foreach ($result as $k => $v) {
-            $details = $this->request(
-                $accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'tickets/' . $v['o_id']
+        $resources = $this->getJiraResources($userId);
+        $myIssues = [];
+
+        foreach ($resources as $resource) {
+            $cloudId = $resource['id'];
+            $jiraUrl = $resource['url'];
+            $issuesResult = $this->request(
+                $accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/'.$cloudId.'/rest/api/2/search'
             );
-            if (!isset($details['error'])) {
-                $result[$k]['title'] = $details['title'];
-                $result[$k]['note'] = $details['note'];
-                $result[$k]['state_id'] = $details['state_id'];
-                $result[$k]['owner_id'] = $details['owner_id'];
-                $result[$k]['type'] = $details['type'];
+            if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
+                foreach ($issuesResult['issues'] as $k => $issue) {
+                    $issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
+                    array_push($myIssues, $issuesResult['issues'][$k]);
+                }
+                //$myIssues = array_merge($myIssues, $issuesResult['issues']);
+            } else {
+                return $issuesResult;
             }
-        }
-        // get user details
-        $userIds = [];
-        foreach ($result as $k => $v) {
-            if (!in_array($v['updated_by_id'], $userIds)) {
-                array_push($userIds, $v['updated_by_id']);
-            }
-        }
-        $userDetails = [];
-        foreach ($userIds as $uid) {
-            $user = $this->request(
-                $accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'users/' . $uid
-            );
-            $userDetails[$uid] = [
-                'firstname' => $user['firstname'],
-                'lastname' => $user['lastname'],
-                'organization_id' => $user['organization_id'],
-                'image' => $user['image'],
-            ];
-        }
-        foreach ($result as $k => $v) {
-            $user = $userDetails[$v['updated_by_id']];
-            $result[$k]['firstname'] = $user['firstname'];
-            $result[$k]['lastname'] = $user['lastname'];
-            $result[$k]['organization_id'] = $user['organization_id'];
-            $result[$k]['image'] = $user['image'];
         }
 
-        return $result;
+        // sort by statuscategorychangedate
+        $a = usort($myIssues, function($a, $b) {
+            $a = new \Datetime($a['fields']['statuscategorychangedate']);
+            $ta = $a->getTimestamp();
+            $b = new \Datetime($b['fields']['statuscategorychangedate']);
+            $tb = $b->getTimestamp();
+            return ($ta > $tb) ? -1 : 1;
+        });
+
+        return $myIssues;
     }
 
     public function search(string $accessToken,
@@ -211,7 +179,7 @@ class JiraAPIService {
     // authenticated request to get an image from jira
     public function getJiraAvatar(string $accessToken, string $refreshToken, string $clientID, string $clientSecret,
                                   string $image): string {
-        $url = $url . '/api/v1/users/image/' . $image;
+        $url = $image;
         $options = [
             'headers' => [
                 'Authorization'  => 'Bearer ' . $accessToken,
