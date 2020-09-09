@@ -114,20 +114,26 @@ class ConfigController extends Controller {
                 'redirect_uri' => $redirect_uri,
                 'grant_type' => 'authorization_code'
             ], 'POST');
-            error_log('KKKKKKKKKKKK '.implode(' , ', array_keys($result)));
-            error_log('expires_in '.$result['expires_in']);
-            error_log('token_type '.$result['token_type']);
             if (isset($result['access_token'])) {
                 $accessToken = $result['access_token'];
                 $this->config->setUserValue($this->userId, Application::APP_ID, 'token', $accessToken);
                 $refreshToken = $result['refresh_token'];
                 $this->config->setUserValue($this->userId, Application::APP_ID, 'refresh_token', $refreshToken);
-                return new RedirectResponse(
-                    $this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'linked-accounts']) .
-                    '?jiraToken=success'
-                );
+                // get accessible resources
+                $resources = $this->jiraAPIService->request($accessToken, $refreshToken, $clientID, $clientSecret, $this->userId, 'oauth/token/accessible-resources');
+                if (!isset($resources['error'])) {
+                    $encodedResources = json_encode($resources);
+                    $this->config->setUserValue($this->userId, Application::APP_ID, 'resources', $encodedResources);
+                    return new RedirectResponse(
+                        $this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'linked-accounts']) .
+                        '?jiraToken=success'
+                    );
+                } else {
+                    $result = $this->l->t('Error getting OAuth accessible resource list.') . ' ' . $resources['error'];
+                }
+            } else {
+                $result = $this->l->t('Error getting OAuth access token.') . ' ' . $result['error'];
             }
-            $result = $this->l->t('Error getting OAuth access token.') . ' ' . $result['error'];
         } else {
             $result = $this->l->t('Error during OAuth exchanges');
         }
