@@ -127,12 +127,12 @@ class JiraSearchProvider implements IProvider {
 			return SearchResult::paginated($this->getName(), [], 0);
 		}
 
-		$formattedResults = \array_map(function (array $entry) use ($thumbnailUrl, $jiraUrl): JiraSearchResultEntry {
+		$formattedResults = \array_map(function (array $entry) use ($thumbnailUrl): JiraSearchResultEntry {
 			return new JiraSearchResultEntry(
 				$thumbnailUrl,
 				$this->getMainText($entry),
 				$this->getSubline($entry),
-				$this->getLinkToJira($entry, $jiraUrl),
+				$this->getLinkToJira($entry),
 				'',
 				true
 			);
@@ -149,21 +149,21 @@ class JiraSearchProvider implements IProvider {
 	 * @return string
 	 */
 	protected function getMainText(array $entry): string {
-		return $entry['title'];
+		return $entry['fields']['summary'];
 	}
 
 	/**
 	 * @return string
 	 */
 	protected function getSubline(array $entry): string {
-		return $this->l10n->t('Jira ticket');
+		return $this->l10n->t('Jira issue');
 	}
 
 	/**
 	 * @return string
 	 */
-	protected function getLinkToJira(array $entry, string $url): string {
-		return $url . '/#ticket/zoom/' . $entry['id'];
+	protected function getLinkToJira(array $entry): string {
+		return $entry['jiraUrl'] . '/browse/' . $entry['key'];
 	}
 
 }

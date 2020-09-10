@@ -169,20 +169,28 @@ class JiraAPIService {
 							string $refreshToken, string $clientID, string $clientSecret, string $userId,
 							string $query): array {
 		$params = [
-			'query' => $query,
+			'jql' => 'text ~ "'.$query.'"',
 			'limit' => 10,
 		];
-		$searchResult = $this->request(
-			$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'tickets/search', $params
-		);
+		$resources = $this->getJiraResources($userId);
+		$myIssues = [];
 
-		$result = [];
-		if (isset($searchResult['assets']) && isset($searchResult['assets']['Ticket'])) {
-			foreach ($searchResult['assets']['Ticket'] as $id => $t) {
-				array_push($result, $t);
+		foreach ($resources as $resource) {
+			$cloudId = $resource['id'];
+			$jiraUrl = $resource['url'];
+			$issuesResult = $this->request(
+				$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/'.$cloudId.'/rest/api/2/search', $params
+			);
+			if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
+				foreach ($issuesResult['issues'] as $k => $issue) {
+					$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
+					array_push($myIssues, $issuesResult['issues'][$k]);
+				}
+			} else {
+				return $issuesResult;
 			}
 		}
-		return $result;
+		return $myIssues;
 	}
 
 	// authenticated request to get an image from jira
