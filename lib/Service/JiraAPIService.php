@@ -60,41 +60,38 @@ class JiraAPIService {
 	private function checkOpenTicketsForUser(string $userId): void {
 		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
 		if ($accessToken) {
+			$notificationEnabled = ($this->config->getUserValue($userId, Application::APP_ID, 'notification_enabled', '0') === '1');
 			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token', '');
 			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
 			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
-			if ($clientID && $clientSecret && $jiraUrl) {
+			$resources = $this->getJiraResources($userId);
+			if ($notificationEnabled && $clientID && $clientSecret && count($resources) > 0) {
 				$lastNotificationCheck = $this->config->getUserValue($userId, Application::APP_ID, 'last_open_check', '');
 				$lastNotificationCheck = $lastNotificationCheck === '' ? null : $lastNotificationCheck;
-				// get the jira user ID
-				$me = $this->request(
-					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'users/me'
-				);
-				if (isset($me['id'])) {
-					$my_user_id = $me['id'];
 
-					$notifications = $this->getNotifications(
-						$jiraUrl, $accessToken, $refreshToken, $clientID, $clientSecret, $userId, $lastNotificationCheck
-					);
-					if (!isset($notifications['error']) && count($notifications) > 0) {
-						$lastNotificationCheck = $notifications[0]['updated_at'];
-						$this->config->setUserValue($userId, Application::APP_ID, 'last_open_check', $lastNotificationCheck);
-						$nbOpen = 0;
-						foreach ($notifications as $n) {
-							$user_id = $n['user_id'];
-							$state_id = $n['state_id'];
-							$owner_id = $n['owner_id'];
-							// if ($state_id === 1) {
-							if ($owner_id === $my_user_id && $state_id === 1) {
-								$nbOpen++;
-							}
+				// get jira URL
+				$jiraUrl = $resources[0]['url'];
+
+				$notifications = $this->getNotifications(
+					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, $lastNotificationCheck
+				);
+				if (!isset($notifications['error']) && count($notifications) > 0) {
+					$myAccountId = $notifications[0]['my_account_id'];
+					$lastNotificationCheck = $notifications[0]['fields']['updated'];
+					$this->config->setUserValue($userId, Application::APP_ID, 'last_open_check', $lastNotificationCheck);
+					$nbOpen = 0;
+					foreach ($notifications as $n) {
+						$status_key = $n['fields']['status']['statusCategory']['key'];
+						$assigneeId = $n['fields']['assignee']['accountId'];
+						if ($assigneeId === $myAccountId && $status_key !== 'done') {
+							$nbOpen++;
 						}
-						if ($nbOpen > 0) {
-							$this->sendNCNotification($userId, 'new_open_tickets', [
-								'nbOpen' => $nbOpen,
-								'link' => $jiraUrl
-							]);
-						}
+					}
+					if ($nbOpen > 0) {
+						$this->sendNCNotification($userId, 'new_open_tickets', [
+							'nbOpen' => $nbOpen,
+							'link' => $jiraUrl
+						]);
 					}
 				}
 			}
@@ -121,8 +118,7 @@ class JiraAPIService {
 		return $resources;
 	}
 
-	public function getNotifications(string $accessToken,
-									string $refreshToken, string $clientID, string $clientSecret, string $userId,
+	public function getNotifications(string $accessToken, string $refreshToken, string $clientID, string $clientSecret, string $userId,
 									?string $since = null, ?int $limit = null): array {
 		$resources = $this->getJiraResources($userId);
 		$myIssues = [];
@@ -136,6 +132,7 @@ class JiraAPIService {
 			if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
 				foreach ($issuesResult['issues'] as $k => $issue) {
 					$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
+					$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'];
 					array_push($myIssues, $issuesResult['issues'][$k]);
 				}
 			} else {
@@ -248,11 +245,16 @@ class JiraAPIService {
 			}
 			$body = $response->getBody();
 			$respCode = $response->getStatusCode();
+			$headers = $response->getHeaders();
 
 			if ($respCode >= 400) {
 				return ['error' => $this->l10n->t('Bad credentials')];
 			} else {
-				return json_decode($body, true);
+				$decodedResult = json_decode($body, true);
+				if (isset($headers['x-aaccountid']) && is_array($headers['x-aaccountid']) && count($headers['x-aaccountid']) > 0) {
+					$decodedResult['my_account_id'] = $headers['x-aaccountid'][0];
+				}
+				return $decodedResult;
 			}
 		} catch (ClientException $e) {
 			$this->logger->warning('Jira API error : '.$e->getMessage(), array('app' => $this->appName));

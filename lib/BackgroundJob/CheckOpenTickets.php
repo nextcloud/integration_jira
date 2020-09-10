@@ -51,6 +51,6 @@ class CheckOpenTickets extends TimedJob {
 
 	protected function run($argument): void {
 		$this->jiraAPIService->checkOpenTickets();
-		$this->logger->info('Checked if users have open Jira tickets.');
+		$this->logger->info('Checked if users have open Jira issues.');
 	}
 }
