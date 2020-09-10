@@ -59,7 +59,18 @@ export default {
 			return ''
 		},
 		items() {
-			return this.notifications.map((n) => {
+			// only display last apparition of an issue
+			const seenKeys = []
+			const items = this.notifications.filter((n) => {
+				if (seenKeys.includes(n.key)) {
+					return false
+				} else {
+					seenKeys.push(n.key)
+					return true
+				}
+			})
+
+			return items.map((n) => {
 				return {
 					id: this.getUniqueKey(n),
 					targetUrl: this.getNotificationTarget(n),
@@ -73,7 +84,7 @@ export default {
 		},
 		lastDate() {
 			const nbNotif = this.notifications.length
-			return (nbNotif > 0) ? this.notifications[0].updated_at : null
+			return (nbNotif > 0) ? this.notifications[0].fields.updated : null
 		},
 		lastMoment() {
 			return moment(this.lastDate)
