@@ -139,7 +139,7 @@ export default {
 			return n.jiraUrl + '/browse/' + n.key
 		},
 		getUniqueKey(n) {
-			return n.id + ':' + n.fields.statuscategorychangedate
+			return n.id + ':' + n.fields.updated
 		},
 		getCreatorDisplayName(n) {
 			return n.fields.creator.displayName
@@ -162,13 +162,13 @@ export default {
 			return generateUrl('/svg/core/actions/sound?color=' + this.darkThemeColor)
 		},
 		getSubline(n) {
-			return this.getCreatorDisplayName(n) + ' #' + n.id
+			return this.getCreatorDisplayName(n) + ' #' + n.key
 		},
 		getTargetTitle(n) {
 			return n.fields.summary
 		},
 		getFormattedDate(n) {
-			return moment(n.fields.statuscategorychangedate).format('LLL')
+			return moment(n.fields.updated).format('LLL')
 		},
 	},
 }

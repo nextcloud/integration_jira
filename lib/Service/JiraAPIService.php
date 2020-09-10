@@ -144,11 +144,11 @@ class JiraAPIService {
             }
         }
 
-        // sort by statuscategorychangedate
+        // sort by updated
         $a = usort($myIssues, function($a, $b) {
-            $a = new \Datetime($a['fields']['statuscategorychangedate']);
+            $a = new \Datetime($a['fields']['updated']);
             $ta = $a->getTimestamp();
-            $b = new \Datetime($b['fields']['statuscategorychangedate']);
+            $b = new \Datetime($b['fields']['updated']);
             $tb = $b->getTimestamp();
             return ($ta > $tb) ? -1 : 1;
         });
