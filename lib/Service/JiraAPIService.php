@@ -111,7 +111,7 @@ class JiraAPIService {
 		$manager->notify($notification);
 	}
 
-	private function getJiraResources(string $userId): array {
+	public function getJiraResources(string $userId): array {
 		$strRes = $this->config->getUserValue($userId, Application::APP_ID, 'resources', '');
 		$resources = json_decode($strRes, true);
 		$resources = ($resources && count($resources) > 0) ? $resources : [];

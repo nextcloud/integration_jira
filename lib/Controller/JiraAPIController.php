@@ -66,6 +66,16 @@ class JiraAPIController extends Controller {
     }
 
     /**
+     * get notification list
+     * @NoAdminRequired
+     */
+    public function getJiraUrl(): DataResponse {
+        $resources = $this->jiraAPIService->getJiraResources($this->userId);
+        $jiraUrl = count($resources) > 0 ? $resources[0]['url'] : '';
+        return new DataResponse($jiraUrl);
+    }
+
+    /**
      * get jira user avatar
      * @NoAdminRequired
      * @NoCSRFRequired

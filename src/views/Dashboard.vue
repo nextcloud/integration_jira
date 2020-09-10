@@ -46,6 +46,7 @@ export default {
 	data() {
 		return {
 			notifications: [],
+			jiraUrl: null,
 			loop: null,
 			state: 'loading',
 			settingsUrl: generateUrl('/settings/user/linked-accounts'),
@@ -56,7 +57,7 @@ export default {
 
 	computed: {
 		showMoreUrl() {
-			return ''
+			return this.jiraUrl
 		},
 		items() {
 			// only display last apparition of an issue
@@ -100,6 +101,13 @@ export default {
 
 	methods: {
 		async launchLoop() {
+			// get Jira URL first
+			try {
+				const response = await axios.get(generateUrl('/apps/integration_jira/url'))
+				this.jiraUrl = response.data.replace(/\/+$/, '')
+			} catch (error) {
+				console.debug(error)
+			}
 			// launch the loop
 			this.fetchNotifications()
 			this.loop = setInterval(() => this.fetchNotifications(), 60000)
