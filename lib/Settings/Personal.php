@@ -49,14 +49,12 @@ class Personal implements ISettings {
         $clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
         // don't expose the client secret to users
         $clientSecret = ($this->config->getAppValue(Application::APP_ID, 'client_secret', '') !== '');
-        $oauthUrl = $this->config->getAppValue(Application::APP_ID, 'oauth_instance_url', '');
 
         $userConfig = [
             'token' => $token,
             'url' => $url,
             'client_id' => $clientID,
             'client_secret' => $clientSecret,
-            'oauth_instance_url' => $oauthUrl,
             'search_enabled' => ($searchEnabled === '1'),
             'notification_enabled' => ($notificationEnabled === '1'),
         ];

@@ -4,9 +4,6 @@
 			<a class="icon icon-jira" />
 			{{ t('integration_jira', 'Jira integration') }}
 		</h2>
-		<p class="settings-hint">
-			{{ t('integration_jira', 'Your Nextcloud administrator configured the access to {url}', { url: state.oauth_instance_url }) }}
-		</p>
 		<div class="jira-grid-form">
 			<label for="jira-token">
 				<a class="icon icon-category-auth" />
@@ -67,9 +64,7 @@ export default {
 
 	computed: {
 		showOAuth() {
-			return this.state.oauth_instance_url
-				&& this.state.client_id
-				&& this.state.client_secret
+			return this.state.client_id && this.state.client_secret
 		},
 	},
 
@@ -143,7 +138,6 @@ export default {
 				'manage:jira-configuration',
 				'manage:jira-data-provider',
 			]
-			// const requestUrl = this.state.oauth_instance_url + '/oauth/authorize?client_id=' + encodeURIComponent(this.state.client_id)
 			const requestUrl = 'https://auth.atlassian.com/authorize?client_id=' + encodeURIComponent(this.state.client_id)
 				+ '&audience=api.atlassian.com'
 				+ '&scope=' + encodeURIComponent(scopes.join(' '))

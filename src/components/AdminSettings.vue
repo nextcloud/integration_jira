@@ -6,23 +6,20 @@
 		</h2>
 		<p class="settings-hint">
 			{{ t('integration_jira', 'If you want to allow your Nextcloud users to use OAuth to authenticate to a Jira instance, create an application in your Jira admin settings and set the ID and secret here.') }}
-			<a href="https://developer.atlassian.com/apps">
+			<a class="external" href="https://developer.atlassian.com/apps">
 				{{ t('integration_jira', 'Jira app settings') }}
 			</a>
 			<br>
 			{{ t('integration_jira', 'Make sure you set the redirection URL to') }}
 			<br><b> {{ redirect_uri }} </b>
+			<br>
+			{{ t('integration_jira', 'Don\'t forget to make you Jira OAuth application public.') }}
+			<br>
+			<a class="external" href="https://developer.atlassian.com/cloud/jira/platform/oauth-2-authorization-code-grants-3lo-for-apps/#publishing-your-oauth-2-0--3lo--app">
+				{{ t('integration_jira', 'How to make Jira OAuth public') }}
+			</a>
 		</p>
 		<div class="grid-form">
-			<label for="jira-oauth-instance">
-				<a class="icon icon-link" />
-				{{ t('integration_jira', 'Jira instance address') }}
-			</label>
-			<input id="jira-oauth-instance"
-				v-model="state.oauth_instance_url"
-				type="text"
-				:placeholder="t('integration_jira', 'Jira address')"
-				@input="onInput">
 			<label for="jira-client-id">
 				<a class="icon icon-category-auth" />
 				{{ t('integration_jira', 'Client ID') }}
@@ -91,7 +88,6 @@ export default {
 				values: {
 					client_id: this.state.client_id,
 					client_secret: this.state.client_secret,
-					oauth_instance_url: this.state.oauth_instance_url,
 				},
 			}
 			const url = generateUrl('/apps/integration_jira/admin-config')
