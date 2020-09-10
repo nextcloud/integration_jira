@@ -3,7 +3,9 @@
     <id>integration_jira</id>
     <name>Jira integration</name>
     <summary>Integration of Jira user support/ticketing solution</summary>
-    <description><![CDATA[Jira integration provides a dashboard widget displaying your important notifications.]]></description>
+    <description><![CDATA[Jira integration provides a dashboard widget displaying your important notifications,
+a unified search provider to search for issues
+and notifications about recent activity related to your assigned issues.]]></description>
     <version>0.0.1</version>
     <licence>agpl</licence>
     <author>Julien Veyssier</author>
