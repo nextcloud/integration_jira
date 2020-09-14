@@ -49,7 +49,7 @@ export default {
 			jiraUrl: null,
 			loop: null,
 			state: 'loading',
-			settingsUrl: generateUrl('/settings/user/linked-accounts'),
+			settingsUrl: generateUrl('/settings/user/connected-accounts'),
 			themingColor: OCA.Theming ? OCA.Theming.color.replace('#', '') : '0082C9',
 			darkThemeColor: OCA.Accessibility.theme === 'dark' ? 'ffffff' : '181818',
 		}

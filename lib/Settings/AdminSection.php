@@ -27,7 +27,7 @@ class AdminSection implements IIconSection {
          * @returns string
          */
         public function getID() {
-                return 'linked-accounts'; //or a generic id if feasible
+                return 'connected-accounts'; //or a generic id if feasible
         }
 
         /**
@@ -37,7 +37,7 @@ class AdminSection implements IIconSection {
          * @return string
          */
         public function getName() {
-                return $this->l->t('Linked accounts');
+                return $this->l->t('Connected accounts');
         }
 
         /**

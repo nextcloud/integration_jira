@@ -125,7 +125,7 @@ class ConfigController extends Controller {
                     $encodedResources = json_encode($resources);
                     $this->config->setUserValue($this->userId, Application::APP_ID, 'resources', $encodedResources);
                     return new RedirectResponse(
-                        $this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'linked-accounts']) .
+                        $this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'connected-accounts']) .
                         '?jiraToken=success'
                     );
                 } else {
@@ -138,7 +138,7 @@ class ConfigController extends Controller {
             $result = $this->l->t('Error during OAuth exchanges');
         }
         return new RedirectResponse(
-            $this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'linked-accounts']) .
+            $this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'connected-accounts']) .
             '?jiraToken=error&message=' . urlencode($result)
         );
     }

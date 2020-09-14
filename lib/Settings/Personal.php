@@ -63,7 +63,7 @@ class Personal implements ISettings {
     }
 
     public function getSection() {
-        return 'linked-accounts';
+        return 'connected-accounts';
     }
 
     public function getPriority() {
