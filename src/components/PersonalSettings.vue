@@ -4,38 +4,41 @@
 			<a class="icon icon-jira" />
 			{{ t('integration_jira', 'Jira integration') }}
 		</h2>
-		<div class="jira-grid-form">
-			<label for="jira-token">
-				<a class="icon icon-category-auth" />
-				{{ t('integration_jira', 'Jira access token') }}
-			</label>
-			<input id="jira-token"
-				v-model="state.token"
-				type="password"
-				:placeholder="t('integration_jira', 'Get a token in Jira settings')"
-				@input="onInput">
-			<button id="jira-oauth" @click="onOAuthClick">
+		<div id="jira-content">
+			<div v-if="connected" class="jira-grid-form">
+				<label>
+					<a class="icon icon-checkmark-color" />
+					{{ t('integration_jira', 'Connected as {username}', { username: state.user_name }) }}
+				</label>
+				<button @click="onLogoutClick">
+					<span class="icon icon-close" />
+					{{ t('integration_jira', 'Disconnect from Jira') }}
+				</button>
+			</div>
+			<button v-else @click="onOAuthClick">
 				<span class="icon icon-external" />
-				{{ t('integration_jira', 'Get access with OAuth') }}
+				{{ t('integration_jira', 'Connect to Jira') }}
 			</button>
-		</div>
-		<div id="jira-search-block">
-			<input
-				id="search-jira"
-				type="checkbox"
-				class="checkbox"
-				:checked="state.search_enabled"
-				@input="onSearchChange">
-			<label for="search-jira">{{ t('integration_jira', 'Enable unified search for tickets.') }}</label>
-			<br>
-			<br>
-			<input
-				id="notification-jira"
-				type="checkbox"
-				class="checkbox"
-				:checked="state.notification_enabled"
-				@input="onNotificationChange">
-			<label for="notification-jira">{{ t('integration_jira', 'Enable notifications for open tickets.') }}</label>
+			<div v-if="connected">
+				<div id="jira-search-block">
+					<input
+						id="search-jira"
+						type="checkbox"
+						class="checkbox"
+						:checked="state.search_enabled"
+						@input="onSearchChange">
+					<label for="search-jira">{{ t('integration_jira', 'Enable unified search for tickets.') }}</label>
+					<br>
+					<br>
+					<input
+						id="notification-jira"
+						type="checkbox"
+						class="checkbox"
+						:checked="state.notification_enabled"
+						@input="onNotificationChange">
+					<label for="notification-jira">{{ t('integration_jira', 'Enable notifications for open tickets.') }}</label>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -44,7 +47,6 @@
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
-import { delay } from '../utils'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 
 export default {
@@ -66,6 +68,11 @@ export default {
 		showOAuth() {
 			return this.state.client_id && this.state.client_secret
 		},
+		connected() {
+			return this.showOAuth
+			&& this.state.token && this.state.token !== ''
+			&& this.state.user_name && this.state.user_name !== ''
+		},
 	},
 
 	watch: {
@@ -84,6 +91,10 @@ export default {
 	},
 
 	methods: {
+		onLogoutClick() {
+			this.state.token = ''
+			this.saveOptions()
+		},
 		onNotificationChange(e) {
 			this.state.notification_enabled = e.target.checked
 			this.saveOptions()
@@ -91,12 +102,6 @@ export default {
 		onSearchChange(e) {
 			this.state.search_enabled = e.target.checked
 			this.saveOptions()
-		},
-		onInput() {
-			const that = this
-			delay(function() {
-				that.saveOptions()
-			}, 2000)()
 		},
 		saveOptions() {
 			const req = {
@@ -114,6 +119,12 @@ export default {
 			axios.put(url, req)
 				.then((response) => {
 					showSuccess(t('integration_jira', 'Jira options saved.'))
+					if (response.data.user_name !== undefined) {
+						this.state.user_name = response.data.user_name
+						if (response.data.user_name === '') {
+							showError(t('integration_jira', 'Incorrect access token'))
+						}
+					}
 				})
 				.catch((error) => {
 					showError(
@@ -171,7 +182,6 @@ export default {
 
 <style scoped lang="scss">
 #jira-search-block {
-	margin-left: 30px;
 	margin-top: 30px;
 }
 .jira-grid-form label {
@@ -181,10 +191,9 @@ export default {
 	width: 100%;
 }
 .jira-grid-form {
-	max-width: 900px;
+	max-width: 600px;
 	display: grid;
-	grid-template: 1fr / 1fr 1fr 1fr;
-	margin-left: 30px;
+	grid-template: 1fr / 1fr 1fr;
 	button .icon {
 		margin-bottom: -1px;
 	}
@@ -204,5 +213,8 @@ export default {
 }
 body.dark .icon-jira {
 	background-image: url(./../../img/app.svg);
+}
+#jira-content {
+	margin-left: 40px;
 }
 </style>

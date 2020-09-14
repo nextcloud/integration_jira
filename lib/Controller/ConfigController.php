@@ -121,9 +121,16 @@ class ConfigController extends Controller {
                 $this->config->setUserValue($this->userId, Application::APP_ID, 'refresh_token', $refreshToken);
                 // get accessible resources
                 $resources = $this->jiraAPIService->request($accessToken, $refreshToken, $clientID, $clientSecret, $this->userId, 'oauth/token/accessible-resources');
-                if (!isset($resources['error'])) {
+                if (!isset($resources['error']) && count($resources) > 0) {
                     $encodedResources = json_encode($resources);
                     $this->config->setUserValue($this->userId, Application::APP_ID, 'resources', $encodedResources);
+                    // get user info
+                    $cloudId = $resources[0]['id'];
+                    $info = $this->jiraAPIService->request($accessToken, $refreshToken, $clientID, $clientSecret, $this->userId, 'ex/jira/'.$cloudId.'/rest/api/2/myself');
+                    if (isset($info['accountId']) && isset($info['displayName'])) {
+                        $this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
+                        $this->config->setUserValue($this->userId, Application::APP_ID, 'user_id', $info['accountId']);
+                    }
                     return new RedirectResponse(
                         $this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'connected-accounts']) .
                         '?jiraToken=success'
