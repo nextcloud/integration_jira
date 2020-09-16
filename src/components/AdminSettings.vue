@@ -9,15 +9,18 @@
 			<a class="external" href="https://developer.atlassian.com/apps">
 				{{ t('integration_jira', 'Jira app settings') }}
 			</a>
-			<br>
-			{{ t('integration_jira', 'Make sure you set the redirection URL to') }}
-			<br><b> {{ redirect_uri }} </b>
-			<br>
+			<br><br>
+			<span class="icon icon-details" />
+			{{ t('integration_jira', 'Make sure you set the redirection/callback URL to') }}
+			<b> {{ redirect_uri }} </b>
+			<br><br>
+			<span class="icon icon-details" />
 			{{ t('integration_jira', 'Don\'t forget to make you Jira OAuth application public.') }}
-			<br>
 			<a class="external" href="https://developer.atlassian.com/cloud/jira/platform/oauth-2-authorization-code-grants-3lo-for-apps/#publishing-your-oauth-2-0--3lo--app">
 				{{ t('integration_jira', 'How to make Jira OAuth public') }}
 			</a>
+			<br><br>
+			{{ t('integration_jira', 'Put the "Client ID" and "Client secret" below. Your Nextcloud users will then see a "Connect to Jira" button in their personal settings.') }}
 		</p>
 		<div class="grid-form">
 			<label for="jira-client-id">
@@ -33,7 +36,7 @@
 				@input="onInput">
 			<label for="jira-client-secret">
 				<a class="icon icon-category-auth" />
-				{{ t('integration_jira', 'Application secret') }}
+				{{ t('integration_jira', 'Client secret') }}
 			</label>
 			<input id="jira-client-secret"
 				v-model="state.client_secret"
