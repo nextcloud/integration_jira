@@ -111,9 +111,9 @@ class JiraSearchProvider implements IProvider {
 
 		$resultBills = [];
 
-        $accessToken = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'token', '');
-        $refreshToken = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'refresh_token', '');
-        $clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
+		$accessToken = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'token', '');
+		$refreshToken = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'refresh_token', '');
+		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
 		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
 
 		$searchEnabled = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'search_enabled', '0') === '1';

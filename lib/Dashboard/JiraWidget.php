@@ -50,8 +50,8 @@ class JiraWidget implements IWidget {
 	 * @inheritDoc
 	 */
 	public function getTitle(): string {
-        return $this->l10n->t('Jira notifications');
-        }
+		return $this->l10n->t('Jira notifications');
+		}
 
 	/**
 	 * @inheritDoc
@@ -78,7 +78,7 @@ class JiraWidget implements IWidget {
 	 * @inheritDoc
 	 */
 	public function load(): void {
-        \OC_Util::addScript(Application::APP_ID, Application::APP_ID . '-dashboard');
-        \OC_Util::addStyle(Application::APP_ID, 'dashboard');
-    }
+		\OC_Util::addScript(Application::APP_ID, Application::APP_ID . '-dashboard');
+		\OC_Util::addStyle(Application::APP_ID, 'dashboard');
+	}
 }
