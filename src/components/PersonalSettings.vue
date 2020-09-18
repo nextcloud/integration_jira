@@ -211,7 +211,7 @@ export default {
 	height: 23px;
 	margin-bottom: -4px;
 }
-body.dark .icon-jira {
+body.theme--dark .icon-jira {
 	background-image: url(./../../img/app.svg);
 }
 #jira-content {
