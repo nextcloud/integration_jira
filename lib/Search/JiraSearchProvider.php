@@ -103,13 +103,12 @@ class JiraSearchProvider implements IProvider {
 		$limit = $query->getLimit();
 		$term = $query->getTerm();
 		$offset = $query->getCursor();
+		$offset = $offset ? intval($offset) : 0;
 
 		$theme = $this->config->getUserValue($user->getUID(), 'accessibility', 'theme', '');
 		$thumbnailUrl = ($theme === 'dark')
 			? $this->urlGenerator->imagePath(Application::APP_ID, 'app.svg')
 			: $this->urlGenerator->imagePath(Application::APP_ID, 'app-dark.svg');
-
-		$resultBills = [];
 
 		$accessToken = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'token', '');
 		$refreshToken = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'refresh_token', '');
@@ -122,6 +121,7 @@ class JiraSearchProvider implements IProvider {
 		}
 
 		$searchResults = $this->service->search($accessToken, $refreshToken, $clientID, $clientSecret, $user->getUID(), $term);
+		$searchResults = array_slice($searchResults, $offset, $limit);
 
 		if (isset($searchResults['error'])) {
 			return SearchResult::paginated($this->getName(), [], 0);
@@ -141,7 +141,7 @@ class JiraSearchProvider implements IProvider {
 		return SearchResult::paginated(
 			$this->getName(),
 			$formattedResults,
-			$query->getCursor() + count($formattedResults)
+			$offset + $limit
 		);
 	}
 
