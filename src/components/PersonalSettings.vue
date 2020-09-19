@@ -28,8 +28,11 @@
 						:checked="state.search_enabled"
 						@input="onSearchChange">
 					<label for="search-jira">{{ t('integration_jira', 'Enable unified search for tickets.') }}</label>
-					<br>
-					<br>
+					<br><br>
+					<p class="settings-hint">
+						<span class="icon icon-details" />
+						{{ t('integration_jira', 'Warning, everything you type in the search bar will be sent to Jira.') }}
+					</p>
 					<input
 						id="notification-jira"
 						type="checkbox"
@@ -216,5 +219,8 @@ body.theme--dark .icon-jira {
 }
 #jira-content {
 	margin-left: 40px;
+}
+#jira-search-block .icon {
+	width: 22px;
 }
 </style>
