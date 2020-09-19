@@ -156,7 +156,23 @@ class JiraSearchProvider implements IProvider {
 	 * @return string
 	 */
 	protected function getSubline(array $entry): string {
-		return $this->l10n->t('Jira issue');
+		$displayName = $entry['fields'] && $entry['fields']['creator'] && $entry['fields']['creator']['displayName']
+			? $entry['fields']['creator']['displayName']
+			: '';
+		$priorityName = $entry['fields'] && $entry['fields']['priority'] && $entry['fields']['priority']['name']
+			? $entry['fields']['priority']['name']
+			: '';
+		$statusName = $entry['fields'] && $entry['fields']['status'] && $entry['fields']['status']['name']
+			? $entry['fields']['status']['name']
+			: '';
+		$prefix = $priorityName && $statusName
+			? '[' . $statusName . '/' . $priorityName . '] '
+			: ($priorityName
+				? '[' . $priorityName . '] '
+				: ($statusName
+					? '[' . $statusName . '] '
+					: ''));
+		return $prefix . $displayName;
 	}
 
 	/**
