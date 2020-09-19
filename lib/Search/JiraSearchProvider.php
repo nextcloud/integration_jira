@@ -129,7 +129,7 @@ class JiraSearchProvider implements IProvider {
 
 		$formattedResults = \array_map(function (array $entry) use ($thumbnailUrl): JiraSearchResultEntry {
 			return new JiraSearchResultEntry(
-				$thumbnailUrl,
+				$this->getThumbnailUrl($entry, $thumbnailUrl),
 				$this->getMainText($entry),
 				$this->getSubline($entry),
 				$this->getLinkToJira($entry),
@@ -182,4 +182,20 @@ class JiraSearchProvider implements IProvider {
 		return $entry['jiraUrl'] . '/browse/' . $entry['key'];
 	}
 
+	/**
+	 * @return string
+	 */
+	protected function getThumbnailUrl(array $entry, string $thumbnailUrl): string {
+		$displayName = $entry['fields'] && $entry['fields']['creator'] && $entry['fields']['creator']['displayName']
+			? $entry['fields']['creator']['displayName']
+			: '';
+		$imageUrl = $entry['fields'] && $entry['fields']['creator'] && $entry['fields']['creator']['avatarUrls'] && $entry['fields']['creator']['avatarUrls']['48x48']
+			? $entry['fields']['creator']['avatarUrls']['48x48']
+			: '';
+		return $imageUrl
+			? $this->urlGenerator->linkToRoute('integration_jira.jiraAPI.getJiraAvatar', []) . '?image=' . urlencode($imageUrl)
+			: ($displayName
+				? $this->urlGenerator->linkToRouteAbsolute('core.GuestAvatar.getAvatar', ['guestName' => $displayName, 'size' => 64])
+				: $thumbnailUrl);
+	}
 }
