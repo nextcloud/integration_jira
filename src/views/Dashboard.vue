@@ -91,9 +91,9 @@ export default {
 		},
 		emptyContentMessage() {
 			if (this.state === 'no-token') {
-				return t('integration_jira', 'No Jira account connected')
+				return t('integration_jira', 'No Jira account connected.')
 			} else if (this.state === 'error') {
-				return t('integration_jira', 'Error connecting to Jira')
+				return t('integration_jira', 'Error connecting to Jira.')
 			} else if (this.state === 'ok') {
 				return t('integration_jira', 'No Jira notifications!')
 			}
