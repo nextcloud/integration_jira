@@ -1,6 +1,8 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error during OAuth exchanges" : "שגיאה במהלך החלפות OAuth",
+    "Bad credentials" : "פרטי גישה שגויים",
     "Client ID" : "מזהה לקו",
     "Client secret" : "סוד לקוח"
 },

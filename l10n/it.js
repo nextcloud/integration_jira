@@ -1,7 +1,25 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Jira notifications" : "Notifiche Jira",
+    "Jira" : "Jira",
+    "Bad credentials" : "Credenziali non valide",
+    "Connected accounts" : "Account connessi",
+    "Jira integration" : "Integrazione Jira",
+    "Jira app settings" : "Impostazioni applicazione di Jira",
     "Client ID" : "ID client",
-    "Client secret" : "Segreto del client"
+    "ID of your application" : "ID della tua applicazione",
+    "Client secret" : "Segreto del client",
+    "Jira admin options saved." : "Opzioni amministrative di Jira salvate.",
+    "Failed to save Jira admin options" : "Salvataggio delle opzioni amministrative di Jira non riuscito",
+    "Connected as {username}" : "Connesso come {username}",
+    "Disconnect from Jira" : "Disconnetti da Jira",
+    "Connect to Jira" : "Connetti a Jira",
+    "Jira options saved." : "Opzioni di Jira salvate.",
+    "Incorrect access token" : "Token di accesso non corretto",
+    "Failed to save Jira options" : "Salvataggio delle opzioni di Jira non riuscito",
+    "No Jira account connected" : "Nessun account Jira connesso",
+    "Error connecting to Jira" : "Errore durante la connessione a Jira",
+    "No Jira notifications!" : "Nessuna notifica Jira!"
 },
 "nplurals=2; plural=(n != 1);");
