@@ -29,7 +29,7 @@
 						@input="onSearchChange">
 					<label for="search-jira">{{ t('integration_jira', 'Enable unified search for tickets.') }}</label>
 					<br><br>
-					<p class="settings-hint">
+					<p v-if="state.search_enabled" class="settings-hint">
 						<span class="icon icon-details" />
 						{{ t('integration_jira', 'Warning, everything you type in the search bar will be sent to Jira.') }}
 					</p>
