@@ -125,13 +125,13 @@ export default {
 					if (response.data.user_name !== undefined) {
 						this.state.user_name = response.data.user_name
 						if (response.data.user_name === '') {
-							showError(t('integration_jira', 'Incorrect access token'))
+							showError(t('integration_jira', 'Incorrect access token.'))
 						}
 					}
 				})
 				.catch((error) => {
 					showError(
-						t('integration_jira', 'Failed to save Jira options')
+						t('integration_jira', 'Failed to save Jira options.')
 						+ ': ' + error.response.request.responseText
 					)
 				})
@@ -172,7 +172,7 @@ export default {
 				})
 				.catch((error) => {
 					showError(
-						t('integration_jira', 'Failed to save Jira OAuth state')
+						t('integration_jira', 'Failed to save Jira OAuth state.')
 						+ ': ' + error.response.request.responseText
 					)
 				})
