@@ -100,7 +100,7 @@ export default {
 				})
 				.catch((error) => {
 					showError(
-						t('integration_jira', 'Failed to save Jira admin options')
+						t('integration_jira', 'Failed to save Jira admin options.')
 						+ ': ' + error.response.request.responseText
 					)
 				})
