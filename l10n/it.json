@@ -9,15 +9,11 @@
     "ID of your application" : "ID della tua applicazione",
     "Client secret" : "Segreto del client",
     "Jira admin options saved." : "Opzioni amministrative di Jira salvate.",
-    "Failed to save Jira admin options" : "Salvataggio delle opzioni amministrative di Jira non riuscito",
     "Connected as {username}" : "Connesso come {username}",
     "Disconnect from Jira" : "Disconnetti da Jira",
     "Connect to Jira" : "Connetti a Jira",
     "Jira options saved." : "Opzioni di Jira salvate.",
-    "Incorrect access token" : "Token di accesso non corretto",
-    "Failed to save Jira options" : "Salvataggio delle opzioni di Jira non riuscito",
-    "No Jira account connected" : "Nessun account Jira connesso",
-    "Error connecting to Jira" : "Errore durante la connessione a Jira",
+    "Incorrect access token." : "Token di accesso non corretto.",
     "No Jira notifications!" : "Nessuna notifica Jira!"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

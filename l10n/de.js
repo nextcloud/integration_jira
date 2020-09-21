@@ -13,9 +13,8 @@ OC.L10N.register(
     "Connected as {username}" : "Verbunden als {username}",
     "Disconnect from Jira" : "Von Jira abmelden",
     "Connect to Jira" : "Mit Jira verbinden",
+    "Warning, everything you type in the search bar will be sent to Jira." : "Achtung, alles, was Du in die Suchleiste eingibst, wird an Jira gesendet.",
     "Jira options saved." : "Jira-Einstellungen gespeichert.",
-    "No Jira account connected" : "Kein Jira-Konto verbunden",
-    "Error connecting to Jira" : "Fehler bei der Verbindung mit Jira",
     "No Jira notifications!" : "Keine Jira Benachrichtigungen!",
     "Failed to get Jira notifications." : "Konnte Jira-Benachrichtigungen nicht abrufen."
 },

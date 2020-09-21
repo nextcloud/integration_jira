@@ -16,7 +16,6 @@
     "Client secret" : "Klientské tajemství",
     "Your application secret" : "Vaše tajemství pro aplikaci",
     "Jira admin options saved." : "Předvolby správy Jira uloženy.",
-    "Failed to save Jira admin options" : "Nepodařilo se uložit předvolby správy Jira",
     "Connected as {username}" : "Připojení jako {username}",
     "Disconnect from Jira" : "Odpojit od Jira",
     "Connect to Jira" : "Připojit k Jira",
@@ -25,11 +24,7 @@
     "OAuth access token successfully retrieved!" : "OAuth přístupový token úspěšně obdržen!",
     "OAuth access token could not be obtained:" : "Nepodařilo se získat OAuth přístupový token:",
     "Jira options saved." : "Předvolby pro Jira uloženy.",
-    "Incorrect access token" : "Nesprávný přístupový token",
-    "Failed to save Jira options" : "Nepodařilo se uložit předvolby pro Jira",
-    "Failed to save Jira OAuth state" : "Nepodařilo se uložit stav Jira OAuth",
-    "No Jira account connected" : "Nepřipojen žádný Jira účet",
-    "Error connecting to Jira" : "Chyba při připojování se k Jira",
+    "Incorrect access token." : "Nesprávný přístupový token.",
     "No Jira notifications!" : "Žádná upozornění z Jira!",
     "Failed to get Jira notifications." : "Nepodařilo se získat upozornění z Jira."
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"

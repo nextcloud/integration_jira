@@ -11,8 +11,6 @@ OC.L10N.register(
     "Connected as {username}" : "Connecté en tant que {username}",
     "Disconnect from Jira" : "Se déconnecter de Jira",
     "Connect to Jira" : "Se connecter à Jira",
-    "No Jira account connected" : "Aucun compte Jira connecté",
-    "Error connecting to Jira" : "Erreur de connexion à Jira",
     "No Jira notifications!" : "Aucune notification Jira"
 },
 "nplurals=2; plural=(n > 1);");
