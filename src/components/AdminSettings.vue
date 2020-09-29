@@ -96,7 +96,7 @@ export default {
 			const url = generateUrl('/apps/integration_jira/admin-config')
 			axios.put(url, req)
 				.then((response) => {
-					showSuccess(t('integration_jira', 'Jira admin options saved.'))
+					showSuccess(t('integration_jira', 'Jira admin options saved'))
 				})
 				.catch((error) => {
 					showError(

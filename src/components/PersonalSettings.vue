@@ -87,7 +87,7 @@ export default {
 		const urlParams = new URLSearchParams(paramString)
 		const zmToken = urlParams.get('jiraToken')
 		if (zmToken === 'success') {
-			showSuccess(t('integration_jira', 'OAuth access token successfully retrieved!'))
+			showSuccess(t('integration_jira', 'Successfully connected to Jira!'))
 		} else if (zmToken === 'error') {
 			showError(t('integration_jira', 'OAuth access token could not be obtained:') + ' ' + urlParams.get('message'))
 		}
@@ -121,7 +121,7 @@ export default {
 			const url = generateUrl('/apps/integration_jira/config')
 			axios.put(url, req)
 				.then((response) => {
-					showSuccess(t('integration_jira', 'Jira options saved.'))
+					showSuccess(t('integration_jira', 'Jira options saved'))
 					if (response.data.user_name !== undefined) {
 						this.state.user_name = response.data.user_name
 						if (response.data.user_name === '') {

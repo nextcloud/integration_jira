@@ -146,7 +146,7 @@ export default {
 				if (error.response && error.response.status === 400) {
 					this.state = 'no-token'
 				} else if (error.response && error.response.status === 401) {
-					showError(t('integration_jira', 'Failed to get Jira notifications.'))
+					showError(t('integration_jira', 'Failed to get Jira notifications'))
 					this.state = 'error'
 				} else {
 					// there was an error in notif processing
