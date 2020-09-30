@@ -5,7 +5,7 @@
 			{{ t('integration_jira', 'Jira integration') }}
 		</h2>
 		<p class="settings-hint">
-			{{ t('integration_jira', 'If you want to allow your Nextcloud users to use OAuth to authenticate to a Jira instance, create an application in your Jira admin settings and set the ID and secret here.') }}
+			{{ t('integration_jira', 'If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here.') }}
 			<a class="external" href="https://developer.atlassian.com/apps">
 				{{ t('integration_jira', 'Jira app settings') }}
 			</a>
