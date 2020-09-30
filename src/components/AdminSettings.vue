@@ -15,7 +15,7 @@
 			<b> {{ redirect_uri }} </b>
 			<br><br>
 			<span class="icon icon-details" />
-			{{ t('integration_jira', 'Don\'t forget to make you Jira OAuth application public.') }}
+			{{ t('integration_jira', 'Don\'t forget to make your Jira OAuth application public.') }}
 			<a class="external" href="https://developer.atlassian.com/cloud/jira/platform/oauth-2-authorization-code-grants-3lo-for-apps/#publishing-your-oauth-2-0--3lo--app">
 				{{ t('integration_jira', 'How to make Jira OAuth public') }}
 			</a>
