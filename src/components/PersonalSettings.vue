@@ -63,7 +63,6 @@ export default {
 	data() {
 		return {
 			state: loadState('integration_jira', 'user-config'),
-			initialToken: loadState('integration_jira', 'user-config').token,
 		}
 	},
 
@@ -96,27 +95,27 @@ export default {
 	methods: {
 		onLogoutClick() {
 			this.state.token = ''
-			this.saveOptions()
+			this.saveOptions(true)
 		},
 		onNotificationChange(e) {
 			this.state.notification_enabled = e.target.checked
-			this.saveOptions()
+			this.saveOptions(false)
 		},
 		onSearchChange(e) {
 			this.state.search_enabled = e.target.checked
-			this.saveOptions()
+			this.saveOptions(false)
 		},
-		saveOptions() {
-			const req = {
-				values: {
+		saveOptions(authOptions) {
+			const req = {}
+			if (authOptions) {
+				req.values = {
 					token: this.state.token,
+				}
+			} else {
+				req.values = {
 					search_enabled: this.state.search_enabled ? '1' : '0',
 					notification_enabled: this.state.notification_enabled ? '1' : '0',
-				},
-			}
-			// if manually set, this is not an oauth access token
-			if (this.state.token !== this.initialToken) {
-				req.values.token_type = 'access'
+				}
 			}
 			const url = generateUrl('/apps/integration_jira/config')
 			axios.put(url, req)
