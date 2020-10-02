@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Connected accounts" : "接続済みアカウント",
     "Client ID" : "クライアントID",
-    "Client secret" : "クライアント秘密鍵",
-    "Incorrect access token." : "アクセストークンが正しくありません"
+    "Client secret" : "クライアント秘密鍵"
 },
 "nplurals=1; plural=0;");
