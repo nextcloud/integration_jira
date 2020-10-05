@@ -1,6 +1,8 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Bad credentials" : "Neustrezna poverila",
+    "Connected accounts" : "Povezani računi",
     "Client ID" : "ID odjemalca",
     "Client secret" : "Skrivni ključ odjemalca"
 },
