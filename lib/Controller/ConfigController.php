@@ -74,6 +74,7 @@ class ConfigController extends Controller {
 	 * @NoAdminRequired
 	 *
 	 * @param array $values
+	 * @return DataResponse
 	 */
 	public function setConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
@@ -99,6 +100,7 @@ class ConfigController extends Controller {
 	 * set admin config values
 	 *
 	 * @param array $values
+	 * @return DataResponse
 	 */
 	public function setAdminConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
@@ -112,6 +114,7 @@ class ConfigController extends Controller {
 	 * @param string $url
 	 * @param string $login
 	 * @param string $password
+	 * @return DataResponse
 	 */
 	public function connectToSoftware(string $url, string $login, string $password): DataResponse {
 		$basicAuthHeader = base64_encode($login . ':' . $password);
@@ -133,6 +136,10 @@ class ConfigController extends Controller {
 	 * receive oauth code and get oauth access token
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 *
+	 * @param string $code
+	 * @param string $state
+	 * @return RedirectResponse
 	 */
 	public function oauthRedirect(string $code = '', string $state = ''): RedirectResponse {
 		$configState = $this->config->getUserValue($this->userId, Application::APP_ID, 'oauth_state', '');

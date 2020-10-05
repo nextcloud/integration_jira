@@ -67,20 +67,27 @@ class JiraAPIController extends Controller {
 	 * @NoCSRFRequired
 	 *
 	 * @param string $imageUrl
+	 * @return DataDisplayResponse
 	 */
 	public function getJiraAvatar(string $imageUrl): DataDisplayResponse {
-		$response = new DataDisplayResponse(
-			$this->jiraAPIService->getJiraAvatar($this->userId, $imageUrl)
-		);
-		$response->cacheFor(60*60*24);
-		return $response;
+		$avatarContent = $this->jiraAPIService->getJiraAvatar($this->userId, $imageUrl);
+		if (is_null($avatarContent)) {
+			return new DataDisplayResponse('', 401);
+		} else {
+			$response = new DataDisplayResponse($avatarContent);
+			$response->cacheFor(60*60*24);
+			return $response;
+		}
 	}
 
 	/**
 	 * get notifications list
 	 * @NoAdminRequired
+	 *
+	 * @param ?string $since
+	 * @return DataResponse
 	 */
-	public function getNotifications(?string $since): DataResponse {
+	public function getNotifications(?string $since = null): DataResponse {
 		$result = $this->jiraAPIService->getNotifications($this->userId, $since, 7);
 		if (!isset($result['error'])) {
 			$response = new DataResponse($result);
@@ -89,5 +96,4 @@ class JiraAPIController extends Controller {
 		}
 		return $response;
 	}
-
 }

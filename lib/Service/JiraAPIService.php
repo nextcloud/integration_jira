@@ -50,6 +50,8 @@ class JiraAPIService {
 	/**
 	 * triggered by a cron job
 	 * notifies user of their number of new tickets
+	 *
+	 * @return void
 	 */
 	public function checkOpenTickets(): void {
 		$this->userManager->callForAllUsers(function (IUser $user) {
@@ -57,6 +59,10 @@ class JiraAPIService {
 		});
 	}
 
+	/**
+	 * @param string $userId
+	 * @return void
+	 */
 	private function checkOpenTicketsForUser(string $userId): void {
 		$notificationEnabled = ($this->config->getUserValue($userId, Application::APP_ID, 'notification_enabled', '0') === '1');
 		if ($notificationEnabled) {
@@ -100,6 +106,12 @@ class JiraAPIService {
 		}
 	}
 
+	/**
+	 * @param string $userId
+	 * @param string $subject
+	 * @param array $params
+	 * @return void
+	 */
 	private function sendNCNotification(string $userId, string $subject, array $params): void {
 		$manager = $this->notificationManager;
 		$notification = $manager->createNotification();
@@ -113,6 +125,10 @@ class JiraAPIService {
 		$manager->notify($notification);
 	}
 
+	/**
+	 * @param string $userId
+	 * @return array
+	 */
 	public function getJiraResources(string $userId): array {
 		$strRes = $this->config->getUserValue($userId, Application::APP_ID, 'resources', '');
 		$resources = json_decode($strRes, true);
@@ -120,8 +136,13 @@ class JiraAPIService {
 		return $resources;
 	}
 
-	public function getNotifications(string $userId,
-									?string $since = null, ?int $limit = null): array {
+	/**
+	 * @param string $userId
+	 * @param ?string $since
+	 * @param ?int $limit
+	 * @return array
+	 */
+	public function getNotifications(string $userId, ?string $since = null, ?int $limit = null): array {
 		$myIssues = [];
 
 		$endPoint = 'rest/api/2/search';
@@ -188,6 +209,13 @@ class JiraAPIService {
 		return $myIssues;
 	}
 
+	/**
+	 * @param string $userId
+	 * @param string $query
+	 * @param int $offset
+	 * @param int $limit
+	 * @return array
+	 */
 	public function search(string $userId, string $query, int $offset = 0, int $limit = 7): array {
 		$myIssues = [];
 
@@ -240,8 +268,14 @@ class JiraAPIService {
 		return array_slice($myIssues, $offset, $limit);
 	}
 
-	// authenticated request to get an image from jira
-	public function getJiraAvatar(string $userId, string $imageUrl): string {
+	/**
+	 * authenticated request to get an image from jira
+	 *
+	 * @param string $userId
+	 * @param string $imageUrl
+	 * @return ?string
+	 */
+	public function getJiraAvatar(string $userId, string $imageUrl): ?string {
 		$options = [
 			'headers' => [
 				'User-Agent' => 'Nextcloud Jira integration',
@@ -255,12 +289,20 @@ class JiraAPIService {
 		} elseif ($accessToken !== '') {
 			$options['headers']['Authorization'] = 'Bearer ' . $accessToken;
 		} else {
-			return '';
+			return null;
 		}
 
 		return $this->client->get($imageUrl, $options)->getBody();
 	}
 
+	/**
+	 * @param string $url
+	 * @param string $authHeader
+	 * @param string $endPoint
+	 * @param array $params
+	 * @param string $method
+	 * @return array
+	 */
 	public function basicRequest(string $url, string $authHeader,
 								string $endPoint, array $params = [], string $method = 'GET'): array {
 		try {
@@ -315,6 +357,17 @@ class JiraAPIService {
 		}
 	}
 
+	/**
+	 * @param string $accessToken
+	 * @param string $refreshToken
+	 * @param string $clientID
+	 * @param string $clientSecret
+	 * @param string $userId
+	 * @param string $endPoint
+	 * @param array $params
+	 * @param string $method
+	 * @return array
+	 */
 	public function oauthRequest(string $accessToken, string $refreshToken,
 							string $clientID, string $clientSecret, string $userId,
 							string $endPoint, array $params = [], string $method = 'GET'): array {
@@ -394,6 +447,11 @@ class JiraAPIService {
 		}
 	}
 
+	/**
+	 * @param array $params
+	 * @param string $method
+	 * @return array
+	 */
 	public function requestOAuthAccessToken(array $params = [], string $method = 'GET'): array {
 		try {
 			$url = Application::JIRA_AUTH_URL . '/oauth/token';
