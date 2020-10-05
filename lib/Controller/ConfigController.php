@@ -85,7 +85,8 @@ class ConfigController extends Controller {
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', '');
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'token', '');
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'refresh_token', '');
-			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_id', '');
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_key', '');
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_account_id', '');
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'resources', '');
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'last_open_check', '');
 		}
@@ -118,6 +119,8 @@ class ConfigController extends Controller {
 		$info = $this->jiraAPIService->basicRequest($url, $basicAuthHeader, 'rest/api/2/myself');
 		if (isset($info['displayName'])) {
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
+			// in self hosted version, key is the only account identifier
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_key', strval($info['key']));
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'url', $url);
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', $basicAuthHeader);
 			return new DataResponse(['user_name' => $info['displayName']]);
@@ -163,7 +166,8 @@ class ConfigController extends Controller {
 					$info = $this->jiraAPIService->oauthRequest($accessToken, $refreshToken, $clientID, $clientSecret, $this->userId, 'ex/jira/'.$cloudId.'/rest/api/2/myself');
 					if (isset($info['accountId'], $info['displayName'])) {
 						$this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
-						$this->config->setUserValue($this->userId, Application::APP_ID, 'user_id', $info['accountId']);
+						// in cloud version, accountId is there and key is not
+						$this->config->setUserValue($this->userId, Application::APP_ID, 'user_account_id', $info['accountId']);
 					}
 					return new RedirectResponse(
 						$this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'connected-accounts']) .
@@ -183,5 +187,4 @@ class ConfigController extends Controller {
 			'?jiraToken=error&message=' . urlencode($result)
 		);
 	}
-
 }

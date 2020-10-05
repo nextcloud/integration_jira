@@ -65,16 +65,28 @@ class JiraAPIService {
 
 			$notifications = $this->getNotifications($userId, $lastNotificationCheck);
 			if (!isset($notifications['error']) && count($notifications) > 0) {
-				$myAccountId = $notifications[0]['my_account_id'];
+				$myAccountKey = $this->config->getUserValue($userId, Application::APP_ID, 'user_key', '');
+				$myAccountId = $this->config->getUserValue($userId, Application::APP_ID, 'user_account_id', '');
+				if ($myAccountKey === '' && $myAccountId === '') {
+					return;
+				}
 				$jiraUrl = $notifications[0]['jiraUrl'];
 				$lastNotificationCheck = $notifications[0]['fields']['updated'];
 				$this->config->setUserValue($userId, Application::APP_ID, 'last_open_check', $lastNotificationCheck);
 				$nbOpen = 0;
 				foreach ($notifications as $n) {
-					$status_key = $n['fields']['status']['statusCategory']['key'];
-					$assigneeId = $n['fields']['assignee']['accountId'];
-					error_log('ASS '.$assigneeId.' &&&&& accc '.$myAccountId);
-					if ($assigneeId === $myAccountId && $status_key !== 'done') {
+					$status_key = $n['fields']['status']['statusCategory']['key'] ?? '';
+					$assigneeKey = $n['fields']['assignee']['key'] ?? '';
+					$assigneeId = $n['fields']['assignee']['accountId'] ?? '';
+					$embededAccountId = $n['my_account_id'] ?? '';
+					// from what i saw, key is used in self hosted and accountId in cloud version
+					// embededAccountId can be usefull when accessing multiple cloud resources, it being specific to the resource
+					if ( (
+							($myAccountKey !== '' && $assigneeKey === $myAccountKey)
+							|| ($myAccountId !== '' && $myAccountId === $assigneeId)
+							|| ($embededAccountId !== '' && $embededAccountId === $assigneeId)
+						)
+						&& $status_key !== 'done') {
 						$nbOpen++;
 					}
 				}
