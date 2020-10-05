@@ -66,11 +66,11 @@ class JiraAPIController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param string $image
+	 * @param string $imageUrl
 	 */
-	public function getJiraAvatar(string $image): DataDisplayResponse {
+	public function getJiraAvatar(string $imageUrl): DataDisplayResponse {
 		$response = new DataDisplayResponse(
-			$this->jiraAPIService->getJiraAvatar($this->userId, $image)
+			$this->jiraAPIService->getJiraAvatar($this->userId, $imageUrl)
 		);
 		$response->cacheFor(60*60*24);
 		return $response;

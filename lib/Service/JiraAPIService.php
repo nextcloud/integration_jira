@@ -58,41 +58,31 @@ class JiraAPIService {
 	}
 
 	private function checkOpenTicketsForUser(string $userId): void {
-		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
-		if ($accessToken) {
-			$notificationEnabled = ($this->config->getUserValue($userId, Application::APP_ID, 'notification_enabled', '0') === '1');
-			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token', '');
-			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
-			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
-			$resources = $this->getJiraResources($userId);
-			if ($notificationEnabled && $clientID && $clientSecret && count($resources) > 0) {
-				$lastNotificationCheck = $this->config->getUserValue($userId, Application::APP_ID, 'last_open_check', '');
-				$lastNotificationCheck = $lastNotificationCheck === '' ? null : $lastNotificationCheck;
+		$notificationEnabled = ($this->config->getUserValue($userId, Application::APP_ID, 'notification_enabled', '0') === '1');
+		if ($notificationEnabled) {
+			$lastNotificationCheck = $this->config->getUserValue($userId, Application::APP_ID, 'last_open_check', '');
+			$lastNotificationCheck = $lastNotificationCheck === '' ? null : $lastNotificationCheck;
 
-				// get jira URL
-				$jiraUrl = $resources[0]['url'];
-
-				$notifications = $this->getNotifications(
-					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, $lastNotificationCheck
-				);
-				if (!isset($notifications['error']) && count($notifications) > 0) {
-					$myAccountId = $notifications[0]['my_account_id'];
-					$lastNotificationCheck = $notifications[0]['fields']['updated'];
-					$this->config->setUserValue($userId, Application::APP_ID, 'last_open_check', $lastNotificationCheck);
-					$nbOpen = 0;
-					foreach ($notifications as $n) {
-						$status_key = $n['fields']['status']['statusCategory']['key'];
-						$assigneeId = $n['fields']['assignee']['accountId'];
-						if ($assigneeId === $myAccountId && $status_key !== 'done') {
-							$nbOpen++;
-						}
+			$notifications = $this->getNotifications($userId, $lastNotificationCheck);
+			if (!isset($notifications['error']) && count($notifications) > 0) {
+				$myAccountId = $notifications[0]['my_account_id'];
+				$jiraUrl = $notifications[0]['jiraUrl'];
+				$lastNotificationCheck = $notifications[0]['fields']['updated'];
+				$this->config->setUserValue($userId, Application::APP_ID, 'last_open_check', $lastNotificationCheck);
+				$nbOpen = 0;
+				foreach ($notifications as $n) {
+					$status_key = $n['fields']['status']['statusCategory']['key'];
+					$assigneeId = $n['fields']['assignee']['accountId'];
+					error_log('ASS '.$assigneeId.' &&&&& accc '.$myAccountId);
+					if ($assigneeId === $myAccountId && $status_key !== 'done') {
+						$nbOpen++;
 					}
-					if ($nbOpen > 0) {
-						$this->sendNCNotification($userId, 'new_open_tickets', [
-							'nbOpen' => $nbOpen,
-							'link' => $jiraUrl
-						]);
-					}
+				}
+				if ($nbOpen > 0) {
+					$this->sendNCNotification($userId, 'new_open_tickets', [
+						'nbOpen' => $nbOpen,
+						'link' => $jiraUrl
+					]);
 				}
 			}
 		}
@@ -118,25 +108,49 @@ class JiraAPIService {
 		return $resources;
 	}
 
-	public function getNotifications(string $accessToken, string $refreshToken, string $clientID, string $clientSecret, string $userId,
+	public function getNotifications(string $userId,
 									?string $since = null, ?int $limit = null): array {
-		$resources = $this->getJiraResources($userId);
 		$myIssues = [];
 
-		foreach ($resources as $resource) {
-			$cloudId = $resource['id'];
-			$jiraUrl = $resource['url'];
-			$issuesResult = $this->request(
-				$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/'.$cloudId.'/rest/api/2/search'
-			);
-			if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
-				foreach ($issuesResult['issues'] as $k => $issue) {
-					$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
-					$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'];
-					array_push($myIssues, $issuesResult['issues'][$k]);
-				}
-			} else {
+		$endPoint = 'rest/api/2/search';
+
+		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header', '');
+		if ($basicAuthHeader !== '') {
+			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
+			$issuesResult = $this->basicRequest($jiraUrl, $basicAuthHeader, $endPoint);
+			if (isset($issuesResult['error'])) {
 				return $issuesResult;
+			}
+			foreach ($issuesResult['issues'] as $k => $issue) {
+				$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
+				$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'];
+				$myIssues[] = $issuesResult['issues'][$k];
+			}
+		} else {
+			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
+			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token', '');
+			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
+			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
+			if ($accessToken === '' || $refreshToken === '') {
+				return ['error' => 'no credentials'];
+			}
+			$resources = $this->getJiraResources($userId);
+
+			foreach ($resources as $resource) {
+				$cloudId = $resource['id'];
+				$jiraUrl = $resource['url'];
+				$issuesResult = $this->oauthRequest(
+					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/' . $cloudId . '/' . $endPoint
+				);
+				if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
+					foreach ($issuesResult['issues'] as $k => $issue) {
+						$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
+						$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'];
+						$myIssues[] = $issuesResult['issues'][$k];
+					}
+				} else {
+					return $issuesResult;
+				}
 			}
 		}
 
@@ -162,53 +176,27 @@ class JiraAPIService {
 		return $myIssues;
 	}
 
-	public function search(string $accessToken,
-							string $refreshToken, string $clientID, string $clientSecret, string $userId,
-							string $query): array {
+	public function search(string $userId, string $query, int $offset = 0, int $limit = 7): array {
+		$myIssues = [];
+
+		$endPoint = 'rest/api/2/search';
+
 		$params = [
 			'jql' => 'text ~ "'.$query.'"',
 			'limit' => 10,
 		];
-		$resources = $this->getJiraResources($userId);
-		$myIssues = [];
 
-		foreach ($resources as $resource) {
-			$cloudId = $resource['id'];
-			$jiraUrl = $resource['url'];
-			$issuesResult = $this->request(
-				$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/'.$cloudId.'/rest/api/2/search', $params
-			);
-			if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
-				foreach ($issuesResult['issues'] as $k => $issue) {
-					$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
-					array_push($myIssues, $issuesResult['issues'][$k]);
-				}
-			} else {
-				return $issuesResult;
-			}
-		}
-		return $myIssues;
-	}
-
-	// authenticated request to get an image from jira
-	public function getJiraAvatar(string $accessToken, string $refreshToken, string $clientID, string $clientSecret,
-								  string $image): string {
-		$url = $image;
-		$options = [
-			'headers' => [
-				'Authorization'  => 'Bearer ' . $accessToken,
-				'User-Agent' => 'Nextcloud Jira integration',
-			]
-		];
-		return $this->client->get($url, $options)->getBody();
-	}
-
-	// TODO get rid of this and put it in search and getnotifications
-	public function request(string $userId, string $endPoint, array $params = [], string $method = 'GET'): array {
 		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header', '');
 		if ($basicAuthHeader !== '') {
-			$url = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
-			return $this->basicRequest($url, $basicAuthHeader, $endPoint, $params, $method);
+			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
+			$issuesResult = $this->basicRequest($jiraUrl, $basicAuthHeader, $endPoint, $params);
+			if (isset($issuesResult['error'])) {
+				return $issuesResult;
+			}
+			foreach ($issuesResult['issues'] as $k => $issue) {
+				$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
+				$myIssues[] = $issuesResult['issues'][$k];
+			}
 		} else {
 			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
 			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token', '');
@@ -217,9 +205,48 @@ class JiraAPIService {
 			if ($accessToken === '' || $refreshToken === '') {
 				return ['error' => 'no credentials'];
 			}
-			// build request
-			return $this->request($accessToken, $refreshToken, $clientID, $clientSecret, $userId, $params, $method);
+
+			$resources = $this->getJiraResources($userId);
+			$myIssues = [];
+
+			foreach ($resources as $resource) {
+				$cloudId = $resource['id'];
+				$jiraUrl = $resource['url'];
+				$issuesResult = $this->oauthRequest(
+					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/' . $cloudId . '/' . $endPoint, $params
+				);
+				if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
+					foreach ($issuesResult['issues'] as $k => $issue) {
+						$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
+						$myIssues[] = $issuesResult['issues'][$k];
+					}
+				} else {
+					return $issuesResult;
+				}
+			}
 		}
+		return array_slice($myIssues, $offset, $limit);
+	}
+
+	// authenticated request to get an image from jira
+	public function getJiraAvatar(string $userId, string $imageUrl): string {
+		$options = [
+			'headers' => [
+				'User-Agent' => 'Nextcloud Jira integration',
+			]
+		];
+
+		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header', '');
+		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
+		if ($basicAuthHeader !== '') {
+			$options['headers']['Authorization'] = 'Basic ' . $basicAuthHeader;
+		} elseif ($accessToken !== '') {
+			$options['headers']['Authorization'] = 'Bearer ' . $accessToken;
+		} else {
+			return '';
+		}
+
+		return $this->client->get($imageUrl, $options)->getBody();
 	}
 
 	public function basicRequest(string $url, string $authHeader,

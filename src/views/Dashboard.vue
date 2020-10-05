@@ -179,7 +179,7 @@ export default {
 			return (n.fields.creator && n.fields.creator.avatarUrls)
 				? n.fields.creator.avatarUrls
 					? n.fields.creator.avatarUrls['48x48']
-						? generateUrl('/apps/integration_jira/avatar?') + encodeURIComponent('image') + '=' + encodeURIComponent(n.fields.creator.avatarUrls['48x48'])
+						? generateUrl('/apps/integration_jira/avatar?') + encodeURIComponent('imageUrl') + '=' + encodeURIComponent(n.fields.creator.avatarUrls['48x48'])
 						: ''
 					: ''
 				: ''

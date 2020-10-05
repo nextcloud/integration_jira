@@ -111,17 +111,13 @@ class JiraSearchProvider implements IProvider {
 			: $this->urlGenerator->imagePath(Application::APP_ID, 'app-dark.svg');
 
 		$accessToken = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'token', '');
-		$refreshToken = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'refresh_token', '');
-		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
-		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
-
+		$basicAuthHeader = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'basic_auth_header', '');
 		$searchEnabled = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'search_enabled', '0') === '1';
-		if ($accessToken === '' || !$searchEnabled) {
+		if (($accessToken === '' && $basicAuthHeader === '') || !$searchEnabled) {
 			return SearchResult::paginated($this->getName(), [], 0);
 		}
 
-		$searchResults = $this->service->search($accessToken, $refreshToken, $clientID, $clientSecret, $user->getUID(), $term);
-		$searchResults = array_slice($searchResults, $offset, $limit);
+		$searchResults = $this->service->search($user->getUID(), $term, $offset, $limit);
 
 		if (isset($searchResults['error'])) {
 			return SearchResult::paginated($this->getName(), [], 0);
@@ -193,7 +189,7 @@ class JiraSearchProvider implements IProvider {
 			? $entry['fields']['creator']['avatarUrls']['48x48']
 			: '';
 		return $imageUrl
-			? $this->urlGenerator->linkToRoute('integration_jira.jiraAPI.getJiraAvatar', []) . '?image=' . urlencode($imageUrl)
+			? $this->urlGenerator->linkToRoute('integration_jira.jiraAPI.getJiraAvatar', []) . '?imageUrl=' . urlencode($imageUrl)
 			: ($displayName
 				? $this->urlGenerator->linkToRouteAbsolute('core.GuestAvatar.getAvatar', ['guestName' => $displayName, 'size' => 64])
 				: $thumbnailUrl);

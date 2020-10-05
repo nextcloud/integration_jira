@@ -84,7 +84,10 @@ class ConfigController extends Controller {
 			// logout
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', '');
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'token', '');
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'refresh_token', '');
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_id', '');
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'resources', '');
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'last_open_check', '');
 		}
 
 		$response = new DataResponse(1);
