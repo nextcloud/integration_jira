@@ -70,7 +70,8 @@
 					<input v-show="state.url"
 						v-model="login"
 						type="text"
-						:placeholder="t('integration_jira', 'Jira user name')">
+						:placeholder="t('integration_jira', 'Jira user name')"
+						@keyup.enter="onSelfHostedAuth">
 					<label v-show="state.url">
 						<span class="icon icon-password" />
 						{{ t('integration_jira', 'Password') }}
@@ -78,10 +79,11 @@
 					<input v-show="state.url"
 						v-model="password"
 						type="password"
-						:placeholder="t('integration_jira', 'Jira password')">
+						:placeholder="t('integration_jira', 'Jira password')"
+						@keyup.enter="onSelfHostedAuth">
 					<button v-show="state.url"
 						:class="{ loading: connecting }"
-						@click="onSelfHostedAuthClick">
+						@click="onSelfHostedAuth">
 						<span class="icon icon-external" />
 						{{ t('integration_jira', 'Connect to your Jira instance') }}
 					</button>
@@ -169,7 +171,7 @@ export default {
 				.then(() => {
 				})
 		},
-		onSelfHostedAuthClick() {
+		onSelfHostedAuth() {
 			this.connecting = true
 			const req = {
 				url: this.state.url,
@@ -180,6 +182,9 @@ export default {
 			axios.put(url, req)
 				.then((response) => {
 					this.state.user_name = response.data.user_name
+					if (response.data.user_name === '') {
+						showError(t('integration_jira', 'Login/password are invalid or account is locked'))
+					}
 				})
 				.catch((error) => {
 					showError(

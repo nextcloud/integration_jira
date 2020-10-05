@@ -128,7 +128,7 @@ class ConfigController extends Controller {
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', $basicAuthHeader);
 			return new DataResponse(['user_name' => $info['displayName']]);
 		} else {
-			return new DataResponse(['user_name' => '']);
+			return new DataResponse(['user_name' => '', 'error' => $info['error'] ?? '']);
 		}
 	}
 
