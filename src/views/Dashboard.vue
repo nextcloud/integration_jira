@@ -120,13 +120,6 @@ export default {
 
 	methods: {
 		async launchLoop() {
-			// get Jira URL first
-			try {
-				const response = await axios.get(generateUrl('/apps/integration_jira/url'))
-				this.jiraUrl = response.data.replace(/\/+$/, '')
-			} catch (error) {
-				console.debug(error)
-			}
 			// launch the loop
 			this.fetchNotifications()
 			this.loop = setInterval(() => this.fetchNotifications(), 60000)

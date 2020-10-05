@@ -1,25 +1,22 @@
 <template>
-	<div v-if="showOAuth" id="jira_prefs" class="section">
+	<div id="jira_prefs" class="section">
 		<h2>
 			<a class="icon icon-jira" />
 			{{ t('integration_jira', 'Jira integration') }}
 		</h2>
 		<div id="jira-content">
-			<div v-if="connected" class="jira-grid-form">
-				<label>
-					<a class="icon icon-checkmark-color" />
-					{{ t('integration_jira', 'Connected as {username}', { username: state.user_name }) }}
-				</label>
-				<button @click="onLogoutClick">
-					<span class="icon icon-close" />
-					{{ t('integration_jira', 'Disconnect from Jira') }}
-				</button>
-			</div>
-			<button v-else @click="onOAuthClick">
-				<span class="icon icon-external" />
-				{{ t('integration_jira', 'Connect to Jira') }}
-			</button>
 			<div v-if="connected">
+				<div class="jira-grid-form">
+					<label>
+						<a class="icon icon-checkmark-color" />
+						{{ t('integration_jira', 'Connected as {username}', { username: state.user_name }) }}
+					</label>
+					<button @click="onLogoutClick">
+						<span class="icon icon-close" />
+						{{ t('integration_jira', 'Disconnect from Jira') }}
+					</button>
+				</div>
+
 				<div id="jira-search-block">
 					<input
 						id="search-jira"
@@ -40,6 +37,54 @@
 						:checked="state.notification_enabled"
 						@input="onNotificationChange">
 					<label for="notification-jira">{{ t('integration_jira', 'Enable notifications for open tickets') }}</label>
+				</div>
+			</div>
+			<div v-else>
+				<h3>
+					<span class="icon icon-timezone" />
+					{{ t('integration_jira', 'Jira Cloud') }}
+				</h3>
+				<button v-if="showOAuth"
+					class="oauth-connect"
+					@click="onOAuthClick">
+					<span class="icon icon-external" />
+					{{ t('integration_jira', 'Connect to Jira Cloud') }}
+				</button>
+				<br><br>
+				<h3>
+					<span class="icon icon-home" />
+					{{ t('integration_jira', 'Self-hosted Jira Software') }}
+				</h3>
+				<div class="jira-grid-form jira-sub">
+					<label>
+						<span class="icon icon-link" />
+						{{ t('integration_jira', 'Jira self-hosted instance address') }}
+					</label>
+					<input v-model="state.url"
+						type="text"
+						:placeholder="t('integration_jira', 'Jira address')">
+					<label v-show="state.url">
+						<span class="icon icon-user" />
+						{{ t('integration_jira', 'User') }}
+					</label>
+					<input v-show="state.url"
+						v-model="login"
+						type="text"
+						:placeholder="t('integration_jira', 'Jira user name')">
+					<label v-show="state.url">
+						<span class="icon icon-password" />
+						{{ t('integration_jira', 'Password') }}
+					</label>
+					<input v-show="state.url"
+						v-model="password"
+						type="password"
+						:placeholder="t('integration_jira', 'Jira password')">
+					<button v-show="state.url"
+						:class="{ loading: connecting }"
+						@click="onSelfHostedAuthClick">
+						<span class="icon icon-external" />
+						{{ t('integration_jira', 'Connect to your Jira instance') }}
+					</button>
 				</div>
 			</div>
 		</div>
@@ -63,6 +108,9 @@ export default {
 	data() {
 		return {
 			state: loadState('integration_jira', 'user-config'),
+			login: '',
+			password: '',
+			connecting: false,
 		}
 	},
 
@@ -71,9 +119,7 @@ export default {
 			return this.state.client_id && this.state.client_secret
 		},
 		connected() {
-			return this.showOAuth
-			&& this.state.token && this.state.token !== ''
-			&& this.state.user_name && this.state.user_name !== ''
+			return this.state.user_name && this.state.user_name !== ''
 		},
 	},
 
@@ -94,39 +140,25 @@ export default {
 
 	methods: {
 		onLogoutClick() {
-			this.state.token = ''
-			this.saveOptions(true)
+			this.state.user_name = ''
+			this.saveOptions({ user_name: '' })
 		},
 		onNotificationChange(e) {
 			this.state.notification_enabled = e.target.checked
-			this.saveOptions(false)
+			this.saveOptions({ notification_enabled: this.state.notification_enabled ? '1' : '0' })
 		},
 		onSearchChange(e) {
 			this.state.search_enabled = e.target.checked
-			this.saveOptions(false)
+			this.saveOptions({ search_enabled: this.state.search_enabled ? '1' : '0' })
 		},
-		saveOptions(authOptions) {
-			const req = {}
-			if (authOptions) {
-				req.values = {
-					token: this.state.token,
-				}
-			} else {
-				req.values = {
-					search_enabled: this.state.search_enabled ? '1' : '0',
-					notification_enabled: this.state.notification_enabled ? '1' : '0',
-				}
+		saveOptions(values) {
+			const req = {
+				values,
 			}
 			const url = generateUrl('/apps/integration_jira/config')
 			axios.put(url, req)
 				.then((response) => {
 					showSuccess(t('integration_jira', 'Jira options saved'))
-					if (response.data.user_name !== undefined) {
-						this.state.user_name = response.data.user_name
-						if (response.data.user_name === '') {
-							showError(t('integration_jira', 'Incorrect access token'))
-						}
-					}
 				})
 				.catch((error) => {
 					showError(
@@ -135,6 +167,28 @@ export default {
 					)
 				})
 				.then(() => {
+				})
+		},
+		onSelfHostedAuthClick() {
+			this.connecting = true
+			const req = {
+				url: this.state.url,
+				login: this.login,
+				password: this.password,
+			}
+			const url = generateUrl('/apps/integration_jira/soft-connect')
+			axios.put(url, req)
+				.then((response) => {
+					this.state.user_name = response.data.user_name
+				})
+				.catch((error) => {
+					showError(
+						t('integration_jira', 'Failed to connect to Jira Software')
+						+ ': ' + error.response.request.responseText
+					)
+				})
+				.then(() => {
+					this.connecting = false
 				})
 		},
 		onOAuthClick() {
@@ -183,6 +237,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.jira-sub,
+.oauth-connect {
+	margin-left: 40px;
+}
 #jira-search-block {
 	margin-top: 30px;
 }

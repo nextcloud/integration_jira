@@ -59,32 +59,18 @@ class JiraAPIController extends Controller {
 		$this->config = $config;
 		$this->logger = $logger;
 		$this->jiraAPIService = $jiraAPIService;
-		$this->accessToken = $this->config->getUserValue($this->userId, Application::APP_ID, 'token', '');
-		$this->refreshToken = $this->config->getUserValue($this->userId, Application::APP_ID, 'refresh_token', '');
-		$this->clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
-		$this->clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
-	}
-
-	/**
-	 * get notification list
-	 * @NoAdminRequired
-	 */
-	public function getJiraUrl(): DataResponse {
-		$resources = $this->jiraAPIService->getJiraResources($this->userId);
-		$jiraUrl = count($resources) > 0 ? $resources[0]['url'] : '';
-		return new DataResponse($jiraUrl);
 	}
 
 	/**
 	 * get jira user avatar
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
+	 *
+	 * @param string $image
 	 */
-	public function getJiraAvatar($image): DataDisplayResponse {
+	public function getJiraAvatar(string $image): DataDisplayResponse {
 		$response = new DataDisplayResponse(
-			$this->jiraAPIService->getJiraAvatar(
-				$this->accessToken, $this->refreshToken, $this->clientID, $this->clientSecret, $image
-			)
+			$this->jiraAPIService->getJiraAvatar($this->userId, $image)
 		);
 		$response->cacheFor(60*60*24);
 		return $response;
@@ -95,12 +81,7 @@ class JiraAPIController extends Controller {
 	 * @NoAdminRequired
 	 */
 	public function getNotifications(?string $since): DataResponse {
-		if ($this->accessToken === '') {
-			return new DataResponse('', 400);
-		}
-		$result = $this->jiraAPIService->getNotifications(
-			$this->accessToken, $this->refreshToken, $this->clientID, $this->clientSecret, $this->userId, $since, 7
-		);
+		$result = $this->jiraAPIService->getNotifications($this->userId, $since, 7);
 		if (!isset($result['error'])) {
 			$response = new DataResponse($result);
 		} else {

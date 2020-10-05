@@ -12,6 +12,7 @@
 return [
     'routes' => [
         ['name' => 'config#oauthRedirect', 'url' => '/oauth-redirect', 'verb' => 'GET'],
+        ['name' => 'config#connectToSoftware', 'url' => '/soft-connect', 'verb' => 'PUT'],
         ['name' => 'config#setConfig', 'url' => '/config', 'verb' => 'PUT'],
         ['name' => 'config#setAdminConfig', 'url' => '/admin-config', 'verb' => 'PUT'],
         ['name' => 'jiraAPI#getNotifications', 'url' => '/notifications', 'verb' => 'GET'],

@@ -203,7 +203,80 @@ class JiraAPIService {
 		return $this->client->get($url, $options)->getBody();
 	}
 
-	public function request(string $accessToken, string $refreshToken,
+	// TODO get rid of this and put it in search and getnotifications
+	public function request(string $userId, string $endPoint, array $params = [], string $method = 'GET'): array {
+		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header', '');
+		if ($basicAuthHeader !== '') {
+			$url = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
+			return $this->basicRequest($url, $basicAuthHeader, $endPoint, $params, $method);
+		} else {
+			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
+			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token', '');
+			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
+			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
+			if ($accessToken === '' || $refreshToken === '') {
+				return ['error' => 'no credentials'];
+			}
+			// build request
+			return $this->request($accessToken, $refreshToken, $clientID, $clientSecret, $userId, $params, $method);
+		}
+	}
+
+	public function basicRequest(string $url, string $authHeader,
+								string $endPoint, array $params = [], string $method = 'GET'): array {
+		try {
+			$url = $url . '/' . $endPoint;
+			$options = [
+				'headers' => [
+					'Authorization'  => 'Basic ' . $authHeader,
+					'User-Agent' => 'Nextcloud Jira integration',
+				]
+			];
+
+			if (count($params) > 0) {
+				if ($method === 'GET') {
+					// manage array parameters
+					$paramsContent = '';
+					foreach ($params as $key => $value) {
+						if (is_array($value)) {
+							foreach ($value as $oneArrayValue) {
+								$paramsContent .= $key . '[]=' . urlencode($oneArrayValue) . '&';
+							}
+							unset($params[$key]);
+						}
+					}
+					$paramsContent .= http_build_query($params);
+					$url .= '?' . $paramsContent;
+				} else {
+					$options['body'] = $params;
+				}
+			}
+
+			if ($method === 'GET') {
+				$response = $this->client->get($url, $options);
+			} else if ($method === 'POST') {
+				$response = $this->client->post($url, $options);
+			} else if ($method === 'PUT') {
+				$response = $this->client->put($url, $options);
+			} else if ($method === 'DELETE') {
+				$response = $this->client->delete($url, $options);
+			}
+			$body = $response->getBody();
+			$respCode = $response->getStatusCode();
+			$headers = $response->getHeaders();
+
+			if ($respCode >= 400) {
+				return ['error' => $this->l10n->t('Bad credentials')];
+			} else {
+				return json_decode($body, true);
+			}
+		} catch (ClientException $e) {
+			$this->logger->warning('Jira API error : '.$e->getMessage(), array('app' => $this->appName));
+			return ['error' => $e->getMessage()];
+		}
+	}
+
+	public function oauthRequest(string $accessToken, string $refreshToken,
 							string $clientID, string $clientSecret, string $userId,
 							string $endPoint, array $params = [], string $method = 'GET'): array {
 		try {
@@ -274,7 +347,7 @@ class JiraAPIService {
 				$accessToken = $result['access_token'];
 				$this->config->setUserValue($userId, Application::APP_ID, 'token', $accessToken);
 				// retry the request with new access token
-				return $this->request(
+				return $this->oauthRequest(
 					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, $endPoint, $params, $method
 				);
 			}

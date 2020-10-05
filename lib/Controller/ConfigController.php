@@ -72,19 +72,31 @@ class ConfigController extends Controller {
 	/**
 	 * set config values
 	 * @NoAdminRequired
+	 *
+	 * @param array $values
 	 */
-	public function setConfig($values) {
+	public function setConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
 			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
 		}
+
+		if (isset($values['user_name']) && $values['user_name'] === '') {
+			// logout
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', '');
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'token', '');
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_id', '');
+		}
+
 		$response = new DataResponse(1);
 		return $response;
 	}
 
 	/**
 	 * set admin config values
+	 *
+	 * @param array $values
 	 */
-	public function setAdminConfig($values) {
+	public function setAdminConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
 			$this->config->setAppValue(Application::APP_ID, $key, $value);
 		}
@@ -93,11 +105,30 @@ class ConfigController extends Controller {
 	}
 
 	/**
+	 * @param string $url
+	 * @param string $login
+	 * @param string $password
+	 */
+	public function connectToSoftware(string $url, string $login, string $password): DataResponse {
+		$basicAuthHeader = base64_encode($login . ':' . $password);
+
+		$info = $this->jiraAPIService->basicRequest($url, $basicAuthHeader, 'rest/api/2/myself');
+		if (isset($info['displayName'])) {
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'url', $url);
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', $basicAuthHeader);
+			return new DataResponse(['user_name' => $info['displayName']]);
+		} else {
+			return new DataResponse(['user_name' => '']);
+		}
+	}
+
+	/**
 	 * receive oauth code and get oauth access token
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 */
-	public function oauthRedirect($code, $state) {
+	public function oauthRedirect(string $code = '', string $state = ''): RedirectResponse {
 		$configState = $this->config->getUserValue($this->userId, Application::APP_ID, 'oauth_state', '');
 		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
 		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
@@ -105,7 +136,7 @@ class ConfigController extends Controller {
 		// anyway, reset state
 		$this->config->setUserValue($this->userId, Application::APP_ID, 'oauth_state', '');
 
-		if ($clientID and $clientSecret and $configState !== '' and $configState === $state) {
+		if ($clientID && $clientSecret && $configState !== '' && $configState === $state) {
 			$redirect_uri = $this->urlGenerator->linkToRouteAbsolute('integration_jira.config.oauthRedirect');
 			$result = $this->jiraAPIService->requestOAuthAccessToken([
 				'client_id' => $clientID,
@@ -120,14 +151,14 @@ class ConfigController extends Controller {
 				$refreshToken = $result['refresh_token'];
 				$this->config->setUserValue($this->userId, Application::APP_ID, 'refresh_token', $refreshToken);
 				// get accessible resources
-				$resources = $this->jiraAPIService->request($accessToken, $refreshToken, $clientID, $clientSecret, $this->userId, 'oauth/token/accessible-resources');
+				$resources = $this->jiraAPIService->oauthRequest($accessToken, $refreshToken, $clientID, $clientSecret, $this->userId, 'oauth/token/accessible-resources');
 				if (!isset($resources['error']) && count($resources) > 0) {
 					$encodedResources = json_encode($resources);
 					$this->config->setUserValue($this->userId, Application::APP_ID, 'resources', $encodedResources);
 					// get user info
 					$cloudId = $resources[0]['id'];
-					$info = $this->jiraAPIService->request($accessToken, $refreshToken, $clientID, $clientSecret, $this->userId, 'ex/jira/'.$cloudId.'/rest/api/2/myself');
-					if (isset($info['accountId']) && isset($info['displayName'])) {
+					$info = $this->jiraAPIService->oauthRequest($accessToken, $refreshToken, $clientID, $clientSecret, $this->userId, 'ex/jira/'.$cloudId.'/rest/api/2/myself');
+					if (isset($info['accountId'], $info['displayName'])) {
 						$this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
 						$this->config->setUserValue($this->userId, Application::APP_ID, 'user_id', $info['accountId']);
 					}

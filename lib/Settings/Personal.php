@@ -40,7 +40,6 @@ class Personal implements ISettings {
 	 * @return TemplateResponse
 	 */
 	public function getForm() {
-		$token = $this->config->getUserValue($this->userId, Application::APP_ID, 'token', '');
 		$userName = $this->config->getUserValue($this->userId, Application::APP_ID, 'user_name', '');
 		$url = $this->config->getUserValue($this->userId, Application::APP_ID, 'url', '');
 		$searchEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'search_enabled', '0');
@@ -52,7 +51,6 @@ class Personal implements ISettings {
 		$clientSecret = ($this->config->getAppValue(Application::APP_ID, 'client_secret', '') !== '');
 
 		$userConfig = [
-			'token' => $token,
 			'url' => $url,
 			'client_id' => $clientID,
 			'client_secret' => $clientSecret,
