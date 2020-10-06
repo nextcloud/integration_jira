@@ -1,7 +1,0 @@
-OC.L10N.register(
-    "integration_jira",
-    {
-    "Client ID" : "Müştəri İD-s",
-    "Client secret" : "Müxtəri sirri"
-},
-"nplurals=2; plural=(n != 1);");

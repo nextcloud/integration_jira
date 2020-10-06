@@ -6,6 +6,8 @@ OC.L10N.register(
     "Connected accounts" : "Contas conectadas",
     "Client ID" : "ID do cliente",
     "Client secret" : "Segredo do cliente",
-    "Connected as {username}" : "Conectado como {username}"
+    "Connected as {username}" : "Conectado como {username}",
+    "User" : "Usuário",
+    "Password" : "Senha"
 },
 "nplurals=2; plural=(n > 1);");

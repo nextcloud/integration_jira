@@ -15,6 +15,8 @@ OC.L10N.register(
     "ID of your application" : "ID van je applicatie",
     "Client secret" : "Client secret",
     "Connected as {username}" : "Verbonden als {username}",
+    "User" : "Gebruiker",
+    "Password" : "Wachtwoord",
     "OAuth access token could not be obtained:" : "OAuth access token kon niet worden opgehaald:"
 },
 "nplurals=2; plural=(n != 1);");

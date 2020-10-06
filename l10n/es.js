@@ -8,6 +8,7 @@ OC.L10N.register(
     "Connected accounts" : "Cuentas conectadas",
     "Client ID" : "ID de cliente",
     "Client secret" : "Cliente secreto",
-    "Incorrect access token" : "Token de acceso incorrecto"
+    "User" : "Usuario",
+    "Password" : "Contraseña"
 },
 "nplurals=2; plural=(n != 1);");

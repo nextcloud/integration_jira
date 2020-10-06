@@ -1,5 +1,7 @@
 { "translations": {
     "Client ID" : "Klient-ID",
-    "Client secret" : "Klienthemlighet"
+    "Client secret" : "Klienthemlighet",
+    "User" : "Användare",
+    "Password" : "Lösenord"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

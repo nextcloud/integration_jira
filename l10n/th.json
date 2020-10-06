@@ -1,5 +1,7 @@
 { "translations": {
     "Client ID" : "Client ID",
-    "Client secret" : "Client secret"
+    "Client secret" : "Client secret",
+    "User" : "User",
+    "Password" : "รหัสผ่าน"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

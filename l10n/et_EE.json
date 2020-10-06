@@ -1,5 +1,7 @@
 { "translations": {
     "Client ID" : "Kliendi ID",
-    "Client secret" : "Kliendi salasõna"
+    "Client secret" : "Kliendi salasõna",
+    "User" : "Kasutaja",
+    "Password" : "Parool"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

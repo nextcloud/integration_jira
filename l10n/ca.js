@@ -9,6 +9,7 @@ OC.L10N.register(
     "Client ID" : "ID de Client",
     "Client secret" : "Secret del client",
     "Connected as {username}" : "S'ha connectat com a {username}",
-    "Incorrect access token" : "Testimoni d'accés incorrecte"
+    "User" : "Usuari",
+    "Password" : "Contrasenya"
 },
 "nplurals=2; plural=(n != 1);");

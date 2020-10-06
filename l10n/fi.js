@@ -11,6 +11,8 @@ OC.L10N.register(
     "Client secret" : "Asiakassalaisuus",
     "Connected as {username}" : "Yhdistetty käyttäjänä {username}",
     "Disconnect from Jira" : "Katkaise yhteys Jiraan",
+    "User" : "Käyttäjä",
+    "Password" : "Salasana",
     "Connect to Jira" : "Yhdistä Jiraan",
     "No Jira notifications!" : "Ei Jira-ilmoituksia!"
 },

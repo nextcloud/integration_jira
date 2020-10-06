@@ -1,5 +1,7 @@
 { "translations": {
     "Client ID" : "კლიენტის ID",
-    "Client secret" : "კლიენტის საიდუმლო"
+    "Client secret" : "კლიენტის საიდუმლო",
+    "User" : "მომხმარებელი",
+    "Password" : "პაროლი"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

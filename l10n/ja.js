@@ -6,6 +6,8 @@ OC.L10N.register(
     "OAuth access token refused" : "OAuthアクセストークンが拒否されました",
     "Connected accounts" : "接続済みアカウント",
     "Client ID" : "クライアントID",
-    "Client secret" : "クライアント秘密鍵"
+    "Client secret" : "クライアント秘密鍵",
+    "User" : "ユーザー",
+    "Password" : "パスワード"
 },
 "nplurals=1; plural=0;");

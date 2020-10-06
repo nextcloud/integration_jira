@@ -1,5 +1,7 @@
 { "translations": {
     "Client ID" : "ID del cliente",
-    "Client secret" : "Secreto del cliente"
+    "Client secret" : "Secreto del cliente",
+    "User" : "Usuario",
+    "Password" : "Contraseña"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

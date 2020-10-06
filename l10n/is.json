@@ -1,5 +1,7 @@
 { "translations": {
     "Client ID" : "Biðlaraauðkenni",
-    "Client secret" : "Leynilykill biðlara"
+    "Client secret" : "Leynilykill biðlara",
+    "User" : "Notandi",
+    "Password" : "Lykilorð"
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"
 }
