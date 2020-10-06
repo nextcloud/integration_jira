@@ -221,8 +221,12 @@ class JiraAPIService {
 
 		$endPoint = 'rest/api/2/search';
 
+		$words = preg_split('/\s+/', $query);
+		$searchString = '*' . implode('* *', $words) . '*';
+		$searchString = preg_replace('/\s+\*\*/', '', $searchString);
+
 		$params = [
-			'jql' => 'text ~ "'.$query.'"',
+			'jql' => 'text ~ "'.$searchString.'"',
 			'limit' => 10,
 		];
 
