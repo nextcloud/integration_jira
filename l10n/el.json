@@ -1,0 +1,7 @@
+{ "translations": {
+    "Client ID" : "ID πελάτη",
+    "Client secret" : "Μυστικό πελάτη",
+    "User" : "Χρήστης",
+    "Password" : "Κωδικός πρόσβασης"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
