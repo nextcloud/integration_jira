@@ -431,21 +431,23 @@ class JiraAPIService {
 			$body = (string) $response->getBody();
 			// refresh token if it's invalid
 			// response can be : 'response:\n{\"code\":401,\"message\":\"Unauthorized\"}'
-			$this->logger->warning('Trying to REFRESH the access token', array('app' => $this->appName));
-			// try to refresh the token
-			$result = $this->requestOAuthAccessToken([
-				'client_id' => $clientID,
-				'client_secret' => $clientSecret,
-				'grant_type' => 'refresh_token',
-				'refresh_token' => $refreshToken,
-			], 'POST');
-			if (isset($result['access_token'])) {
-				$accessToken = $result['access_token'];
-				$this->config->setUserValue($userId, Application::APP_ID, 'token', $accessToken);
-				// retry the request with new access token
-				return $this->oauthRequest(
-					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, $endPoint, $params, $method
-				);
+			if ($response->getStatusCode() === 401) {
+				$this->logger->warning('Trying to REFRESH the access token', array('app' => $this->appName));
+				// try to refresh the token
+				$result = $this->requestOAuthAccessToken([
+					'client_id' => $clientID,
+					'client_secret' => $clientSecret,
+					'grant_type' => 'refresh_token',
+					'refresh_token' => $refreshToken,
+				], 'POST');
+				if (isset($result['access_token'])) {
+					$accessToken = $result['access_token'];
+					$this->config->setUserValue($userId, Application::APP_ID, 'token', $accessToken);
+					// retry the request with new access token
+					return $this->oauthRequest(
+						$accessToken, $refreshToken, $clientID, $clientSecret, $userId, $endPoint, $params, $method
+					);
+				}
 			}
 			return ['error' => $e->getMessage()];
 		}
