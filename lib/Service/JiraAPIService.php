@@ -279,6 +279,7 @@ class JiraAPIService {
 	 *
 	 * @param string $userId
 	 * @param string $imageUrl
+	 * @param string $jiraUrl
 	 * @return ?string
 	 */
 	public function getJiraAvatar(string $userId, string $imageUrl): ?string {
@@ -298,7 +299,17 @@ class JiraAPIService {
 			return null;
 		}
 
-		return $this->client->get($imageUrl, $options)->getBody();
+		$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
+		$iUrl = parse_url($imageUrl);
+		$jUrl = parse_url($jiraUrl);
+		if ($iUrl) {
+			$imageUrlHost = $iUrl['host'];
+			$jiraUrlHost = $jUrl['host'] ?? '';
+			if ($imageUrlHost === $jiraUrlHost || preg_match('/\.atl-paas\.net$/', $iUrl['host'])) {
+				return $this->client->get($imageUrl, $options)->getBody();
+			}
+		}
+		return null;
 	}
 
 	/**

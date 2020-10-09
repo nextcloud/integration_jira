@@ -221,6 +221,7 @@ export default {
 			const req = {
 				values: {
 					oauth_state: oauthState,
+					url: '',
 				},
 			}
 			const url = generateUrl('/apps/integration_jira/config')
