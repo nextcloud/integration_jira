@@ -221,8 +221,10 @@ class JiraAPIService {
 
 		$endPoint = 'rest/api/2/search';
 
+		// jira cloud does not support "*TERM*" but just "TERM*"
+		// self hosted jira is fine with "*TERM*"...
 		$words = preg_split('/\s+/', $query);
-		$searchString = '*' . implode('* *', $words) . '*';
+		$searchString = '' . implode('* ', $words) . '*';
 		$searchString = preg_replace('/\s+\*\*/', '', $searchString);
 
 		$params = [
