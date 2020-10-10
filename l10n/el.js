@@ -1,13 +1,29 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error getting OAuth access token." : "Σφάλμα κατά τη λήψη διακριτικού πρόσβασης OAuth.",
     "Error during OAuth exchanges" : "Σφάλμα κατά την ανταλλαγή OAuth",
+    "Jira notifications" : "Ειδοποιήσεις Jira",
+    "Jira" : "Jira",
     "Bad credentials" : "Εσφαλμένα διαπιστευτήρια",
     "OAuth access token refused" : "Το διακριτικό πρόσβασης OAuth απορρίφθηκε",
     "Connected accounts" : "Συνδεδεμένοι λογαριασμοί",
-    "Client ID" : "ID πελάτη",
+    "Jira integration" : "Ενσωμάτωση Jira",
+    "Client ID" : "Αναγνωριστικό πελάτη",
+    "ID of your application" : "Αναγνωριστικό της εφαρμογής σας",
     "Client secret" : "Μυστικό πελάτη",
+    "Jira admin options saved" : "Οι επιλογές διαχειριστή Jira αποθηκεύτηκαν",
+    "Failed to save Jira admin options" : "Αποτυχία αποθήκευσης των επιλογών διαχειριστή Jira",
+    "Connected as {username}" : "Συνδεδεμένος ως {username}",
+    "Disconnect from Jira" : "Αποσύνδεση από το Jira",
+    "Jira Cloud" : "Jira Cloud",
+    "Connect to Jira Cloud" : "Σύνδεση στο Jira Cloud",
+    "Jira address" : "Διεύθυνση Jira",
     "User" : "Χρήστης",
-    "Password" : "Κωδικός πρόσβασης"
+    "Jira user name" : "Όνομα χρήστη Jira",
+    "Password" : "Συνθηματικό",
+    "Jira password" : "Συνθηματικό Jira",
+    "Jira options saved" : "Οι επιλογές Jira αποθηκεύτηκαν",
+    "Connect to Jira" : "Σύνδεση στο Jira"
 },
 "nplurals=2; plural=(n != 1);");

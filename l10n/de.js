@@ -51,6 +51,6 @@ OC.L10N.register(
     "No Jira account connected" : "Kein Jira-Konto verbunden",
     "Error connecting to Jira" : "Fehler bei der Verbindung mit Jira",
     "No Jira notifications!" : "Keine Jira-Benachrichtigungen!",
-    "Failed to get Jira notifications" : "Konnte Jira-Benachrichtigungen nicht abrufen"
+    "Failed to get Jira notifications" : "Fehler beim Abrufen der Jira-Benachrichtigungen"
 },
 "nplurals=2; plural=(n != 1);");
