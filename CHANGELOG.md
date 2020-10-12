@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 0.0.4 – 2020-10-12
+### Added
+- compatibility with self hosted Jira instances
+
+### Fixed
+- generate avatar URL on server side
+- fix partial term search (\*word\* does not work on Jira Cloud)
+- avoid API request loop on error when token is fine
+
 ## 0.0.3 – 2020-10-03
 ### Fixed
 - notification setting not being loaded
