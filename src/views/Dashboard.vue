@@ -177,11 +177,11 @@ export default {
 		},
 		getCreatorAvatarUrl(n) {
 			return (n.fields.creator && n.fields.creator.avatarUrls)
-				? n.fields.creator.avatarUrls
-					? n.fields.creator.avatarUrls['48x48']
-						? generateUrl('/apps/integration_jira/avatar?') + encodeURIComponent('imageUrl') + '=' + encodeURIComponent(n.fields.creator.avatarUrls['48x48'])
+				? n.fields.creator.accountId
+					? generateUrl('/apps/integration_jira/avatar?') + encodeURIComponent('accountId') + '=' + encodeURIComponent(n.fields.creator.accountId)
+					: n.fields.creator.key
+						? generateUrl('/apps/integration_jira/avatar?') + encodeURIComponent('accountKey') + '=' + encodeURIComponent(n.fields.creator.key)
 						: ''
-					: ''
 				: ''
 		},
 		getNotificationTypeImage(n) {

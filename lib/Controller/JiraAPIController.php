@@ -66,11 +66,12 @@ class JiraAPIController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param string $imageUrl
+	 * @param string $accountId
+	 * @param string $accountId
 	 * @return DataDisplayResponse
 	 */
-	public function getJiraAvatar(string $imageUrl): DataDisplayResponse {
-		$avatarContent = $this->jiraAPIService->getJiraAvatar($this->userId, $imageUrl);
+	public function getJiraAvatar(string $accountId = '', string $accountKey = ''): DataDisplayResponse {
+		$avatarContent = $this->jiraAPIService->getJiraAvatar($this->userId, $accountId, $accountKey);
 		if (is_null($avatarContent)) {
 			return new DataDisplayResponse('', 401);
 		} else {

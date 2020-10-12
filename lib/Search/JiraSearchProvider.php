@@ -190,13 +190,14 @@ class JiraSearchProvider implements IProvider {
 		$displayName = $entry['fields'] && $entry['fields']['creator'] && $entry['fields']['creator']['displayName']
 			? $entry['fields']['creator']['displayName']
 			: '';
-		$imageUrl = $entry['fields'] && $entry['fields']['creator'] && $entry['fields']['creator']['avatarUrls'] && $entry['fields']['creator']['avatarUrls']['48x48']
-			? $entry['fields']['creator']['avatarUrls']['48x48']
-			: '';
-		return $imageUrl
-			? $this->urlGenerator->linkToRoute('integration_jira.jiraAPI.getJiraAvatar', []) . '?imageUrl=' . urlencode($imageUrl)
-			: ($displayName
-				? $this->urlGenerator->linkToRouteAbsolute('core.GuestAvatar.getAvatar', ['guestName' => $displayName, 'size' => 64])
-				: $thumbnailUrl);
+		$accountId = $entry['fields']['creator']['accountId'] ?? '';
+		$accountKey = $entry['fields']['creator']['key'] ?? '';
+		return $accountId
+			? $this->urlGenerator->linkToRoute('integration_jira.jiraAPI.getJiraAvatar', []) . '?accountId=' . urlencode($accountId)
+			: ($accountKey
+				? $this->urlGenerator->linkToRoute('integration_jira.jiraAPI.getJiraAvatar', []) . '?accountKey=' . urlencode($accountKey)
+				: ($displayName
+					? $this->urlGenerator->linkToRouteAbsolute('core.GuestAvatar.getAvatar', ['guestName' => $displayName, 'size' => 64])
+					: $thumbnailUrl));
 	}
 }

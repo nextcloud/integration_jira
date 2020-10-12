@@ -275,14 +275,70 @@ class JiraAPIService {
 	}
 
 	/**
+	 * @param string $userId
+	 * @param string $accountId
+	 * @param string $accountKey
+	 * @return array
+	 */
+	public function getAccountInfo(string $userId, string $accountId, string $accountKey): array {
+		$params = [];
+		if ($accountId) {
+			$params['accountId'] = $accountId;
+		} elseif ($accountKey) {
+			$params['key'] = $accountKey;
+		} else {
+			return ['error' => 'not found'];
+		}
+		$endPoint = 'rest/api/2/user';
+
+		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header', '');
+		if ($basicAuthHeader !== '') {
+			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
+			return $this->basicRequest($jiraUrl, $basicAuthHeader, $endPoint, $params);
+		} else {
+			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
+			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token', '');
+			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
+			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
+			if ($accessToken === '' || $refreshToken === '') {
+				return ['error' => 'no credentials'];
+			}
+
+			$resources = $this->getJiraResources($userId);
+
+			foreach ($resources as $resource) {
+				$cloudId = $resource['id'];
+				$jiraUrl = $resource['url'];
+				$result = $this->oauthRequest(
+					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/' . $cloudId . '/' . $endPoint, $params
+				);
+				if (!isset($result['error'])) {
+					return $result;
+				}
+			}
+		}
+		return ['error' => 'not found'];
+	}
+
+	/**
 	 * authenticated request to get an image from jira
 	 *
 	 * @param string $userId
-	 * @param string $imageUrl
-	 * @param string $jiraUrl
+	 * @param string $accountId
+	 * @param string $accountKey
 	 * @return ?string
 	 */
-	public function getJiraAvatar(string $userId, string $imageUrl): ?string {
+	public function getJiraAvatar(string $userId, string $accountId, string $accountKey): ?string {
+		$accountInfo = $this->getAccountInfo($userId, $accountId, $accountKey);
+		if (isset($accountInfo['error'])
+			|| !isset($accountInfo['avatarUrls'])
+			|| !isset($accountInfo['avatarUrls']['48x48'])
+		) {
+			return null;
+		}
+
+		$imageUrl = $accountInfo['avatarUrls']['48x48'];
+
 		$options = [
 			'headers' => [
 				'User-Agent' => 'Nextcloud Jira integration',
@@ -299,17 +355,7 @@ class JiraAPIService {
 			return null;
 		}
 
-		$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
-		$iUrl = parse_url($imageUrl);
-		$jUrl = parse_url($jiraUrl);
-		if ($iUrl) {
-			$imageUrlHost = $iUrl['host'];
-			$jiraUrlHost = $jUrl['host'] ?? '';
-			if ($imageUrlHost === $jiraUrlHost || preg_match('/\.atl-paas\.net$/', $iUrl['host'])) {
-				return $this->client->get($imageUrl, $options)->getBody();
-			}
-		}
-		return null;
+		return $this->client->get($imageUrl, $options)->getBody();
 	}
 
 	/**
