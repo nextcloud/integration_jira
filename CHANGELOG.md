@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 0.0.5 – 2020-10-12
+### Fixed
+- register search and widget even if oauth settings are missing
+
 ## 0.0.4 – 2020-10-12
 ### Added
 - compatibility with self hosted Jira instances
