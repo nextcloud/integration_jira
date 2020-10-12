@@ -50,13 +50,8 @@ class Application extends App implements IBootstrap {
 	}
 
 	public function register(IRegistrationContext $context): void {
-		$config = $this->container->query(IConfig::class);
-		$clientId = $config->getAppValue(self::APP_ID, 'client_id', '');
-		$clientSecret = $config->getAppValue(self::APP_ID, 'client_secret', '');
-		if ($clientId !== '' && $clientSecret !== '') {
-		    $context->registerDashboardWidget(JiraWidget::class);
-			$context->registerSearchProvider(JiraSearchProvider::class);
-		}
+		$context->registerDashboardWidget(JiraWidget::class);
+		$context->registerSearchProvider(JiraSearchProvider::class);
 	}
 
 	public function boot(IBootContext $context): void {
