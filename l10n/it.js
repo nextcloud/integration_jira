@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error getting OAuth accessible resource list." : "Errore durante il recupero dell'elenco delle risorse OAuth accessibili.",
     "Error getting OAuth access token." : "Errore durante il recupero del token di accesso OAuth.",
     "Error during OAuth exchanges" : "Errore durante le negoziazioni OAuth",
     "Jira notifications" : "Notifiche Jira",
@@ -11,9 +12,13 @@ OC.L10N.register(
     "Connected accounts" : "Account connessi",
     "Jira integration" : "Integrazione Jira",
     "Integration of Jira user support/ticketing solution" : "Integrazione della soluzione di supporto utente/gestione ticket di Jira",
+    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "L'integrazione di Zammad fornisce un widget del cruscotto che mostra le tue notifiche importanti,\n   un motore di ricerca per problemi e notifiche sull'attività recente relativa ai problemi a te assegnati.",
+    "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Se desideri consentire ai tuoi utenti Nextcloud di utilizzare OAuth per autenticarsi a Jira, crea un'applicazione nelle impostazioni di amministrazione di Jira e imposta l'ID e il segreto di seguito.",
     "Jira app settings" : "Impostazioni applicazione di Jira",
+    "Make sure you set the redirection/callback URL to" : "Assicurati di impostare l'URL di reindirizzamento/callback a",
     "Don't forget to make your Jira OAuth application public." : "Non dimenticare di rendere pubblica l'applicazione OAuth di Jira.",
     "How to make Jira OAuth public" : "Come rendere pubblica l'OAuth di Jira",
+    "Put the \"Client ID\" and \"Client secret\" below. Your Nextcloud users will then see a \"Connect to Jira\" button in their personal settings." : "Inserisci l'\"ID client\" e il \"segreto client\" sotto. I tuoi utenti Nextcloud vedranno quindi un pulsante \"Connetti a Jira\" nelle impostazioni personali.",
     "Client ID" : "ID client",
     "ID of your application" : "ID della tua applicazione",
     "Client secret" : "Segreto del client",
