@@ -416,7 +416,7 @@ class JiraAPIService {
 				return json_decode($body, true);
 			}
 		} catch (ServerException | ClientException $e) {
-			$this->logger->warning('Jira API error : '.$e->getMessage(), array('app' => $this->appName));
+			$this->logger->warning('Jira API error : '.$e->getMessage(), ['app' => $this->appName]);
 			return ['error' => $e->getMessage()];
 		}
 	}
@@ -486,13 +486,12 @@ class JiraAPIService {
 				return $decodedResult;
 			}
 		} catch (ServerException | ClientException $e) {
-			$this->logger->warning('Jira API error : '.$e->getMessage(), array('app' => $this->appName));
 			$response = $e->getResponse();
 			$body = (string) $response->getBody();
 			// refresh token if it's invalid
 			// response can be : 'response:\n{\"code\":401,\"message\":\"Unauthorized\"}'
 			if ($response->getStatusCode() === 401) {
-				$this->logger->warning('Trying to REFRESH the access token', array('app' => $this->appName));
+				$this->logger->info('Trying to REFRESH the access token', ['app' => $this->appName]);
 				// try to refresh the token
 				$result = $this->requestOAuthAccessToken([
 					'client_id' => $clientID,
@@ -509,6 +508,7 @@ class JiraAPIService {
 					);
 				}
 			}
+			$this->logger->warning('Jira API error : '.$e->getMessage(), ['app' => $this->appName]);
 			return ['error' => $e->getMessage()];
 		}
 	}
@@ -554,9 +554,8 @@ class JiraAPIService {
 				return json_decode($body, true);
 			}
 		} catch (\Exception $e) {
-			$this->logger->warning('Jira OAuth error : '.$e->getMessage(), array('app' => $this->appName));
+			$this->logger->warning('Jira OAuth error : '.$e->getMessage(), ['app' => $this->appName]);
 			return ['error' => $e->getMessage()];
 		}
 	}
-
 }
