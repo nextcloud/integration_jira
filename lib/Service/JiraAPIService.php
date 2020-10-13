@@ -19,6 +19,7 @@ use OCP\IUser;
 use OCP\Http\Client\IClientService;
 use OCP\Notification\IManager as INotificationManager;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 
 use OCA\Jira\AppInfo\Application;
 
@@ -414,7 +415,7 @@ class JiraAPIService {
 			} else {
 				return json_decode($body, true);
 			}
-		} catch (ClientException $e) {
+		} catch (ServerException | ClientException $e) {
 			$this->logger->warning('Jira API error : '.$e->getMessage(), array('app' => $this->appName));
 			return ['error' => $e->getMessage()];
 		}
@@ -484,7 +485,7 @@ class JiraAPIService {
 				}
 				return $decodedResult;
 			}
-		} catch (ClientException $e) {
+		} catch (ServerException | ClientException $e) {
 			$this->logger->warning('Jira API error : '.$e->getMessage(), array('app' => $this->appName));
 			$response = $e->getResponse();
 			$body = (string) $response->getBody();
