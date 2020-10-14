@@ -115,29 +115,36 @@ export default {
 .grid-form label {
 	line-height: 38px;
 }
+
 .grid-form input {
 	width: 100%;
 }
+
 .grid-form {
 	max-width: 500px;
 	display: grid;
 	grid-template: 1fr / 1fr 1fr;
 	margin-left: 30px;
 }
+
 #jira_prefs .icon {
 	display: inline-block;
 	width: 32px;
 }
+
 #jira_prefs .grid-form .icon {
 	margin-bottom: -3px;
 }
+
 .icon-jira {
 	background-image: url(./../../img/app-dark.svg);
 	background-size: 23px 23px;
 	height: 23px;
 	margin-bottom: -4px;
 }
+
 body.theme--dark .icon-jira {
 	background-image: url(./../../img/app.svg);
 }
+
 </style>

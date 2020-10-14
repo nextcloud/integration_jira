@@ -247,15 +247,19 @@ export default {
 .oauth-connect {
 	margin-left: 40px;
 }
+
 #jira-search-block {
 	margin-top: 30px;
 }
+
 .jira-grid-form label {
 	line-height: 38px;
 }
+
 .jira-grid-form input {
 	width: 100%;
 }
+
 .jira-grid-form {
 	max-width: 600px;
 	display: grid;
@@ -264,26 +268,33 @@ export default {
 		margin-bottom: -1px;
 	}
 }
+
 #jira_prefs .icon {
 	display: inline-block;
 	width: 32px;
 }
+
 #jira_prefs .grid-form .icon {
 	margin-bottom: -3px;
 }
+
 .icon-jira {
 	background-image: url(./../../img/app-dark.svg);
 	background-size: 23px 23px;
 	height: 23px;
 	margin-bottom: -4px;
 }
+
 body.theme--dark .icon-jira {
 	background-image: url(./../../img/app.svg);
 }
+
 #jira-content {
 	margin-left: 40px;
 }
+
 #jira-search-block .icon {
 	width: 22px;
 }
+
 </style>
