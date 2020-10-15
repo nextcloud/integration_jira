@@ -40,17 +40,19 @@
 				</div>
 			</div>
 			<div v-else>
-				<h3>
-					<span class="icon icon-timezone" />
-					{{ t('integration_jira', 'Jira Cloud') }}
-				</h3>
-				<button v-if="showOAuth"
-					class="oauth-connect"
-					@click="onOAuthClick">
-					<span class="icon icon-external" />
-					{{ t('integration_jira', 'Connect to Jira Cloud') }}
-				</button>
-				<br><br>
+				<div v-if="showOAuth">
+					<h3>
+						<span class="icon icon-timezone" />
+						{{ t('integration_jira', 'Jira Cloud') }}
+					</h3>
+					<button
+						class="oauth-connect"
+						@click="onOAuthClick">
+						<span class="icon icon-external" />
+						{{ t('integration_jira', 'Connect to Jira Cloud') }}
+					</button>
+					<br><br>
+				</div>
 				<h3>
 					<span class="icon icon-home" />
 					{{ t('integration_jira', 'Self-hosted Jira Software') }}
