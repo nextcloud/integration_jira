@@ -12,7 +12,7 @@ OC.L10N.register(
     "Connected accounts" : "Cuentas conectadas",
     "Jira integration" : "Integración con Jira",
     "Integration of Jira user support/ticketing solution" : "Integración con la solución de soporte a usuarios/tickets Jira",
-    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "La integración con Zammad ofrece un widget que muestra tus notificaciones más importantes,\n   un proveedor unificado de búsqueda para tickets\n   y notificaciones sobre la actividad reciente relacionada con sus cuestiones asignadas .",
+    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "La integración con Jira ofrece un widget que muestra tus notificaciones más importantes,\n   un proveedor unificado de búsqueda para tickets\n   y notificaciones sobre la actividad reciente relacionada con sus cuestiones asignadas .",
     "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Si quieres permitir que tus usuarios de Nextcloud usen OAuth para autenticarse Jira, crea una aplicación en tu configuración de administración de Jira y pon aquí la ID de aplicación y clave secreta.",
     "Jira app settings" : "configuración de la app Jira",
     "Make sure you set the redirection/callback URL to" : "Asegúrate de configurar la «redirección/URL de retrollamada» como",

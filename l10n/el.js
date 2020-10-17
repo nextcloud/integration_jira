@@ -16,6 +16,8 @@ OC.L10N.register(
     "Failed to save Jira admin options" : "Αποτυχία αποθήκευσης των επιλογών διαχειριστή Jira",
     "Connected as {username}" : "Συνδεδεμένος ως {username}",
     "Disconnect from Jira" : "Αποσύνδεση από το Jira",
+    "Enable unified search for tickets" : "Ενεργοποίηση ενοποιημένης αναζήτησης εισιτηρίων",
+    "Enable notifications for open tickets" : "Ενεργοποίηση ειδοποιήσεων για ανοιχτά εισιτήρια",
     "Jira Cloud" : "Jira Cloud",
     "Connect to Jira Cloud" : "Σύνδεση στο Jira Cloud",
     "Jira address" : "Διεύθυνση Jira",
@@ -23,6 +25,7 @@ OC.L10N.register(
     "Jira user name" : "Όνομα χρήστη Jira",
     "Password" : "Συνθηματικό",
     "Jira password" : "Συνθηματικό Jira",
+    "OAuth access token could not be obtained:" : "Δεν ήταν δυνατή η λήψη διακριτικού πρόσβασης OAuth:",
     "Jira options saved" : "Οι επιλογές Jira αποθηκεύτηκαν",
     "Connect to Jira" : "Σύνδεση στο Jira"
 },
