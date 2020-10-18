@@ -40,11 +40,11 @@
 				</div>
 			</div>
 			<div v-else>
+				<h3>
+					<span class="icon icon-timezone" />
+					{{ t('integration_jira', 'Jira Cloud') }}
+				</h3>
 				<div v-if="showOAuth">
-					<h3>
-						<span class="icon icon-timezone" />
-						{{ t('integration_jira', 'Jira Cloud') }}
-					</h3>
 					<button
 						class="oauth-connect"
 						@click="onOAuthClick">
@@ -52,6 +52,12 @@
 						{{ t('integration_jira', 'Connect to Jira Cloud') }}
 					</button>
 					<br><br>
+				</div>
+				<div v-else>
+					<p class="settings-hint">
+						{{ t('integration_jira', 'Ask your Nextcloud administrator to configure a Jira Cloud OAuth app in order to be able to connect to this service.') }}
+					</p>
+					<br>
 				</div>
 				<h3>
 					<span class="icon icon-home" />
