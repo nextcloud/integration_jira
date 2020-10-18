@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 0.0.6 – 2020-10-18
+### Changed
+- use webpack 5 and style lint
+- show hint when oauth config missing for jira cloud
+
+### Fixed
+- missing background job declaration
+- avoid some warnings
+
 ## 0.0.5 – 2020-10-12
 ### Fixed
 - register search and widget even if oauth settings are missing
