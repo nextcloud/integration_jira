@@ -157,7 +157,7 @@ class JiraAPIService {
 			}
 			foreach ($issuesResult['issues'] as $k => $issue) {
 				$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
-				$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'];
+				$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'] ?? '';
 				$myIssues[] = $issuesResult['issues'][$k];
 			}
 		} else {
@@ -179,7 +179,7 @@ class JiraAPIService {
 				if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
 					foreach ($issuesResult['issues'] as $k => $issue) {
 						$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
-						$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'];
+						$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'] ?? '';
 						$myIssues[] = $issuesResult['issues'][$k];
 					}
 				} else {
