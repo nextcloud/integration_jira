@@ -9,6 +9,7 @@ OC.L10N.register(
     "OAuth access token refused" : "Το διακριτικό πρόσβασης OAuth απορρίφθηκε",
     "Connected accounts" : "Συνδεδεμένοι λογαριασμοί",
     "Jira integration" : "Ενσωμάτωση Jira",
+    "Integration of Jira user support/ticketing solution" : "Ενσωμάτωση της λύσης υποστήριξης χρηστών/εισιτηρίων Jira",
     "Client ID" : "Αναγνωριστικό πελάτη",
     "ID of your application" : "Αναγνωριστικό της εφαρμογής σας",
     "Client secret" : "Μυστικό πελάτη",
