@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 0.0.7 – 2020-10-19
+### Fixed
+- mismatch redirect URL between server side and browser side (possibly because of overwrite.cli.url)
+
 ## 0.0.6 – 2020-10-18
 ### Changed
 - use webpack 5 and style lint
