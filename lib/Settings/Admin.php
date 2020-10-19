@@ -43,10 +43,12 @@ class Admin implements ISettings {
 	public function getForm() {
 		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
 		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
+		$redirect_uri = $this->urlGenerator->linkToRouteAbsolute('integration_jira.config.oauthRedirect');
 
 		$adminConfig = [
 			'client_id' => $clientID,
 			'client_secret' => $clientSecret,
+			'redirect_uri' => $redirect_uri,
 		];
 		$this->initialStateService->provideInitialState($this->appName, 'admin-config', $adminConfig);
 		return new TemplateResponse(Application::APP_ID, 'adminSettings');

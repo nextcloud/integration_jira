@@ -205,8 +205,6 @@ export default {
 				})
 		},
 		onOAuthClick() {
-			const redirectEndpoint = generateUrl('/apps/integration_jira/oauth-redirect')
-			const redirectUri = window.location.protocol + '//' + window.location.host + redirectEndpoint
 			const oauthState = Math.random().toString(36).substring(3)
 			const scopes = [
 				'offline_access',
@@ -223,7 +221,7 @@ export default {
 				+ '&scope=' + encodeURIComponent(scopes.join(' '))
 				+ '&response_type=code'
 				+ '&prompt=consent'
-				+ '&redirect_uri=' + encodeURIComponent(redirectUri)
+				+ '&redirect_uri=' + encodeURIComponent(this.state.redirect_uri)
 				+ '&state=' + encodeURIComponent(oauthState)
 
 			const req = {

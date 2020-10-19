@@ -44,6 +44,7 @@ class Personal implements ISettings {
 		$url = $this->config->getUserValue($this->userId, Application::APP_ID, 'url', '');
 		$searchEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'search_enabled', '0');
 		$notificationEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'notification_enabled', '0');
+		$redirect_uri = $this->urlGenerator->linkToRouteAbsolute('integration_jira.config.oauthRedirect');
 
 		// for OAuth
 		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
@@ -57,6 +58,7 @@ class Personal implements ISettings {
 			'search_enabled' => ($searchEnabled === '1'),
 			'notification_enabled' => ($notificationEnabled === '1'),
 			'user_name' => $userName,
+			'redirect_uri' => $redirect_uri,
 		];
 		$this->initialStateService->provideInitialState($this->appName, 'user-config', $userConfig);
 		return new TemplateResponse(Application::APP_ID, 'personalSettings');
