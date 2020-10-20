@@ -32,6 +32,7 @@ OC.L10N.register(
     "Enable notifications for open tickets" : "Abilita le notifiche per i ticket aperti",
     "Jira Cloud" : "Jira Cloud",
     "Connect to Jira Cloud" : "Connetti a Jira Cloud",
+    "Ask your Nextcloud administrator to configure a Jira Cloud OAuth app in order to be able to connect to this service." : "Chiedi al tuo amministratore Nextcloud di configurare un'applicazione Jira Cloud OAuth per poterti connettere a questo servizio.",
     "Self-hosted Jira Software" : "Jira Software ospitato autonomamente",
     "Jira self-hosted instance address" : "Indirizzo istanza ospitata autonomamente di Jira",
     "Jira address" : "Indirizzo di Jira",

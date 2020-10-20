@@ -30,6 +30,7 @@
     "Enable notifications for open tickets" : "Zapnout upozornění na otevřená hlášení požadavků",
     "Jira Cloud" : "Jira v cloudu",
     "Connect to Jira Cloud" : "Připojit k Jira cloudu",
+    "Ask your Nextcloud administrator to configure a Jira Cloud OAuth app in order to be able to connect to this service." : "Abyste se mohli připojovat k této službě, požádejte správce instance Nextcloud, kterou využíváte aby nastavit Jira Cloud OAuth aplikaci.",
     "Self-hosted Jira Software" : "Vámi provozovaný software Jira",
     "Jira self-hosted instance address" : "Adresa vámi provozované instance Jira",
     "Jira address" : "Adresa Jira",

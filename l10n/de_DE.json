@@ -30,6 +30,7 @@
     "Enable notifications for open tickets" : "Benachrichtigungen für offene Tickets aktivieren",
     "Jira Cloud" : "Jira Cloud",
     "Connect to Jira Cloud" : "Mit Jira Cloud verbinden",
+    "Ask your Nextcloud administrator to configure a Jira Cloud OAuth app in order to be able to connect to this service." : "Bitten Sie Ihren Nextcloud-Administrator, eine Jira Cloud OAuth-App einzurichten, damit Sie eine Verbindung zu diesem Dienst herstellen können.",
     "Self-hosted Jira Software" : "Selbst gehostete Jira-Software",
     "Jira self-hosted instance address" : "Adresse der selbst gehosteten Jira-Instanz",
     "Jira address" : "Jira-Adresse",
