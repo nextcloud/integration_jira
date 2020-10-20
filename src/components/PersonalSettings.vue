@@ -121,6 +121,7 @@ export default {
 			login: '',
 			password: '',
 			connecting: false,
+			redirect_uri: window.location.protocol + '//' + window.location.host + generateUrl('/apps/integration_jira/oauth-redirect'),
 		}
 	},
 
@@ -221,13 +222,14 @@ export default {
 				+ '&scope=' + encodeURIComponent(scopes.join(' '))
 				+ '&response_type=code'
 				+ '&prompt=consent'
-				+ '&redirect_uri=' + encodeURIComponent(this.state.redirect_uri)
+				+ '&redirect_uri=' + encodeURIComponent(this.redirect_uri)
 				+ '&state=' + encodeURIComponent(oauthState)
 
 			const req = {
 				values: {
 					oauth_state: oauthState,
 					url: '',
+					redirect_uri: this.redirect_uri,
 				},
 			}
 			const url = generateUrl('/apps/integration_jira/config')

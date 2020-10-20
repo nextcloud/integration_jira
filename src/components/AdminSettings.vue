@@ -12,7 +12,7 @@
 			<br><br>
 			<span class="icon icon-details" />
 			{{ t('integration_jira', 'Make sure you set the redirection/callback URL to') }}
-			<b> {{ state.redirect_uri }} </b>
+			<b> {{ redirect_uri }} </b>
 			<br><br>
 			<span class="icon icon-details" />
 			{{ t('integration_jira', 'Don\'t forget to make your Jira OAuth application public.') }}
@@ -69,6 +69,7 @@ export default {
 			state: loadState('integration_jira', 'admin-config'),
 			// to prevent some browsers to fill fields with remembered passwords
 			readonly: true,
+			redirect_uri: window.location.protocol + '//' + window.location.host + generateUrl('/apps/integration_jira/oauth-redirect'),
 		}
 	},
 
