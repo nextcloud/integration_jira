@@ -9,7 +9,7 @@ OC.L10N.register(
     "Bad credentials" : "Neustrezna poverila",
     "OAuth access token refused" : "Žeton OAuth za dostop je bil zavrnjen",
     "Connected accounts" : "Povezani računi",
-    "Jira integration" : "Podpora za račune Twitter",
+    "Jira integration" : "Podpora Twitter",
     "Jira app settings" : "Nastavitve programa Jira",
     "How to make Jira OAuth public" : "Kako nastaviti overitev Jira OAuth za javno rabo",
     "Client ID" : "ID odjemalca",
