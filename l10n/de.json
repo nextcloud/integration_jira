@@ -11,7 +11,7 @@
     "Jira integration" : "Jira-Einbindung",
     "Integration of Jira user support/ticketing solution" : "Integration der Jira User Support/Ticketing-Lösung",
     "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Die GitHub-Einbindung bietet ein Dashboard-Widget mit wichtigen Benachrichtigungen und einen einheitlichen Suchanbieter für die Suche nach Problemen und Benachrichtigungen über kürzliche Aktivitäten im Zusammenhang mit Dir zugewiesenen Themen. ",
-    "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Wenn du deinen Nextcloud-Benutzern erlauben möchtest, sich mit OAuth bei Jira deiner Wahl zu authentifizieren, erstelle eine Anwendung in deinen Jira-Einstellungen und lege hier die ID und das Geheimnis fest.",
+    "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Wenn Du Deinen Nextcloud-Benutzern erlauben möchtest, sich mit OAuth bei Jira Deiner Wahl zu authentifizieren, erstelle eine Anwendung in Deinen Jira-Einstellungen und lege hier die ID und das Geheimnis fest.",
     "Jira app settings" : "Jira-App Einstellungen",
     "Make sure you set the redirection/callback URL to" : "Stellen sicher, dass Du die Umleitungs- / Rückruf-URL auf folgende URL setzt",
     "Don't forget to make your Jira OAuth application public." : "Vergesse nicht, Deine Jira OAuth-Anwendung zu veröffentlichen.",
