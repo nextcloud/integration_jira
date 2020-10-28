@@ -29,6 +29,7 @@ OC.L10N.register(
     "Password" : "Geslo",
     "Jira password" : "Geslo Jira",
     "Connect to your Jira instance" : "Povežite se z računom Jira",
+    "Successfully connected to Jira!" : "Povezava z Jira je uspešno vzpostavljena!",
     "Jira options saved" : "Nastavitve Jira so shranjene",
     "Failed to save Jira options" : "Shranjevanje nastavitev Jira je spodletelo",
     "Failed to connect to Jira Software" : "Povezava s programom Jira je spodletela",
