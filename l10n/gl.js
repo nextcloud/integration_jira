@@ -18,7 +18,7 @@ OC.L10N.register(
     "Make sure you set the redirection/callback URL to" : "Asegúrese de estabelecer o URL de redirección/devolución de chamada como",
     "Don't forget to make your Jira OAuth application public." : "Non esqueza facer pública a súa aplicación do OAuth de Jira.",
     "How to make Jira OAuth public" : "Como facer pública o OAuth de Jira ",
-    "Put the \"Client ID\" and \"Client secret\" below. Your Nextcloud users will then see a \"Connect to Jira\" button in their personal settings." : "Engada a continuación o «ID de cliente» e o «Segredo de cliente». Os seus usuarios do Nextcloud verán entón un botón «Conectar con Jira» nos seus axustes persoais.",
+    "Put the \"Client ID\" and \"Client secret\" below. Your Nextcloud users will then see a \"Connect to Jira\" button in their personal settings." : "Engada deseguido o «ID de cliente» e o «Segredo de cliente». Os seus usuarios do Nextcloud verán entón un botón «Conectar con Jira» nos seus axustes persoais.",
     "Client ID" : "ID do cliente",
     "ID of your application" : "ID da súa aplicación",
     "Client secret" : "Segredo do cliente",
