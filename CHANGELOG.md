@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 0.0.10 – 2020-11-17
+### Fixed
+- search with non-ascii characters not working with JQL wildcard
+[#10](https://github.com/nextcloud/integration_jira/issues/10) @karl-in-office
+
 ## 0.0.9 – 2020-11-17
 ### Changed
 - bump js libs
