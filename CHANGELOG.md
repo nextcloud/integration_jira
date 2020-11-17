@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 0.0.9 – 2020-11-17
+### Changed
+- bump js libs
+- automate releases
+
+### Fixed
+- restrict connection to Jira software to NC admins
+[#9](https://github.com/nextcloud/integration_jira/issues/9) @karl-in-office
+
 ## 0.0.8 – 2020-10-20
 ### Fixed
 - wrong redirect URL protocol on server side with some setups
