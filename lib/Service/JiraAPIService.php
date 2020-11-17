@@ -224,9 +224,19 @@ class JiraAPIService {
 
 		// jira cloud does not support "*TERM*" but just "TERM*"
 		// self hosted jira is fine with "*TERM*"...
+		// other problem, '*' does not work with japanese chars (for example)
 		$words = preg_split('/\s+/', $query);
-		$searchString = '' . implode('* ', $words) . '*';
+		$searchString = '';
+		foreach ($words as $word) {
+			// put a star only if it's only latin letters
+			if (preg_match('/^[a-z]+$/i', $word)) {
+				$searchString .= $word . '* ';
+			} else {
+				$searchString .= $word . ' ';
+			}
+		}
 		$searchString = preg_replace('/\s+\*\*/', '', $searchString);
+		$searchString = preg_replace('/\s+$/', '', $searchString);
 
 		$params = [
 			'jql' => 'text ~ "'.$searchString.'"',
@@ -234,6 +244,7 @@ class JiraAPIService {
 		];
 
 		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header', '');
+		// self hosted Jira
 		if ($basicAuthHeader !== '') {
 			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
 			$issuesResult = $this->basicRequest($jiraUrl, $basicAuthHeader, $endPoint, $params);
@@ -245,6 +256,7 @@ class JiraAPIService {
 				$myIssues[] = $issuesResult['issues'][$k];
 			}
 		} else {
+			// Jira cloud
 			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
 			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token', '');
 			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
@@ -377,6 +389,9 @@ class JiraAPIService {
 					'User-Agent' => 'Nextcloud Jira integration',
 				]
 			];
+			if ($method === 'POST') {
+				$options['headers']['Content-Type'] = 'application/json';
+			}
 
 			if (count($params) > 0) {
 				if ($method === 'GET') {
@@ -393,7 +408,7 @@ class JiraAPIService {
 					$paramsContent .= http_build_query($params);
 					$url .= '?' . $paramsContent;
 				} else {
-					$options['body'] = $params;
+					$options['body'] = json_encode($params, JSON_UNESCAPED_UNICODE);
 				}
 			}
 
