@@ -111,6 +111,7 @@ class ConfigController extends Controller {
 	}
 
 	/**
+	 * @NoAdminRequired
 	 * @param string $url
 	 * @param string $login
 	 * @param string $password

@@ -198,7 +198,7 @@ export default {
 				.catch((error) => {
 					showError(
 						t('integration_jira', 'Failed to connect to Jira Software')
-						+ ': ' + error.response.request.responseText
+						+ ': ' + error.response?.request?.responseText
 					)
 				})
 				.then(() => {
