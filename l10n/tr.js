@@ -12,7 +12,7 @@ OC.L10N.register(
     "Connected accounts" : "Bağlı hesaplar",
     "Jira integration" : "Jira bütünleştirmesi",
     "Integration of Jira user support/ticketing solution" : "Jira kullanıcı destek kaydı açma ve destek alma çözümü",
-    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Jira bütünleştirmesi önemli bildirimleri, arama özelliği ve bildirilen sorunlar ile ilgili son işlemleri\ngörüntüleyen bir pano gereci sağlar.",
+    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Jira bütünleştirmesi önemli bildirimleri, arama özelliği ve bildirilen sorunlar ile ilgili son işlemleri\ngörüntüleyen bir pano bileşeni sağlar.",
     "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Nextcloud kullanıcılarınızın Jira kimlik doğrulaması için OAuth uygulamasını kullanmasını istiyorsanız, Jira yönetici ayarlarınızdan bir uygulama oluşturun ve aşağıya kimlik ve sır bilgilerini yazın.",
     "Jira app settings" : "Jira uygulama ayarları",
     "Make sure you set the redirection/callback URL to" : "Yönlendirme/geri çağırma adresini şuna ayarladığınızdan emin olun",
