@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error getting OAuth accessible resource list." : "Fout bij ophalen OAuth beschikbare resource lijst.",
     "Error getting OAuth access token." : "Fout bij ophalen OAuth access token",
     "Error during OAuth exchanges" : "Fout tijdens OAuth uitwisselingen",
     "Jira notifications" : "Jira meldingen",
@@ -12,7 +13,9 @@ OC.L10N.register(
     "Integration of Jira user support/ticketing solution" : "Integratie met de Jira gebruikersondersteuning/ticketing oplossing",
     "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Jira-integratie biedt een dashboardwidget dat je belangrijke meldingen weergeeft,\neen uniforme zoekmachine om naar problemen te zoeken\nen meldingen over recente activiteit met betrekking tot aan jou toegewezen issues.",
     "Jira app settings" : "Jira app instellingen",
+    "Make sure you set the redirection/callback URL to" : "Zorg ervoor dat je de redirection/callback URL instelt op",
     "How to make Jira OAuth public" : "Hoe maak je Jira OAuth openbaar",
+    "Put the \"Client ID\" and \"Client secret\" below. Your Nextcloud users will then see a \"Connect to Jira\" button in their personal settings." : "Zet de \"Client ID\" en \"Client secret\" hieronder. Je Nextcloud gebruikers zien dan een \"Verbinden met Jira\" knop in hun persoonlijke instellingen.",
     "Client ID" : "Client ID",
     "ID of your application" : "ID van je applicatie",
     "Client secret" : "Client secret",
