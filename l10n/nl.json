@@ -20,6 +20,7 @@
     "Your application secret" : "Je application secret",
     "Connected as {username}" : "Verbonden als {username}",
     "Disconnect from Jira" : "Verbinding met Jira verbreken",
+    "Warning, everything you type in the search bar will be sent to Jira." : "Let op: alles wat je intypt in de zoekbalk wordt naar Jira gestuurd.",
     "User" : "Gebruiker",
     "Password" : "Wachtwoord",
     "OAuth access token could not be obtained:" : "OAuth access token kon niet worden opgehaald:",
