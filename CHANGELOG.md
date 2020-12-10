@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 0.0.11 – 2020-12-10
+### Changed
+- bump js libs
+
+### Fixed
+- crash when accessibility app is not installed
+
 ## 0.0.10 – 2020-11-17
 ### Fixed
 - search with non-ascii characters not working with JQL wildcard
