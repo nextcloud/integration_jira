@@ -50,7 +50,7 @@ export default {
 			state: 'loading',
 			settingsUrl: generateUrl('/settings/user/connected-accounts'),
 			themingColor: OCA.Theming ? OCA.Theming.color.replace('#', '') : '0082C9',
-			darkThemeColor: OCA.Accessibility.theme === 'dark' ? 'ffffff' : '181818',
+			darkThemeColor: OCA.Accessibility?.theme === 'dark' ? 'ffffff' : '181818',
 		}
 	},
 
