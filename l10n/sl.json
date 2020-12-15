@@ -22,6 +22,7 @@
     "Failed to save Jira admin options" : "Shranjevanje skrbniških nastavitev računa Jira je spodletelo",
     "Connected as {username}" : "Povezan je uporabniški račun {username}",
     "Disconnect from Jira" : "Prekini povezavo s programom Jira",
+    "Enable unified search for tickets" : "Omogoči enotno iskanje med objavami",
     "Enable notifications for open tickets" : "Pošlji obvestila za odprte kartice",
     "Jira Cloud" : "Oblak Jira",
     "Connect to Jira Cloud" : "Poveži z oblakom Jira",
