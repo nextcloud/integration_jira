@@ -25,6 +25,7 @@ OC.L10N.register(
     "Connected as {username}" : "Povezan je uporabniški račun {username}",
     "Disconnect from Jira" : "Prekini povezavo s programom Jira",
     "Enable unified search for tickets" : "Omogoči enotno iskanje med objavami",
+    "Warning, everything you type in the search bar will be sent to Jira." : "Opozorilo! Karkoli vpišete v iskalno polje bo poslano na strežnik Jira.",
     "Enable notifications for open tickets" : "Pošlji obvestila za odprte kartice",
     "Jira Cloud" : "Oblak Jira",
     "Connect to Jira Cloud" : "Poveži z oblakom Jira",
