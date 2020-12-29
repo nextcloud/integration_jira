@@ -29,6 +29,7 @@ OC.L10N.register(
     "Enable notifications for open tickets" : "Pošlji obvestila za odprte kartice",
     "Jira Cloud" : "Oblak Jira",
     "Connect to Jira Cloud" : "Poveži z oblakom Jira",
+    "Self-hosted Jira Software" : "Zasebna programska oprema Jira",
     "Jira self-hosted instance address" : "Naslov povezave do računa Jira",
     "Jira address" : "Naslov Jira",
     "User" : "Uporabnik",
