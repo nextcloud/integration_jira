@@ -29,13 +29,26 @@
     "Enable notifications for open tickets" : "Ενεργοποίηση ειδοποιήσεων για ανοιχτά εισιτήρια",
     "Jira Cloud" : "Jira Cloud",
     "Connect to Jira Cloud" : "Σύνδεση στο Jira Cloud",
+    "Ask your Nextcloud administrator to configure a Jira Cloud OAuth app in order to be able to connect to this service." : "Ζητήστε από τον διαχειριστή σας του Nextcloud να διαμορφώσει μια εφαρμογή Jira Cloud OAuth για να μπορείτε να συνδεθείτε σε αυτήν την υπηρεσία.",
+    "Self-hosted Jira Software" : "Αυτοφιλοξενούμενο λογισμικό Jira",
+    "Jira self-hosted instance address" : "Αυτοφιλοξενούμενη διεύθυνση περιστατικού Jira",
     "Jira address" : "Διεύθυνση Jira",
     "User" : "Χρήστης",
     "Jira user name" : "Όνομα χρήστη Jira",
     "Password" : "Συνθηματικό",
     "Jira password" : "Συνθηματικό Jira",
+    "Connect to your Jira instance" : "Συνδεθείτε στο περιστατικό σας Jira",
+    "Successfully connected to Jira!" : "Συνδεθήκατε επιτυχώς με την Jira!",
     "OAuth access token could not be obtained:" : "Δεν ήταν δυνατή η λήψη διακριτικού πρόσβασης OAuth:",
     "Jira options saved" : "Οι επιλογές Jira αποθηκεύτηκαν",
-    "Connect to Jira" : "Σύνδεση στο Jira"
+    "Failed to save Jira options" : "Αποτυχία αποθήκευσης των επιλογών Jira",
+    "Login/password are invalid or account is locked" : "Η σύνδεση / κωδικός πρόσβασης δεν είναι έγκυρη ή ο λογαριασμός είναι κλειδωμένος.",
+    "Failed to connect to Jira Software" : "Αποτυχία σύνδεσης με το λογισμικό Jira",
+    "Failed to save Jira OAuth state" : "Αποτυχία αποθήκευσης της κατάστασης Jira OAuth",
+    "Connect to Jira" : "Σύνδεση στο Jira",
+    "No Jira account connected" : "Κανένας λογαριασμός Jira δεν έχει συνδεθεί",
+    "Error connecting to Jira" : "Σφάλμα σύνδεσης με την Jira",
+    "No Jira notifications!" : "Δεν υπάρχουν ειδοποιήσεις Jira!",
+    "Failed to get Jira notifications" : "Αποτυχία λήψης ειδοποιήσεων Jira"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
