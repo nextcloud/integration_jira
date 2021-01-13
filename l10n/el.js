@@ -6,6 +6,7 @@ OC.L10N.register(
     "Error during OAuth exchanges" : "Σφάλμα κατά την ανταλλαγή OAuth",
     "Jira notifications" : "Ειδοποιήσεις Jira",
     "Jira" : "Jira",
+    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Έχετε %s ανοιχτό ζήτημα από την τελευταία δραστηριότητα στο Jira.","Έχετε %s ανοιχτά ζητήματα από την τελευταία δραστηριότητα στο Jira."],
     "Bad credentials" : "Εσφαλμένα διαπιστευτήρια",
     "OAuth access token refused" : "Το διακριτικό πρόσβασης OAuth απορρίφθηκε",
     "Connected accounts" : "Συνδεδεμένοι λογαριασμοί",
