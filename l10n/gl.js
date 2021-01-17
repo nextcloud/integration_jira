@@ -12,7 +12,7 @@ OC.L10N.register(
     "Connected accounts" : "Contas conectadas",
     "Jira integration" : "Integración de Jira",
     "Integration of Jira user support/ticketing solution" : "Integración da solución de asistencia ao usuario/billetado de Jira",
-    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "A integración de Jira fornece un trebello de panel que amosa as súas notificacións importantes,\nun provedor de buscas unificado para buscar incidencias\ne notificacións sobre a actividade recente relacionada coas incidencias asignadas.",
+    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "A integración de Jira fornece un trebello de taboleiro que amosa as súas notificacións importantes,\nun provedor de buscas unificado para buscar incidencias\ne notificacións sobre a actividade recente relacionada coas incidencias asignadas.",
     "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Se quere permitir que os seus usuarios do Nextcloud usen OAuth para autenticarse en Jira, cree unha aplicación nos axustes de administrador de Jira e estabeleza o ID e o segredo aquí.",
     "Jira app settings" : "Axustes da aplicación Jira",
     "Make sure you set the redirection/callback URL to" : "Asegúrese de estabelecer o URL de redirección/devolución de chamada como",
