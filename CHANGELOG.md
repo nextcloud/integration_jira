@@ -6,9 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 0.0.14 – 2021-02-14
 ### Added
 - admin setting to force self hosted Jira URL
 [#11](https://github.com/nextcloud/integration_jira/issues/11) @karl-in-office
+
+### Fixed
+- safer API requests error management
 
 ## 0.0.12 – 2021-02-12
 ### Changed
