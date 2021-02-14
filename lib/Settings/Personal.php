@@ -45,6 +45,8 @@ class Personal implements ISettings {
 		$searchEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'search_enabled', '0');
 		$notificationEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'notification_enabled', '0');
 
+		$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url', '');
+
 		// for OAuth
 		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
 		// don't expose the client secret to users
@@ -57,6 +59,7 @@ class Personal implements ISettings {
 			'search_enabled' => ($searchEnabled === '1'),
 			'notification_enabled' => ($notificationEnabled === '1'),
 			'user_name' => $userName,
+			'forced_instance_url' => $forcedInstanceUrl,
 		];
 		$this->initialStateService->provideInitialState($this->appName, 'user-config', $userConfig);
 		return new TemplateResponse(Application::APP_ID, 'personalSettings');

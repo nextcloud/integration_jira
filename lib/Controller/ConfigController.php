@@ -118,14 +118,19 @@ class ConfigController extends Controller {
 	 * @return DataResponse
 	 */
 	public function connectToSoftware(string $url, string $login, string $password): DataResponse {
+		$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url', '');
+		$targetInstanceUrl = ($forcedInstanceUrl === '')
+			? $url
+			: $forcedInstanceUrl;
+
 		$basicAuthHeader = base64_encode($login . ':' . $password);
 
-		$info = $this->jiraAPIService->basicRequest($url, $basicAuthHeader, 'rest/api/2/myself');
+		$info = $this->jiraAPIService->basicRequest($targetInstanceUrl, $basicAuthHeader, 'rest/api/2/myself');
 		if (isset($info['displayName'])) {
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
 			// in self hosted version, key is the only account identifier
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_key', strval($info['key']));
-			$this->config->setUserValue($this->userId, Application::APP_ID, 'url', $url);
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'url', $targetInstanceUrl);
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', $basicAuthHeader);
 			return new DataResponse(['user_name' => $info['displayName']]);
 		} else {

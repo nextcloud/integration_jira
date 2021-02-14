@@ -68,32 +68,38 @@
 						<span class="icon icon-link" />
 						{{ t('integration_jira', 'Jira self-hosted instance address') }}
 					</label>
-					<input v-model="state.url"
+					<input v-if="state.forced_instance_url"
+						type="text"
+						:value="state.forced_instance_url"
+						:disabled="true"
+						:placeholder="t('integration_jira', 'Jira address')">
+					<input v-else
+						v-model="state.url"
 						type="text"
 						:placeholder="t('integration_jira', 'Jira address')">
-					<label v-show="state.url">
+					<label v-show="state.forced_instance_url || state.url">
 						<span class="icon icon-user" />
 						{{ t('integration_jira', 'User') }}
 					</label>
-					<input v-show="state.url"
+					<input v-show="state.forced_instance_url || state.url"
 						v-model="login"
 						type="text"
 						:placeholder="t('integration_jira', 'Jira user name')"
 						@keyup.enter="onSelfHostedAuth">
-					<label v-show="state.url">
+					<label v-show="state.forced_instance_url || state.url">
 						<span class="icon icon-password" />
 						{{ t('integration_jira', 'Password') }}
 					</label>
-					<input v-show="state.url"
+					<input v-show="state.forced_instance_url || state.url"
 						v-model="password"
 						type="password"
 						:placeholder="t('integration_jira', 'Jira password')"
 						@keyup.enter="onSelfHostedAuth">
-					<button v-show="state.url"
+					<button v-show="state.forced_instance_url || state.url"
 						:class="{ loading: connecting }"
 						@click="onSelfHostedAuth">
 						<span class="icon icon-external" />
-						{{ t('integration_jira', 'Connect to your Jira instance') }}
+						{{ t('integration_jira', 'Connect to this Jira instance') }}
 					</button>
 				</div>
 			</div>

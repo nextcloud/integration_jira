@@ -46,6 +46,18 @@
 				@focus="readonly = false"
 				@input="onInput">
 		</div>
+		<br>
+		<div class="grid-form">
+			<label for="jira-forced-instance">
+				<a class="icon icon-link" />
+				{{ t('integration_jira', 'Restrict self hosted URL to') }}
+			</label>
+			<input id="jira-forced-instance"
+				v-model="state.forced_instance_url"
+				type="text"
+				:placeholder="t('integration_jira', 'Instance address')"
+				@input="onInput">
+		</div>
 	</div>
 </template>
 
@@ -82,9 +94,8 @@ export default {
 
 	methods: {
 		onInput() {
-			const that = this
 			delay(() => {
-				that.saveOptions()
+				this.saveOptions()
 			}, 2000)()
 		},
 		saveOptions() {
@@ -92,6 +103,7 @@ export default {
 				values: {
 					client_id: this.state.client_id,
 					client_secret: this.state.client_secret,
+					forced_instance_url: this.state.forced_instance_url,
 				},
 			}
 			const url = generateUrl('/apps/integration_jira/admin-config')

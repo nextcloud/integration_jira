@@ -43,10 +43,12 @@ class Admin implements ISettings {
 	public function getForm() {
 		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
 		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
+		$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url', '');
 
 		$adminConfig = [
 			'client_id' => $clientID,
 			'client_secret' => $clientSecret,
+			'forced_instance_url' => $forcedInstanceUrl,
 		];
 		$this->initialStateService->provideInitialState($this->appName, 'admin-config', $adminConfig);
 		return new TemplateResponse(Application::APP_ID, 'adminSettings');
