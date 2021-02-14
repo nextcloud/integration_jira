@@ -199,7 +199,11 @@ export default {
 				.then((response) => {
 					this.state.user_name = response.data.user_name
 					if (response.data.user_name === '') {
-						showError(t('integration_jira', 'Login/password are invalid or account is locked'))
+						if (response.data.error) {
+							showError(t('integration_jira', 'Impossible to connect to Jira instance') + ': ' + response.data.error)
+						} else {
+							showError(t('integration_jira', 'Login/password are invalid or account is locked'))
+						}
 					}
 				})
 				.catch((error) => {
