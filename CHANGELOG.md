@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- admin setting to force self hosted Jira URL
+[#11](https://github.com/nextcloud/integration_jira/issues/11) @karl-in-office
+
 ## 0.0.12 – 2021-02-12
 ### Changed
 - bump js libs
