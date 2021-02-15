@@ -38,7 +38,6 @@
     "Jira user name" : "Uživatelské jméno v Jira",
     "Password" : "Heslo",
     "Jira password" : "Heslo do Jira",
-    "Connect to your Jira instance" : "Připojit k vaší instanci Jira",
     "Successfully connected to Jira!" : "Úspěšně spojeno s Jira!",
     "OAuth access token could not be obtained:" : "Nepodařilo se získat OAuth přístupový token:",
     "Jira options saved" : "Předvolby pro Jira uloženy",

@@ -40,7 +40,6 @@ OC.L10N.register(
     "Jira user name" : "Jira-Benutzername",
     "Password" : "Passwort",
     "Jira password" : "Jira-Passwort",
-    "Connect to your Jira instance" : "Mit Deiner Jira-Instanz verbinden",
     "Successfully connected to Jira!" : "Erfolgreich mit Jira verbunden!",
     "OAuth access token could not be obtained:" : "OAuth-Zugriffstoken konnte nicht abgerufen werden:",
     "Jira options saved" : "Jira-Einstellungen gespeichert",

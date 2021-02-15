@@ -20,7 +20,6 @@ OC.L10N.register(
     "Jira user name" : "שם משתמש ב־Jira",
     "Password" : "ססמה",
     "Jira password" : "ססמה ב־Jira",
-    "Connect to your Jira instance" : "התחברות לעותק ה־Jira שלך",
     "Successfully connected to Jira!" : "התחברת ל־Jira בהצלחה!",
     "Jira options saved" : "האפשרויות של Jira נשמרו",
     "Failed to save Jira options" : "שמירת האפשרויות של Jira נכשלה",

@@ -40,7 +40,6 @@ OC.L10N.register(
     "Jira user name" : "Nom d'usuari de Jira",
     "Password" : "Contrasenya",
     "Jira password" : "Contrasenya Jira",
-    "Connect to your Jira instance" : "Connecta't a la teva instància Jira",
     "Successfully connected to Jira!" : "S'ha connectat amb èxit a Jira!",
     "OAuth access token could not be obtained:" : "No s'ha pogut obtenir el testimoni d'accés oAuth:",
     "Jira options saved" : "Opcions Jira desades",

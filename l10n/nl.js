@@ -40,7 +40,6 @@ OC.L10N.register(
     "Jira user name" : "Jira gebruikersnaam",
     "Password" : "Wachtwoord",
     "Jira password" : "Jira wachtwoord",
-    "Connect to your Jira instance" : "Verbinden met je Jira server",
     "Successfully connected to Jira!" : "Succesvol verbonden met Jira!",
     "OAuth access token could not be obtained:" : "OAuth access token kon niet worden opgehaald:",
     "Jira options saved" : "Jira-opties bewaard.",

@@ -40,7 +40,6 @@ OC.L10N.register(
     "Jira user name" : "Jira kullanıcı adı",
     "Password" : "Parola",
     "Jira password" : "Jira parolası",
-    "Connect to your Jira instance" : "Jira kopyanız ile bağlantı kurun",
     "Successfully connected to Jira!" : "Jira ile bağlantı kuruldu!",
     "OAuth access token could not be obtained:" : "OAuth erişim kodu alınamadı:",
     "Jira options saved" : "Jira ayarları kaydedildi",

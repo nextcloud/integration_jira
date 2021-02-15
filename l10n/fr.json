@@ -38,7 +38,6 @@
     "Jira user name" : "Utilisateur Jira",
     "Password" : "Mot de passe",
     "Jira password" : "Mot de passe Jira",
-    "Connect to your Jira instance" : "Connexion à votre instance Jira",
     "Successfully connected to Jira!" : "Connexion à Jira réussie !",
     "OAuth access token could not be obtained:" : "Le jeton d'accès OAuth n'a pas pu être obtenu :",
     "Jira options saved" : "Options Jira enregistrées",

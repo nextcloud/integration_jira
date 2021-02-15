@@ -37,7 +37,6 @@ OC.L10N.register(
     "Jira user name" : "Uporabniško ime Jira",
     "Password" : "Geslo",
     "Jira password" : "Geslo Jira",
-    "Connect to your Jira instance" : "Povežite se z računom Jira",
     "Successfully connected to Jira!" : "Povezava z Jira je uspešno vzpostavljena!",
     "OAuth access token could not be obtained:" : "Žetona OAuth za dostop ni mogoče pridobiti:",
     "Jira options saved" : "Nastavitve Jira so shranjene",
