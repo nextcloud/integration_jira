@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 0.0.15 – 2021-02-16
+### Changed
+- app certificate
+
 ## 0.0.14 – 2021-02-14
 ### Added
 - admin setting to force self hosted Jira URL
