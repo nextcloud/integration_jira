@@ -11,6 +11,7 @@
     "Client ID" : "Bezeroaren IDa",
     "ID of your application" : "Zure aplikazioaren IDa",
     "Client secret" : "Bezeroaren sekretua",
+    "Instance address" : "Instantzia helbidea",
     "Connected as {username}" : "{username} gisa konektatuta",
     "Disconnect from Jira" : "Deskonektatu Jira-tik",
     "Enable unified search for tickets" : "Gaitu biltegi bilaketa",
