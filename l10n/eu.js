@@ -13,6 +13,7 @@ OC.L10N.register(
     "Client ID" : "Bezeroaren IDa",
     "ID of your application" : "Zure aplikazioaren IDa",
     "Client secret" : "Bezeroaren sekretua",
+    "Your application secret" : "Zure aplikazioaren sekretua",
     "Instance address" : "Instantzia helbidea",
     "Connected as {username}" : "{username} gisa konektatuta",
     "Disconnect from Jira" : "Deskonektatu Jira-tik",

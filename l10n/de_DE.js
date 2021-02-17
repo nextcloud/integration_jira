@@ -23,6 +23,7 @@ OC.L10N.register(
     "ID of your application" : "ID Ihrer Anwendung",
     "Client secret" : "Geheime Zeichenkette des Clients",
     "Your application secret" : "Ihr Anwendungsgeheimnis",
+    "Restrict self hosted URL to" : "Selbst gehostete URL einschränken auf",
     "Instance address" : "Adresse der Instanz",
     "Jira admin options saved" : "Jira-Administrator-Einstellungen gespeichert",
     "Failed to save Jira admin options" : "Fehler beim Speichern der Jira-Administrator-Einstellungen",
