@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Client ID" : "ID client",
     "User" : "User",
-    "Password" : "Senhal"
+    "Password" : "Senhal",
+    "Jira password" : "Senhal Jira"
 },
 "nplurals=2; plural=(n > 1);");

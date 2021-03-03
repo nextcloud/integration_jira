@@ -1,6 +1,7 @@
 { "translations": {
     "Client ID" : "ID client",
     "User" : "User",
-    "Password" : "Senhal"
+    "Password" : "Senhal",
+    "Jira password" : "Senhal Jira"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
