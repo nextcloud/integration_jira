@@ -47,7 +47,7 @@ OC.L10N.register(
     "OAuth access token could not be obtained:" : "Nepodařilo se získat OAuth přístupový token:",
     "Jira options saved" : "Předvolby pro Jira uloženy",
     "Failed to save Jira options" : "Nepodařilo se uložit předvolby pro Jira",
-    "Impossible to connect to Jira instance" : "Není možné se připojit k Jira instanci",
+    "Impossible to connect to Jira instance" : "Není možné se připojit k instanci Jira",
     "Login/password are invalid or account is locked" : "Přihlašovací jméno / heslo není platné nebo je účet uzamčen",
     "Failed to connect to Jira Software" : "Nepodařilo se připojit k software Jira",
     "Failed to save Jira OAuth state" : "Nepodařilo se uložit stav Jira OAuth",
