@@ -9,17 +9,12 @@
 
 namespace OCA\Jira\AppInfo;
 
-use OCP\IContainer;
-
 use OCP\AppFramework\App;
-use OCP\AppFramework\IAppContainer;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\Notification\IManager as INotificationManager;
-use OCP\IConfig;
 
-use OCA\Jira\Controller\PageController;
 use OCA\Jira\Dashboard\JiraWidget;
 use OCA\Jira\Search\JiraSearchProvider;
 use OCA\Jira\Notification\Notifier;
@@ -44,8 +39,7 @@ class Application extends App implements IBootstrap {
 		parent::__construct(self::APP_ID, $urlParams);
 
 		$container = $this->getContainer();
-		$this->container = $container;
-		$manager = $container->query(INotificationManager::class);
+		$manager = $container->get(INotificationManager::class);
 		$manager->registerNotifierService(Notifier::class);
 	}
 

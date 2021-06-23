@@ -11,54 +11,31 @@
 
 namespace OCA\Jira\Controller;
 
-use OCP\App\IAppManager;
-use OCP\Files\IAppData;
 use OCP\AppFramework\Http\DataDisplayResponse;
-
-use OCP\IURLGenerator;
-use OCP\IConfig;
-use OCP\IServerContainer;
-use OCP\IL10N;
-
-use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\RedirectResponse;
-
-use OCP\AppFramework\Http\ContentSecurityPolicy;
-
-use Psr\Log\LoggerInterface;
 use OCP\IRequest;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
 
 use OCA\Jira\Service\JiraAPIService;
-use OCA\Jira\AppInfo\Application;
 
 class JiraAPIController extends Controller {
 
-
+	/**
+	 * @var JiraAPIService
+	 */
+	private $jiraAPIService;
+	/**
+	 * @var string|null
+	 */
 	private $userId;
-	private $config;
-	private $dbconnection;
-	private $dbtype;
 
-	public function __construct($AppName,
+	public function __construct(string $appName,
 								IRequest $request,
-								IServerContainer $serverContainer,
-								IConfig $config,
-								IL10N $l10n,
-								IAppManager $appManager,
-								IAppData $appData,
-								LoggerInterface $logger,
 								JiraAPIService $jiraAPIService,
-								$userId) {
-		parent::__construct($AppName, $request);
-		$this->userId = $userId;
-		$this->l10n = $l10n;
-		$this->appData = $appData;
-		$this->serverContainer = $serverContainer;
-		$this->config = $config;
-		$this->logger = $logger;
+								?string $userId) {
+		parent::__construct($appName, $request);
 		$this->jiraAPIService = $jiraAPIService;
+		$this->userId = $userId;
 	}
 
 	/**
@@ -67,7 +44,7 @@ class JiraAPIController extends Controller {
 	 * @NoCSRFRequired
 	 *
 	 * @param string $accountId
-	 * @param string $accountId
+	 * @param string $accountKey
 	 * @return DataDisplayResponse
 	 */
 	public function getJiraAvatar(string $accountId = '', string $accountKey = ''): DataDisplayResponse {

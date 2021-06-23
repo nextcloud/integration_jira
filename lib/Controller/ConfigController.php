@@ -11,62 +11,53 @@
 
 namespace OCA\Jira\Controller;
 
-use OCP\App\IAppManager;
-use OCP\Files\IAppData;
-use OCP\AppFramework\Http\DataDisplayResponse;
-
 use OCP\IURLGenerator;
 use OCP\IConfig;
-use OCP\IServerContainer;
 use OCP\IL10N;
-use Psr\Log\LoggerInterface;
-
-use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\RedirectResponse;
-
-use OCP\AppFramework\Http\ContentSecurityPolicy;
-
 use OCP\IRequest;
-use OCP\IDBConnection;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
-use OCP\Http\Client\IClientService;
 
 use OCA\Jira\Service\JiraAPIService;
 use OCA\Jira\AppInfo\Application;
 
 class ConfigController extends Controller {
 
-
-	private $userId;
+	/**
+	 * @var IConfig
+	 */
 	private $config;
-	private $dbconnection;
-	private $dbtype;
+	/**
+	 * @var IURLGenerator
+	 */
+	private $urlGenerator;
+	/**
+	 * @var IL10N
+	 */
+	private $l;
+	/**
+	 * @var JiraAPIService
+	 */
+	private $jiraAPIService;
+	/**
+	 * @var string|null
+	 */
+	private $userId;
 
-	public function __construct($AppName,
+	public function __construct(string $appName,
 								IRequest $request,
-								IServerContainer $serverContainer,
 								IConfig $config,
-								IAppManager $appManager,
-								IAppData $appData,
-								IDBConnection $dbconnection,
 								IURLGenerator $urlGenerator,
 								IL10N $l,
-								LoggerInterface $logger,
-								IClientService $clientService,
 								JiraAPIService $jiraAPIService,
-								$userId) {
-		parent::__construct($AppName, $request);
-		$this->l = $l;
-		$this->userId = $userId;
-		$this->appData = $appData;
-		$this->serverContainer = $serverContainer;
+								?string $userId) {
+		parent::__construct($appName, $request);
 		$this->config = $config;
-		$this->dbconnection = $dbconnection;
 		$this->urlGenerator = $urlGenerator;
-		$this->logger = $logger;
-		$this->clientService = $clientService;
+		$this->l = $l;
 		$this->jiraAPIService = $jiraAPIService;
+		$this->userId = $userId;
 	}
 
 	/**
@@ -92,8 +83,7 @@ class ConfigController extends Controller {
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'last_open_check', '');
 		}
 
-		$response = new DataResponse(1);
-		return $response;
+		return new DataResponse(1);
 	}
 
 	/**
@@ -106,8 +96,7 @@ class ConfigController extends Controller {
 		foreach ($values as $key => $value) {
 			$this->config->setAppValue(Application::APP_ID, $key, $value);
 		}
-		$response = new DataResponse(1);
-		return $response;
+		return new DataResponse(1);
 	}
 
 	/**
@@ -118,7 +107,7 @@ class ConfigController extends Controller {
 	 * @return DataResponse
 	 */
 	public function connectToSoftware(string $url, string $login, string $password): DataResponse {
-		$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url', '');
+		$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
 		$targetInstanceUrl = ($forcedInstanceUrl === '')
 			? $url
 			: $forcedInstanceUrl;
@@ -148,15 +137,15 @@ class ConfigController extends Controller {
 	 * @return RedirectResponse
 	 */
 	public function oauthRedirect(string $code = '', string $state = ''): RedirectResponse {
-		$configState = $this->config->getUserValue($this->userId, Application::APP_ID, 'oauth_state', '');
-		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
-		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
+		$configState = $this->config->getUserValue($this->userId, Application::APP_ID, 'oauth_state');
+		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
+		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
 
 		// anyway, reset state
 		$this->config->setUserValue($this->userId, Application::APP_ID, 'oauth_state', '');
 
 		if ($clientID && $clientSecret && $configState !== '' && $configState === $state) {
-			$redirect_uri = $this->config->getUserValue($this->userId, Application::APP_ID, 'redirect_uri', '');
+			$redirect_uri = $this->config->getUserValue($this->userId, Application::APP_ID, 'redirect_uri');
 			$result = $this->jiraAPIService->requestOAuthAccessToken([
 				'client_id' => $clientID,
 				'client_secret' => $clientSecret,

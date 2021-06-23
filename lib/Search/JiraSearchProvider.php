@@ -45,12 +45,21 @@ class JiraSearchProvider implements IProvider {
 
 	/** @var IURLGenerator */
 	private $urlGenerator;
+	/**
+	 * @var IConfig
+	 */
+	private $config;
+	/**
+	 * @var JiraAPIService
+	 */
+	private $service;
 
 	/**
 	 * CospendSearchProvider constructor.
 	 *
 	 * @param IAppManager $appManager
 	 * @param IL10N $l10n
+	 * @param IConfig $config
 	 * @param IURLGenerator $urlGenerator
 	 * @param JiraAPIService $service
 	 */
@@ -105,13 +114,13 @@ class JiraSearchProvider implements IProvider {
 		$offset = $query->getCursor();
 		$offset = $offset ? intval($offset) : 0;
 
-		$theme = $this->config->getUserValue($user->getUID(), 'accessibility', 'theme', '');
+		$theme = $this->config->getUserValue($user->getUID(), 'accessibility', 'theme');
 		$thumbnailUrl = ($theme === 'dark')
 			? $this->urlGenerator->imagePath(Application::APP_ID, 'app.svg')
 			: $this->urlGenerator->imagePath(Application::APP_ID, 'app-dark.svg');
 
-		$accessToken = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'token', '');
-		$basicAuthHeader = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'basic_auth_header', '');
+		$accessToken = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'token');
+		$basicAuthHeader = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'basic_auth_header');
 		$searchEnabled = $this->config->getUserValue($user->getUID(), Application::APP_ID, 'search_enabled', '0') === '1';
 		if (($accessToken === '' && $basicAuthHeader === '') || !$searchEnabled) {
 			return SearchResult::paginated($this->getName(), [], 0);
@@ -123,7 +132,7 @@ class JiraSearchProvider implements IProvider {
 			return SearchResult::paginated($this->getName(), [], 0);
 		}
 
-		$formattedResults = \array_map(function (array $entry) use ($thumbnailUrl): JiraSearchResultEntry {
+		$formattedResults = array_map(function (array $entry) use ($thumbnailUrl): JiraSearchResultEntry {
 			return new JiraSearchResultEntry(
 				$this->getThumbnailUrl($entry, $thumbnailUrl),
 				$this->getMainText($entry),

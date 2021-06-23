@@ -11,6 +11,8 @@
 
 namespace OCA\Jira\Service;
 
+use DateTime;
+use Exception;
 use OCP\IL10N;
 use Psr\Log\LoggerInterface;
 use OCP\IConfig;
@@ -23,28 +25,54 @@ use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\ConnectException;
 
 use OCA\Jira\AppInfo\Application;
+use Throwable;
 
 class JiraAPIService {
-
-	private $l10n;
+	/**
+	 * @var string
+	 */
+	private $appName;
+	/**
+	 * @var IUserManager
+	 */
+	private $userManager;
+	/**
+	 * @var LoggerInterface
+	 */
 	private $logger;
+	/**
+	 * @var IL10N
+	 */
+	private $l10n;
+	/**
+	 * @var IConfig
+	 */
+	private $config;
+	/**
+	 * @var INotificationManager
+	 */
+	private $notificationManager;
+	/**
+	 * @var \OCP\Http\Client\IClient
+	 */
+	private $client;
 
 	/**
 	 * Service to make requests to Jira v3 (JSON) API
 	 */
-	public function __construct (IUserManager $userManager,
+	public function __construct (
 								string $appName,
+								IUserManager $userManager,
 								LoggerInterface $logger,
 								IL10N $l10n,
 								IConfig $config,
 								INotificationManager $notificationManager,
 								IClientService $clientService) {
 		$this->appName = $appName;
-		$this->l10n = $l10n;
-		$this->logger = $logger;
-		$this->config = $config;
 		$this->userManager = $userManager;
-		$this->clientService = $clientService;
+		$this->logger = $logger;
+		$this->l10n = $l10n;
+		$this->config = $config;
 		$this->notificationManager = $notificationManager;
 		$this->client = $clientService->newClient();
 	}
@@ -68,13 +96,13 @@ class JiraAPIService {
 	private function checkOpenTicketsForUser(string $userId): void {
 		$notificationEnabled = ($this->config->getUserValue($userId, Application::APP_ID, 'notification_enabled', '0') === '1');
 		if ($notificationEnabled) {
-			$lastNotificationCheck = $this->config->getUserValue($userId, Application::APP_ID, 'last_open_check', '');
+			$lastNotificationCheck = $this->config->getUserValue($userId, Application::APP_ID, 'last_open_check');
 			$lastNotificationCheck = $lastNotificationCheck === '' ? null : $lastNotificationCheck;
 
 			$notifications = $this->getNotifications($userId, $lastNotificationCheck);
 			if (!isset($notifications['error']) && count($notifications) > 0) {
-				$myAccountKey = $this->config->getUserValue($userId, Application::APP_ID, 'user_key', '');
-				$myAccountId = $this->config->getUserValue($userId, Application::APP_ID, 'user_account_id', '');
+				$myAccountKey = $this->config->getUserValue($userId, Application::APP_ID, 'user_key');
+				$myAccountId = $this->config->getUserValue($userId, Application::APP_ID, 'user_account_id');
 				if ($myAccountKey === '' && $myAccountId === '') {
 					return;
 				}
@@ -120,7 +148,7 @@ class JiraAPIService {
 
 		$notification->setApp(Application::APP_ID)
 			->setUser($userId)
-			->setDateTime(new \DateTime())
+			->setDateTime(new DateTime())
 			->setObject('dum', 'dum')
 			->setSubject($subject, $params);
 
@@ -132,10 +160,9 @@ class JiraAPIService {
 	 * @return array
 	 */
 	public function getJiraResources(string $userId): array {
-		$strRes = $this->config->getUserValue($userId, Application::APP_ID, 'resources', '');
+		$strRes = $this->config->getUserValue($userId, Application::APP_ID, 'resources');
 		$resources = json_decode($strRes, true);
-		$resources = ($resources && count($resources) > 0) ? $resources : [];
-		return $resources;
+		return ($resources && count($resources) > 0) ? $resources : [];
 	}
 
 	/**
@@ -149,13 +176,13 @@ class JiraAPIService {
 
 		$endPoint = 'rest/api/2/search';
 
-		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header', '');
+		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
 		// self hosted Jira
 		if ($basicAuthHeader !== '') {
-			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
+			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 
 			// check if there is a forced instance
-			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url', '');
+			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
 			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
 				return [
 					'error' => 'Unauthorized Jira instance URL',
@@ -173,10 +200,10 @@ class JiraAPIService {
 			}
 		} else {
 			// Jira cloud
-			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
-			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token', '');
-			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
-			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
+			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
+			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
+			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
+			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
 			if ($accessToken === '' || $refreshToken === '') {
 				return ['error' => 'no credentials'];
 			}
@@ -201,20 +228,20 @@ class JiraAPIService {
 		}
 
 		if (!is_null($since)) {
-			$sinceDate = new \Datetime($since);
+			$sinceDate = new Datetime($since);
 			$sinceTimestamp = $sinceDate->getTimestamp();
 			$myIssues = array_filter($myIssues, function($elem) use ($sinceTimestamp) {
-				$date = new \Datetime($elem['fields']['updated']);
+				$date = new Datetime($elem['fields']['updated']);
 				$elemTs = $date->getTimestamp();
 				return $elemTs > $sinceTimestamp;
 			});
 		}
 
 		// sort by updated
-		$a = usort($myIssues, function($a, $b) {
-			$a = new \Datetime($a['fields']['updated']);
+		usort($myIssues, function($a, $b) {
+			$a = new Datetime($a['fields']['updated']);
 			$ta = $a->getTimestamp();
-			$b = new \Datetime($b['fields']['updated']);
+			$b = new Datetime($b['fields']['updated']);
 			$tb = $b->getTimestamp();
 			return ($ta > $tb) ? -1 : 1;
 		});
@@ -255,13 +282,13 @@ class JiraAPIService {
 			'limit' => 10,
 		];
 
-		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header', '');
+		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
 		// self hosted Jira
 		if ($basicAuthHeader !== '') {
-			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
+			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 
 			// check if there is a forced instance
-			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url', '');
+			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
 			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
 				return [
 					'error' => 'Unauthorized Jira instance URL',
@@ -278,10 +305,10 @@ class JiraAPIService {
 			}
 		} else {
 			// Jira cloud
-			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
-			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token', '');
-			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
-			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
+			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
+			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
+			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
+			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
 			if ($accessToken === '' || $refreshToken === '') {
 				return ['error' => 'no credentials'];
 			}
@@ -325,12 +352,12 @@ class JiraAPIService {
 		}
 		$endPoint = 'rest/api/2/user';
 
-		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header', '');
+		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
 		if ($basicAuthHeader !== '') {
-			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url', '');
+			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 
 			// check if there is a forced instance
-			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url', '');
+			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
 			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
 				return [
 					'error' => 'Unauthorized Jira instance URL',
@@ -339,10 +366,10 @@ class JiraAPIService {
 
 			return $this->basicRequest($jiraUrl, $basicAuthHeader, $endPoint, $params);
 		} else {
-			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
-			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token', '');
-			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id', '');
-			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret', '');
+			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
+			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
+			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
+			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
 			if ($accessToken === '' || $refreshToken === '') {
 				return ['error' => 'no credentials'];
 			}
@@ -351,7 +378,7 @@ class JiraAPIService {
 
 			foreach ($resources as $resource) {
 				$cloudId = $resource['id'];
-				$jiraUrl = $resource['url'];
+//				$jiraUrl = $resource['url'];
 				$result = $this->oauthRequest(
 					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/' . $cloudId . '/' . $endPoint, $params
 				);
@@ -388,8 +415,8 @@ class JiraAPIService {
 			]
 		];
 
-		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header', '');
-		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token', '');
+		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
+		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
 		if ($basicAuthHeader !== '') {
 			$options['headers']['Authorization'] = 'Basic ' . $basicAuthHeader;
 		} elseif ($accessToken !== '') {
@@ -450,10 +477,12 @@ class JiraAPIService {
 				$response = $this->client->put($url, $options);
 			} else if ($method === 'DELETE') {
 				$response = $this->client->delete($url, $options);
+			} else {
+				return ['error' => $this->l10n->t('Bad HTTP method')];
 			}
 			$body = $response->getBody();
 			$respCode = $response->getStatusCode();
-			$headers = $response->getHeaders();
+//			$headers = $response->getHeaders();
 
 			if ($respCode >= 400) {
 				return ['error' => $this->l10n->t('Bad credentials')];
@@ -519,6 +548,8 @@ class JiraAPIService {
 				$response = $this->client->put($url, $options);
 			} else if ($method === 'DELETE') {
 				$response = $this->client->delete($url, $options);
+			} else {
+				return ['error' => $this->l10n->t('Bad HTTP method')];
 			}
 			$body = $response->getBody();
 			$respCode = $response->getStatusCode();
@@ -535,7 +566,7 @@ class JiraAPIService {
 			}
 		} catch (ServerException | ClientException $e) {
 			$response = $e->getResponse();
-			$body = (string) $response->getBody();
+//			$body = (string) $response->getBody();
 			// refresh token if it's invalid
 			// response can be : 'response:\n{\"code\":401,\"message\":\"Unauthorized\"}'
 			if ($response->getStatusCode() === 401) {
@@ -595,6 +626,8 @@ class JiraAPIService {
 				$response = $this->client->put($url, $options);
 			} else if ($method === 'DELETE') {
 				$response = $this->client->delete($url, $options);
+			} else {
+				return ['error' => $this->l10n->t('Bad HTTP method')];
 			}
 			$body = $response->getBody();
 			$respCode = $response->getStatusCode();
@@ -604,7 +637,7 @@ class JiraAPIService {
 			} else {
 				return json_decode($body, true);
 			}
-		} catch (\Exception | \Throwable $e) {
+		} catch (Exception | Throwable $e) {
 			$this->logger->warning('Jira OAuth error : '.$e->getMessage(), ['app' => $this->appName]);
 			return ['error' => $e->getMessage()];
 		}
