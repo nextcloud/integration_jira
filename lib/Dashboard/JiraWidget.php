@@ -23,12 +23,12 @@
 
 namespace OCA\Jira\Dashboard;
 
-use OC_Util;
 use OCP\Dashboard\IWidget;
 use OCP\IL10N;
+use OCP\Util;
+use OCP\IURLGenerator;
 
 use OCA\Jira\AppInfo\Application;
-use OCP\IURLGenerator;
 
 class JiraWidget implements IWidget {
 
@@ -84,7 +84,7 @@ class JiraWidget implements IWidget {
 	 * @inheritDoc
 	 */
 	public function load(): void {
-		OC_Util::addScript(Application::APP_ID, Application::APP_ID . '-dashboard');
-		OC_Util::addStyle(Application::APP_ID, 'dashboard');
+		Util::addScript(Application::APP_ID, Application::APP_ID . '-dashboard');
+		Util::addStyle(Application::APP_ID, 'dashboard');
 	}
 }
