@@ -7,6 +7,7 @@ OC.L10N.register(
     "Jira notifications" : "Jira Benachrichtigungen",
     "Jira" : "Jira",
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Sie haben %s offenen Fehler mit den jüngsten Aktivitäten in Jira.","Sie haben %s offene Fehler mit den neusten Aktivitäten in Jira."],
+    "Bad HTTP method" : "Ungültige HTTP-Methode",
     "Bad credentials" : "Falsche Anmeldeinformationen",
     "OAuth access token refused" : "OAuth-Zugriffstoken abgelehnt",
     "Connected accounts" : "Verbundene Konten",

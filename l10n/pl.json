@@ -5,6 +5,7 @@
     "Jira notifications" : "Powiadomienia Jira",
     "Jira" : "Jira",
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Masz %s otwarty problem od ostatniej aktywności w Jira.","Masz %s otwarte problemy od ostatniej aktywności w Jira.","Masz %s otwartych problemów od ostatniej aktywności w Jira.","Masz %s otwartych problemów od ostatniej aktywności w Jira."],
+    "Bad HTTP method" : "Zła metoda HTTP",
     "Bad credentials" : "Złe poświadczenia",
     "OAuth access token refused" : "Odmowa tokena dostępu OAuth",
     "Connected accounts" : "Połączone konta",

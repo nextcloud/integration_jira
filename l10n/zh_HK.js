@@ -7,6 +7,7 @@ OC.L10N.register(
     "Jira notifications" : "Jira 通告",
     "Jira" : "Jira",
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["您在Jira的近期活動中有%s個未解決的問題。"],
+    "Bad HTTP method" : "不正確的 HTTP 方法",
     "Bad credentials" : "錯誤的身分驗證",
     "OAuth access token refused" : "OAuth 存取權杖被拒絕",
     "Connected accounts" : "已連線的帳號",
