@@ -7,6 +7,7 @@ OC.L10N.register(
     "Jira notifications" : "Jira bildirimleri",
     "Jira" : "Jira",
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Jira üzerinde açık %s destek kaydınız var.","Jira üzerinde açık %s destek kaydınız var."],
+    "Bad HTTP method" : "HTTP yöntemi hatalı",
     "Bad credentials" : "Kimlik doğrulama bilgileri hatalı",
     "OAuth access token refused" : "OAuth erişim kodu reddedildi",
     "Connected accounts" : "Bağlı hesaplar",
