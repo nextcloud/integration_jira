@@ -7,6 +7,7 @@ OC.L10N.register(
     "Jira notifications" : "Jira jakinarazpenak",
     "Jira" : "Jira",
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["%sarazo ireki dituzu azkenaldiko jarduerekin Jiran.","%sarazo ireki dituzu azkenaldiko jarduerekin Jiran."],
+    "Bad HTTP method" : "HTTP metodo okerra",
     "Bad credentials" : "Kredentzial okerrak",
     "OAuth access token refused" : "QAuth sarbide tokena ukatua izan da",
     "Connected accounts" : "Konektaturiko kontuak",
