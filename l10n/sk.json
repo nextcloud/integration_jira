@@ -1,6 +1,23 @@
 { "translations": {
+    "Error getting OAuth access token." : "Chyba pri získavaní prístupového tokenu OAuth.",
+    "Error during OAuth exchanges" : "Chyba počas výmeny OAuth",
+    "Jira notifications" : "Oznámenia Jira",
+    "Jira" : "Jira",
+    "Bad HTTP method" : "Zlá metóda HTTP",
+    "Bad credentials" : "Nesprávne prihlasovacie údaje",
+    "OAuth access token refused" : "Prístupový token OAuth bol zamietnutý",
+    "Connected accounts" : "Prepojené účty",
+    "Jira integration" : "Jira integrácia",
+    "Jira app settings" : "Nastavenia aplikácie Jira",
     "Client ID" : "Client ID",
+    "ID of your application" : "ID vašej aplikácie",
     "Client secret" : "Heslo klienta",
+    "Your application secret" : "Aplikačný tajný kľúč",
+    "Instance address" : "Adresa inštancie",
+    "Connected as {username}" : "Pripojený ako {username}",
+    "Disconnect from Jira" : "Odpojiť od Jira",
+    "Jira Cloud" : "Jira Cloud",
+    "Connect to Jira Cloud" : "Pripojiť k Jira Cloud",
     "User" : "Používateľ",
     "Password" : "Heslo"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
