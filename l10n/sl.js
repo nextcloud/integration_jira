@@ -6,6 +6,7 @@ OC.L10N.register(
     "Error during OAuth exchanges" : "Napaka med izmenjavo podatkov OAuth",
     "Jira notifications" : "Obvestila Jira",
     "Jira" : "Jira",
+    "Bad HTTP method" : "Neustrezna metoda HTTP",
     "Bad credentials" : "Neustrezna poverila",
     "OAuth access token refused" : "Žeton OAuth za dostop je bil zavrnjen",
     "Connected accounts" : "Povezani računi",
