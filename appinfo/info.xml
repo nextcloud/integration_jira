@@ -6,7 +6,7 @@
 	<description><![CDATA[Jira integration provides a dashboard widget displaying your important notifications,
 a unified search provider to search for issues
 and notifications about recent activity related to your assigned issues.]]></description>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<licence>agpl</licence>
 	<author>Julien Veyssier</author>
 	<namespace>Jira</namespace>
@@ -19,9 +19,6 @@ and notifications about recent activity related to your assigned issues.]]></des
 	<bugs>https://github.com/nextcloud/integration_jira/issues</bugs>
 	<screenshot>https://github.com/nextcloud/integration_jira/raw/master/img/screenshot1.jpg</screenshot>
 	<dependencies>
-		<database min-version="9.4">pgsql</database>
-		<database>sqlite</database>
-		<database min-version="5.5">mysql</database>
 		<nextcloud min-version="22" max-version="24"/>
 	</dependencies>
 	<background-jobs>
