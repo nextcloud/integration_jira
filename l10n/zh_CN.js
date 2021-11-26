@@ -2,6 +2,7 @@ OC.L10N.register(
     "integration_jira",
     {
     "Error getting OAuth accessible resource list." : "获取OAuth访问清单出错",
+    "Error getting OAuth access token." : "获取 OAuth 访问令牌出错",
     "Error during OAuth exchanges" : "交换 OAuth 时出错",
     "Jira notifications" : "Jira通知",
     "Jira" : "Jira",
@@ -11,6 +12,7 @@ OC.L10N.register(
     "OAuth access token refused" : "OAuth 访问令牌拒绝",
     "Connected accounts" : "关联账号",
     "Jira integration" : "Jira 整合",
+    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Jira集成提供了一个仪表板小部件，用于显示您的重要通告，\n统一搜寻提供者以搜寻问题\n以及与您分配的问题相关的近期活动的通告。",
     "Jira app settings" : "Jira应用设置",
     "Client ID" : "客户端 ID",
     "Client secret" : "客户端密钥",
