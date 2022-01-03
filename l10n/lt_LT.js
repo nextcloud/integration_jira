@@ -25,6 +25,7 @@ OC.L10N.register(
     "Jira user name" : "„Jira“ naudotojo vardas",
     "Password" : "Slaptažodis",
     "Jira password" : "„Jira“ slaptažodis",
+    "Impossible to connect to Jira instance" : "Neįmanoma prisijungti prie „Jira“ egzemplioriaus",
     "Connect to Jira" : "Prisijungti prie „Jira“",
     "Failed to get Jira notifications" : "Nepavyko gauti „Jira“ pranešimų"
 },
