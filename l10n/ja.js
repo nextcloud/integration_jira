@@ -7,7 +7,9 @@ OC.L10N.register(
     "Connected accounts" : "接続済みアカウント",
     "Client ID" : "クライアントID",
     "Client secret" : "クライアント秘密鍵",
+    "Connected as {username}" : "{username}として接続しました",
     "User" : "ユーザー",
-    "Password" : "パスワード"
+    "Password" : "パスワード",
+    "Jira password" : "Jiraパスワード"
 },
 "nplurals=1; plural=0;");
