@@ -2,14 +2,22 @@ OC.L10N.register(
     "integration_jira",
     {
     "Error during OAuth exchanges" : "OAuth通信中のエラー",
+    "Jira notifications" : "Jira通知",
     "Bad credentials" : "不正な資格情報",
     "OAuth access token refused" : "OAuthアクセストークンが拒否されました",
     "Connected accounts" : "接続済みアカウント",
     "Client ID" : "クライアントID",
     "Client secret" : "クライアント秘密鍵",
     "Connected as {username}" : "{username}として接続しました",
+    "Disconnect from Jira" : "Jiraから接続を解除",
+    "Connect to Jira Cloud" : "Jira Cloudに接続",
+    "Jira address" : "Jiraアドレス",
     "User" : "ユーザー",
+    "Jira user name" : "Jiraユーザー名",
     "Password" : "パスワード",
-    "Jira password" : "Jiraパスワード"
+    "Jira password" : "Jiraパスワード",
+    "Connect to Jira" : "Jiraに接続",
+    "No Jira account connected" : "接続済みJiraアカウントがありません",
+    "No Jira notifications!" : "Jira通知がありません！"
 },
 "nplurals=1; plural=0;");
