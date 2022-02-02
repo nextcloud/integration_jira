@@ -7,6 +7,7 @@ OC.L10N.register(
     "Jira notifications" : "Jira értesítések",
     "Jira" : "Jira",
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["%s nyitott problémája van a Jira közelmúltbeli tevékenységével kapcsolatban.","%s nyitott problémája van a Jira közelmúltbeli tevékenységével kapcsolatban."],
+    "Bad HTTP method" : "Nem megfelelő HTTP folyamat",
     "Bad credentials" : "Hibás hitelesítő adatok",
     "OAuth access token refused" : "Az OAuth hozzáférési token lekérése visszautasítva",
     "Connected accounts" : "Kapcsolt fiókok",
