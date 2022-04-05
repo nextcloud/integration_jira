@@ -58,4 +58,4 @@ OC.L10N.register(
     "No Jira notifications!" : "Aucune notification Jira",
     "Failed to get Jira notifications" : "Impossible d'obtenir les notifications Jira"
 },
-"nplurals=2; plural=(n > 1);");
+"nplurals=3; plural=(n==0 || n==1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
