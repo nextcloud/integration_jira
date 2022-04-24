@@ -1,10 +1,12 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error getting OAuth access token." : "שגיאה בקבלת אסימון גישה מסוג OAuth.",
     "Error during OAuth exchanges" : "שגיאה במהלך החלפות OAuth",
     "Jira notifications" : "התראות Jira",
     "Jira" : "Jira",
     "Bad credentials" : "פרטי גישה שגויים",
+    "OAuth access token refused" : "אסימון הגישה ב־OAuth סורב",
     "Connected accounts" : "חשבונות מחוברים",
     "Jira integration" : "שילוב עם Jira",
     "Jira app settings" : "הגדרות יישומון Jira",

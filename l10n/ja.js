@@ -8,6 +8,7 @@ OC.L10N.register(
     "Connected accounts" : "接続済みアカウント",
     "Client ID" : "クライアントID",
     "Client secret" : "クライアント秘密鍵",
+    "Instance address" : "インスタンスのアドレス",
     "Connected as {username}" : "{username}として接続しました",
     "Disconnect from Jira" : "Jiraから接続を解除",
     "Connect to Jira Cloud" : "Jira Cloudに接続",

@@ -2,6 +2,9 @@ OC.L10N.register(
     "integration_jira",
     {
     "Jira" : "Jira",
+    "Bad HTTP method" : "Felaktig HTTP-metod",
+    "Bad credentials" : "Ogiltiga inloggningsuppgifter",
+    "Connected accounts" : "Anslutna konton",
     "Jira integration" : "Jira-integrering",
     "Client ID" : "Klient-ID",
     "Client secret" : "Klienthemlighet",
