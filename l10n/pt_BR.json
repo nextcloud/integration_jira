@@ -4,7 +4,7 @@
     "Error during OAuth exchanges" : "Erro durante as trocas de autenticação OAuth",
     "Jira notifications" : "Notificações Jira",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Você tem %s um problema em aberto com atividades recentes no Jira.","Você tem %s problemas em aberto com atividades recentes no Jira."],
+    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Você tem %s um problema em aberto com atividades recentes no Jira.","Você tem %s problemas em aberto com atividades recentes no Jira.","Você tem %s problemas em aberto com atividades recentes no Jira."],
     "Bad HTTP method" : "Método HTTP ruim",
     "Bad credentials" : "Credenciais erradas",
     "OAuth access token refused" : "Token de acesso OAuth recusado",
@@ -55,5 +55,5 @@
     "Error connecting to Jira" : "Erro ao conectar ao Jira",
     "No Jira notifications!" : "Sem notificações Jira!",
     "Failed to get Jira notifications" : "Falha ao obter notificações Jira"
-},"pluralForm" :"nplurals=2; plural=(n > 1);"
+},"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

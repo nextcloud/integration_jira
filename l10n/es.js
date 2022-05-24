@@ -6,7 +6,7 @@ OC.L10N.register(
     "Error during OAuth exchanges" : "Error durante los intercambios OAuth",
     "Jira notifications" : "Notificaciones de Jira",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Tienes %s issue abierto con actividad reciente en Jira.","Tienes %s issues abiertos con actividad reciente en Jira."],
+    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Tienes %s issue abierto con actividad reciente en Jira.","Tienes %s issues abiertos con actividad reciente en Jira.","Tienes %s issues abiertos con actividad reciente en Jira."],
     "Bad HTTP method" : "Método HTTP incorrecto",
     "Bad credentials" : "Credenciales incorrectas",
     "OAuth access token refused" : "Token de acceso OAuth rechazado",
@@ -58,4 +58,4 @@ OC.L10N.register(
     "No Jira notifications!" : "¡No hay notificaciones de Jira!",
     "Failed to get Jira notifications" : "Fallo al obtener las notificaciones de Jira."
 },
-"nplurals=2; plural=(n != 1);");
+"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
