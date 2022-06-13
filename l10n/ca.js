@@ -10,7 +10,7 @@ OC.L10N.register(
     "Bad HTTP method" : "Mètode HTTP incorrecte",
     "Bad credentials" : "Credencials dolentes",
     "OAuth access token refused" : "S'ha rebutjat el testimoni d'accés oAuth",
-    "Connected accounts" : "Comptes connectades",
+    "Connected accounts" : "Comptes connectats",
     "Jira integration" : "Integració de Jira",
     "Integration of Jira user support/ticketing solution" : "Integració de la solució Jira d'atenció/peticions a usuaris",
     "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "La integració de Jira proporciona un estri d'escriptori digital que mostra les vostres notificacions importants,\nun proveïdor de cerca unificat per cercar problemes\ni notificacions sobre activitats recents relacionades amb els problemes que tingui assignats.",
