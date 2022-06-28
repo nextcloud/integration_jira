@@ -17,6 +17,8 @@ OC.L10N.register(
     "Instance address" : "Instanssin osoite",
     "Connected as {username}" : "Yhdistetty käyttäjänä {username}",
     "Disconnect from Jira" : "Katkaise yhteys Jiraan",
+    "Jira Cloud" : "Jira Cloud",
+    "Connect to Jira Cloud" : "Yhdistä Jira Cloudiin",
     "Jira address" : "Jira-osoite",
     "User" : "Käyttäjä",
     "Jira user name" : "Jira-käyttäjätunnus",
