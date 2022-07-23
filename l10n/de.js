@@ -39,7 +39,7 @@ OC.L10N.register(
     "Self-hosted Jira Software" : "Selbst gehostete Jira-Software",
     "Jira self-hosted instance address" : "Adresse der selbst gehosteten Jira-Instanz",
     "Jira address" : "Jira-Adresse",
-    "User" : "Benötigt keine Übersetzung. Für Android wird nur die formelle Übersetzung verwendet (de_DE).",
+    "User" : "Benutzer",
     "Jira user name" : "Jira-Benutzername",
     "Password" : "Passwort",
     "Jira password" : "Jira-Passwort",
