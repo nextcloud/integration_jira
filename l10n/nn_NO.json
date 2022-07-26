@@ -1,5 +1,6 @@
 { "translations": {
     "Connected accounts" : "Tilkopla kontoar",
+    "Client ID" : "Klient-ID",
     "User" : "Bruker",
     "Password" : "Passord"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
