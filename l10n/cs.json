@@ -11,7 +11,7 @@
     "Connected accounts" : "Propojené účty",
     "Jira integration" : "Napojení na Jira",
     "Integration of Jira user support/ticketing solution" : "Napojení na řešení podpory uživatelů / správy hlášení problémů Jira",
-    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Napojení na Jira poskytuje ovládací prvek pro přehled zobrazující důležitá upozornění pro vás\na sjednoceného poskytovatele vyhledávání v hlášeních chyb a upozornění na nedávnou aktivitu související s hlášeními problémů, které máte přidělené.",
+    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Napojení na Jira poskytuje ovládací prvek pro nástěnku, zobrazující důležitá upozornění pro vás,\ndále poskytovatele do sjednoceného vyhledávání pro hledání v hlášeních chyb a také upozorňování na nedávnou aktivitu, související s hlášeními problémů, které vám jsou přidělené.",
     "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Pokud chcete svým Nextcloud uživatelům umožnit použití ověření pomocí Jira OAuth, vytvořte v nastavení správy Jira aplikaci a nastavte zde její identifikátor a tajemství.",
     "Jira app settings" : "Nastavení Jira aplikace",
     "Make sure you set the redirection/callback URL to" : "Ověřte, že jste nastavili „URL adresu přesměrování / zpětného volání“ na",
