@@ -28,7 +28,7 @@ OC.L10N.register(
     "Instance address" : "Példány címe",
     "Jira admin options saved" : "Jira rendszergazdai beállítások mentve",
     "Failed to save Jira admin options" : "A Jira rendszergazdai beállítások mentése sikertelen",
-    "Connected as {username}" : "Kapcsolódva {user} felhasználóként",
+    "Connected as {username}" : "Kapcsolódva mint {user}",
     "Disconnect from Jira" : "Kapcsolat bontása a Jirával",
     "Enable unified search for tickets" : "Egyesített kereső engedélyezése a jegyekhez",
     "Warning, everything you type in the search bar will be sent to Jira." : "Figyelem, minden el lesz küldve a Jirának, amit a keresősávba ír.",
@@ -55,7 +55,7 @@ OC.L10N.register(
     "Connect to Jira" : "Kapcsolódás a Jirához",
     "No Jira account connected" : "Nincs Jira-fiók csatlakoztatva",
     "Error connecting to Jira" : "Hiba történt a Jirához történő csatlakozáskor",
-    "No Jira notifications!" : "Nincsenek Jira értesítések!",
+    "No Jira notifications!" : "Nincsenek Jira-értesítések.",
     "Failed to get Jira notifications" : "A Jira értesítések lekérése sikertelen"
 },
 "nplurals=2; plural=(n != 1);");
