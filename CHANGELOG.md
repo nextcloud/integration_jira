@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.0.3 – 2022-08-29
+### Changed
+- adjust to NC 25
+- bump js libs
+
 ## 1.0.1 – 2021-06-28
 ### Changed
 - stop polling widget content when document is hidden
