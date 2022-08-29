@@ -1,42 +1,40 @@
 <template>
 	<div id="jira_prefs" class="section">
 		<h2>
-			<a class="icon icon-jira" />
+			<JiraIcon class="icon" />
 			{{ t('integration_jira', 'Jira integration') }}
 		</h2>
 		<div id="jira-content">
 			<div v-if="connected">
-				<div class="jira-grid-form">
+				<div class="line">
 					<label>
-						<a class="icon icon-checkmark-color" />
+						<CheckIcon :size="20" class="icon" />
 						{{ t('integration_jira', 'Connected as {username}', { username: state.user_name }) }}
 					</label>
-					<button @click="onLogoutClick">
-						<span class="icon icon-close" />
+					<NcButton @click="onLogoutClick">
+						<template #icon>
+							<CloseIcon :size="20" />
+						</template>
 						{{ t('integration_jira', 'Disconnect from Jira') }}
-					</button>
+					</NcButton>
 				</div>
 
 				<div id="jira-search-block">
-					<input
-						id="search-jira"
-						type="checkbox"
-						class="checkbox"
-						:checked="state.search_enabled"
-						@input="onSearchChange">
-					<label for="search-jira">{{ t('integration_jira', 'Enable unified search for tickets') }}</label>
-					<br><br>
+					<CheckboxRadioSwitch
+						:checked.sync="state.search_enabled"
+						@update:checked="onCheckboxChanged($event, 'search_enabled')">
+						{{ t('integration_jira', 'Enable unified search for tickets') }}
+					</CheckboxRadioSwitch>
+					<br>
 					<p v-if="state.search_enabled" class="settings-hint">
-						<span class="icon icon-details" />
+						<InformationOutlineIcon :size="20" class="icon" />
 						{{ t('integration_jira', 'Warning, everything you type in the search bar will be sent to Jira.') }}
 					</p>
-					<input
-						id="notification-jira"
-						type="checkbox"
-						class="checkbox"
-						:checked="state.notification_enabled"
-						@input="onNotificationChange">
-					<label for="notification-jira">{{ t('integration_jira', 'Enable notifications for open tickets') }}</label>
+					<CheckboxRadioSwitch
+						:checked.sync="state.notification_enabled"
+						@update:checked="onCheckboxChanged($event, 'notification_enabled')">
+						{{ t('integration_jira', 'Enable notifications for open tickets') }}
+					</CheckboxRadioSwitch>
 				</div>
 			</div>
 			<div v-else>
@@ -45,12 +43,14 @@
 					{{ t('integration_jira', 'Jira Cloud') }}
 				</h3>
 				<div v-if="showOAuth">
-					<button
+					<NcButton
 						class="oauth-connect"
 						@click="onOAuthClick">
-						<span class="icon icon-external" />
+						<template #icon>
+							<OpenInNewIcon :size="20" />
+						</template>
 						{{ t('integration_jira', 'Connect to Jira Cloud') }}
-					</button>
+					</NcButton>
 					<br><br>
 				</div>
 				<div v-else>
@@ -60,12 +60,12 @@
 					<br>
 				</div>
 				<h3>
-					<span class="icon icon-home" />
+					<HomeIcon :size="20" class="icon" />
 					{{ t('integration_jira', 'Self-hosted Jira Software') }}
 				</h3>
-				<div class="jira-grid-form jira-sub">
+				<div class="line">
 					<label>
-						<span class="icon icon-link" />
+						<EarthIcon :size="20" class="icon" />
 						{{ t('integration_jira', 'Jira self-hosted instance address') }}
 					</label>
 					<input v-if="state.forced_instance_url"
@@ -77,8 +77,10 @@
 						v-model="state.url"
 						type="text"
 						:placeholder="t('integration_jira', 'Jira address')">
+				</div>
+				<div class="line">
 					<label v-show="state.forced_instance_url || state.url">
-						<span class="icon icon-user" />
+						<AccountIcon :size="20" class="icon" />
 						{{ t('integration_jira', 'User') }}
 					</label>
 					<input v-show="state.forced_instance_url || state.url"
@@ -86,8 +88,10 @@
 						type="text"
 						:placeholder="t('integration_jira', 'Jira user name')"
 						@keyup.enter="onSelfHostedAuth">
+				</div>
+				<div class="line">
 					<label v-show="state.forced_instance_url || state.url">
-						<span class="icon icon-password" />
+						<LockIcon :size="20" class="icon" />
 						{{ t('integration_jira', 'Password') }}
 					</label>
 					<input v-show="state.forced_instance_url || state.url"
@@ -95,29 +99,56 @@
 						type="password"
 						:placeholder="t('integration_jira', 'Jira password')"
 						@keyup.enter="onSelfHostedAuth">
-					<button v-show="state.forced_instance_url || state.url"
-						:class="{ loading: connecting }"
-						@click="onSelfHostedAuth">
-						<span class="icon icon-external" />
-						{{ t('integration_jira', 'Connect to this Jira instance') }}
-					</button>
 				</div>
+				<NcButton v-show="state.forced_instance_url || state.url"
+					:class="{ loading: connecting }"
+					:disabled="!login || !password"
+					@click="onSelfHostedAuth">
+					<template #icon>
+						<OpenInNewIcon :size="20" />
+					</template>
+					{{ t('integration_jira', 'Connect to this Jira instance') }}
+				</NcButton>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
+import CheckIcon from 'vue-material-design-icons/Check.vue'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
+import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
+import LockIcon from 'vue-material-design-icons/Lock.vue'
+import EarthIcon from 'vue-material-design-icons/Earth.vue'
+import HomeIcon from 'vue-material-design-icons/Home.vue'
+import AccountIcon from 'vue-material-design-icons/Account.vue'
+
+import JiraIcon from './icons/JiraIcon.vue'
+
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import { showSuccess, showError } from '@nextcloud/dialogs'
-import '@nextcloud/dialogs/styles/toast.scss'
+
+import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch.js'
+import NcButton from '@nextcloud/vue/dist/Components/Button.js'
 
 export default {
 	name: 'PersonalSettings',
 
 	components: {
+		NcButton,
+		CheckboxRadioSwitch,
+		JiraIcon,
+		CheckIcon,
+		CloseIcon,
+		OpenInNewIcon,
+		InformationOutlineIcon,
+		EarthIcon,
+		HomeIcon,
+		LockIcon,
+		AccountIcon,
 	},
 
 	props: [],
@@ -168,6 +199,9 @@ export default {
 		onSearchChange(e) {
 			this.state.search_enabled = e.target.checked
 			this.saveOptions({ search_enabled: this.state.search_enabled ? '1' : '0' })
+		},
+		onCheckboxChanged(newValue, key) {
+			this.saveOptions({ [key]: newValue ? '1' : '0' })
 		},
 		saveOptions(values) {
 			const req = {
@@ -262,58 +296,39 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.jira-sub,
-.oauth-connect {
-	margin-left: 40px;
-}
+#jira_prefs {
+	#jira-content {
+		margin-left: 40px;
+	}
 
-#jira-search-block {
-	margin-top: 30px;
-}
+	h3 {
+		font-weight: bold;
+	}
 
-.jira-grid-form label {
-	line-height: 38px;
-}
+	h2,
+	h3,
+	.line,
+	.settings-hint {
+		display: flex;
+		align-items: center;
+		.icon {
+			margin-right: 4px;
+		}
+	}
 
-.jira-grid-form input {
-	width: 100%;
-}
+	h2 .icon {
+		margin-right: 8px;
+	}
 
-.jira-grid-form {
-	max-width: 600px;
-	display: grid;
-	grid-template: 1fr / 1fr 1fr;
-	button .icon {
-		margin-bottom: -1px;
+	.line {
+		> label {
+			width: 300px;
+			display: flex;
+			align-items: center;
+		}
+		> input {
+			width: 300px;
+		}
 	}
 }
-
-#jira_prefs .icon {
-	display: inline-block;
-	width: 32px;
-}
-
-#jira_prefs .grid-form .icon {
-	margin-bottom: -3px;
-}
-
-.icon-jira {
-	background-image: url(./../../img/app-dark.svg);
-	background-size: 23px 23px;
-	height: 23px;
-	margin-bottom: -4px;
-}
-
-body.theme--dark .icon-jira {
-	background-image: url(./../../img/app.svg);
-}
-
-#jira-content {
-	margin-left: 40px;
-}
-
-#jira-search-block .icon {
-	width: 22px;
-}
-
 </style>

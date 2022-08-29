@@ -5,13 +5,20 @@
 		:loading="state === 'loading'">
 		<template #empty-content>
 			<EmptyContent
-				v-if="emptyContentMessage"
-				:icon="emptyContentIcon">
+				v-if="emptyContentMessage">
+				<template #icon>
+					<component :is="emptyContentIcon" />
+				</template>
 				<template #desc>
 					{{ emptyContentMessage }}
 					<div v-if="state === 'no-token' || state === 'error'" class="connect-button">
-						<a class="button" :href="settingsUrl">
-							{{ t('integration_jira', 'Connect to Jira') }}
+						<a :href="settingsUrl">
+							<NcButton>
+								<template #icon>
+									<LoginVariantIcon :size="20" />
+								</template>
+								{{ t('integration_jira', 'Connect to Jira') }}
+							</NcButton>
 						</a>
 					</div>
 				</template>
@@ -21,19 +28,31 @@
 </template>
 
 <script>
+import LoginVariantIcon from 'vue-material-design-icons/LoginVariant.vue'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
+import CheckIcon from 'vue-material-design-icons/Check.vue'
+
+import JiraIcon from '../components/icons/JiraIcon.vue'
+
 import axios from '@nextcloud/axios'
-import { generateUrl } from '@nextcloud/router'
+import { generateUrl, imagePath } from '@nextcloud/router'
 import { DashboardWidget } from '@nextcloud/vue-dashboard'
 import { showError } from '@nextcloud/dialogs'
-import '@nextcloud/dialogs/styles/toast.scss'
 import moment from '@nextcloud/moment'
-import EmptyContent from '@nextcloud/vue/dist/Components/EmptyContent'
+import EmptyContent from '@nextcloud/vue/dist/Components/EmptyContent.js'
+import NcButton from '@nextcloud/vue/dist/Components/Button.js'
 
 export default {
 	name: 'Dashboard',
 
 	components: {
-		DashboardWidget, EmptyContent,
+		DashboardWidget,
+		EmptyContent,
+		NcButton,
+		JiraIcon,
+		LoginVariantIcon,
+		CloseIcon,
+		CheckIcon,
 	},
 
 	props: {
@@ -103,13 +122,13 @@ export default {
 		},
 		emptyContentIcon() {
 			if (this.state === 'no-token') {
-				return 'icon-jira'
+				return JiraIcon
 			} else if (this.state === 'error') {
-				return 'icon-close'
+				return CloseIcon
 			} else if (this.state === 'ok') {
-				return 'icon-checkmark'
+				return CheckIcon
 			}
-			return 'icon-checkmark'
+			return CheckIcon
 		},
 	},
 
@@ -213,7 +232,7 @@ export default {
 			// } else if (n.type_lookup_id === 3 || n.type === 'create') {
 			// return generateUrl('/svg/integration_jira/add?color=ffffff')
 			// }
-			return generateUrl('/svg/core/actions/sound?color=' + this.darkThemeColor)
+			return imagePath('integration_jira', 'sound-border.svg')
 		},
 		getSubline(n) {
 			return this.getCreatorDisplayName(n) + ' #' + n.key
