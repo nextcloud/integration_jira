@@ -6,10 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## 1.0.3 – 2022-08-29
+## 1.0.4 – 2022-08-29
 ### Changed
 - adjust to NC 25
 - bump js libs
+- token refresh is now based on expiration date
+
+### Fixed
+- token refresh was not storing the new refresh token
 
 ## 1.0.1 – 2021-06-28
 ### Changed
