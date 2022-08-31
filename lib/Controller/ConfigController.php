@@ -11,6 +11,7 @@
 
 namespace OCA\Jira\Controller;
 
+use DateTime;
 use OCP\IURLGenerator;
 use OCP\IConfig;
 use OCP\IL10N;
@@ -72,15 +73,21 @@ class ConfigController extends Controller {
 			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
 		}
 
+		if (isset($values['url']) && $values['url'] === '') {
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'url');
+		}
+
 		if (isset($values['user_name']) && $values['user_name'] === '') {
 			// logout
-			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', '');
-			$this->config->setUserValue($this->userId, Application::APP_ID, 'token', '');
-			$this->config->setUserValue($this->userId, Application::APP_ID, 'refresh_token', '');
-			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_key', '');
-			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_account_id', '');
-			$this->config->setUserValue($this->userId, Application::APP_ID, 'resources', '');
-			$this->config->setUserValue($this->userId, Application::APP_ID, 'last_open_check', '');
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'basic_auth_header');
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'token');
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'refresh_token');
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'url');
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'user_key');
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'user_name');
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'user_account_id');
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'resources');
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'last_open_check');
 		}
 
 		return new DataResponse(1);
@@ -142,7 +149,7 @@ class ConfigController extends Controller {
 		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
 
 		// anyway, reset state
-		$this->config->setUserValue($this->userId, Application::APP_ID, 'oauth_state', '');
+		$this->config->deleteUserValue($this->userId, Application::APP_ID, 'oauth_state');
 
 		if ($clientID && $clientSecret && $configState !== '' && $configState === $state) {
 			$redirect_uri = $this->config->getUserValue($this->userId, Application::APP_ID, 'redirect_uri');
@@ -158,14 +165,19 @@ class ConfigController extends Controller {
 				$this->config->setUserValue($this->userId, Application::APP_ID, 'token', $accessToken);
 				$refreshToken = $result['refresh_token'];
 				$this->config->setUserValue($this->userId, Application::APP_ID, 'refresh_token', $refreshToken);
+				if (isset($result['expires_in'])) {
+					$nowTs = (new Datetime())->getTimestamp();
+					$expiresAt = $nowTs + (int) $result['expires_in'];
+					$this->config->setUserValue($this->userId, Application::APP_ID, 'token_expires_at', $expiresAt);
+				}
 				// get accessible resources
-				$resources = $this->jiraAPIService->oauthRequest($accessToken, $refreshToken, $clientID, $clientSecret, $this->userId, 'oauth/token/accessible-resources');
+				$resources = $this->jiraAPIService->oauthRequest($this->userId, 'oauth/token/accessible-resources');
 				if (!isset($resources['error']) && count($resources) > 0) {
 					$encodedResources = json_encode($resources);
 					$this->config->setUserValue($this->userId, Application::APP_ID, 'resources', $encodedResources);
 					// get user info
 					$cloudId = $resources[0]['id'];
-					$info = $this->jiraAPIService->oauthRequest($accessToken, $refreshToken, $clientID, $clientSecret, $this->userId, 'ex/jira/'.$cloudId.'/rest/api/2/myself');
+					$info = $this->jiraAPIService->oauthRequest($this->userId, 'ex/jira/' . $cloudId . '/rest/api/2/myself');
 					if (isset($info['accountId'], $info['displayName'])) {
 						$this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
 						// in cloud version, accountId is there and key is not

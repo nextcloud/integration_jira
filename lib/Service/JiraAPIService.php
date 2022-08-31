@@ -14,6 +14,7 @@ namespace OCA\Jira\Service;
 use DateTime;
 use Exception;
 use OCP\IL10N;
+use OCP\PreConditionNotMetException;
 use Psr\Log\LoggerInterface;
 use OCP\IConfig;
 use OCP\IUserManager;
@@ -28,10 +29,6 @@ use OCA\Jira\AppInfo\Application;
 use Throwable;
 
 class JiraAPIService {
-	/**
-	 * @var string
-	 */
-	private $appName;
 	/**
 	 * @var IUserManager
 	 */
@@ -60,15 +57,13 @@ class JiraAPIService {
 	/**
 	 * Service to make requests to Jira v3 (JSON) API
 	 */
-	public function __construct (
-								string $appName,
+	public function __construct (string $appName,
 								IUserManager $userManager,
 								LoggerInterface $logger,
 								IL10N $l10n,
 								IConfig $config,
 								INotificationManager $notificationManager,
 								IClientService $clientService) {
-		$this->appName = $appName;
 		$this->userManager = $userManager;
 		$this->logger = $logger;
 		$this->l10n = $l10n;
@@ -92,6 +87,7 @@ class JiraAPIService {
 	/**
 	 * @param string $userId
 	 * @return void
+	 * @throws PreConditionNotMetException
 	 */
 	private function checkOpenTicketsForUser(string $userId): void {
 		$notificationEnabled = ($this->config->getUserValue($userId, Application::APP_ID, 'notification_enabled', '0') === '1');
@@ -200,21 +196,12 @@ class JiraAPIService {
 			}
 		} else {
 			// Jira cloud
-			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
-			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
-			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
-			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
-			if ($accessToken === '' || $refreshToken === '') {
-				return ['error' => 'no credentials'];
-			}
 			$resources = $this->getJiraResources($userId);
 
 			foreach ($resources as $resource) {
 				$cloudId = $resource['id'];
 				$jiraUrl = $resource['url'];
-				$issuesResult = $this->oauthRequest(
-					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/' . $cloudId . '/' . $endPoint
-				);
+				$issuesResult = $this->oauthRequest($userId, 'ex/jira/' . $cloudId . '/' . $endPoint);
 				if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
 					foreach ($issuesResult['issues'] as $k => $issue) {
 						$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
@@ -305,23 +292,13 @@ class JiraAPIService {
 			}
 		} else {
 			// Jira cloud
-			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
-			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
-			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
-			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
-			if ($accessToken === '' || $refreshToken === '') {
-				return ['error' => 'no credentials'];
-			}
-
 			$resources = $this->getJiraResources($userId);
 			$myIssues = [];
 
 			foreach ($resources as $resource) {
 				$cloudId = $resource['id'];
 				$jiraUrl = $resource['url'];
-				$issuesResult = $this->oauthRequest(
-					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/' . $cloudId . '/' . $endPoint, $params
-				);
+				$issuesResult = $this->oauthRequest($userId, 'ex/jira/' . $cloudId . '/' . $endPoint, $params);
 				if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
 					foreach ($issuesResult['issues'] as $k => $issue) {
 						$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
@@ -379,9 +356,7 @@ class JiraAPIService {
 			foreach ($resources as $resource) {
 				$cloudId = $resource['id'];
 //				$jiraUrl = $resource['url'];
-				$result = $this->oauthRequest(
-					$accessToken, $refreshToken, $clientID, $clientSecret, $userId, 'ex/jira/' . $cloudId . '/' . $endPoint, $params
-				);
+				$result = $this->oauthRequest($userId, 'ex/jira/' . $cloudId . '/' . $endPoint, $params);
 				if (!isset($result['error'])) {
 					return $result;
 				}
@@ -490,28 +465,25 @@ class JiraAPIService {
 				return json_decode($body, true);
 			}
 		} catch (ServerException | ClientException $e) {
-			$this->logger->warning('Jira API error : '.$e->getMessage(), ['app' => $this->appName]);
+			$this->logger->warning('Jira API error : '.$e->getMessage(), ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		} catch (ConnectException $e) {
-			$this->logger->warning('Jira API connection error : '.$e->getMessage(), ['app' => $this->appName]);
+			$this->logger->warning('Jira API connection error : '.$e->getMessage(), ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		}
 	}
 
 	/**
-	 * @param string $accessToken
-	 * @param string $refreshToken
-	 * @param string $clientID
-	 * @param string $clientSecret
 	 * @param string $userId
 	 * @param string $endPoint
 	 * @param array $params
 	 * @param string $method
 	 * @return array
+	 * @throws PreConditionNotMetException
 	 */
-	public function oauthRequest(string $accessToken, string $refreshToken,
-							string $clientID, string $clientSecret, string $userId,
-							string $endPoint, array $params = [], string $method = 'GET'): array {
+	public function oauthRequest(string $userId, string $endPoint, array $params = [], string $method = 'GET'): array {
+		$this->checkTokenExpiration($userId);
+		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
 		try {
 			$url = Application::JIRA_API_URL . '/' . $endPoint;
 			$options = [
@@ -565,33 +537,72 @@ class JiraAPIService {
 				return $decodedResult;
 			}
 		} catch (ServerException | ClientException $e) {
-			$response = $e->getResponse();
-//			$body = (string) $response->getBody();
-			// refresh token if it's invalid
-			// response can be : 'response:\n{\"code\":401,\"message\":\"Unauthorized\"}'
-			if ($response->getStatusCode() === 401) {
-				$this->logger->info('Trying to REFRESH the access token', ['app' => $this->appName]);
-				// try to refresh the token
-				$result = $this->requestOAuthAccessToken([
-					'client_id' => $clientID,
-					'client_secret' => $clientSecret,
-					'grant_type' => 'refresh_token',
-					'refresh_token' => $refreshToken,
-				], 'POST');
-				if (isset($result['access_token'])) {
-					$accessToken = $result['access_token'];
-					$this->config->setUserValue($userId, Application::APP_ID, 'token', $accessToken);
-					// retry the request with new access token
-					return $this->oauthRequest(
-						$accessToken, $refreshToken, $clientID, $clientSecret, $userId, $endPoint, $params, $method
-					);
-				}
-			}
-			$this->logger->warning('Jira API error : '.$e->getMessage(), ['app' => $this->appName]);
+			$this->logger->warning('Jira API error : '.$e->getMessage(), ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		} catch (ConnectException $e) {
-			$this->logger->warning('Jira API connection error : '.$e->getMessage(), ['app' => $this->appName]);
+			$this->logger->warning('Jira API connection error : '.$e->getMessage(), ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
+		}
+	}
+
+	/**
+	 * @param string $userId
+	 * @return void
+	 * @throws PreConditionNotMetException
+	 */
+	private function checkTokenExpiration(string $userId): void {
+		$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
+		$expireAt = $this->config->getUserValue($userId, Application::APP_ID, 'token_expires_at');
+		if ($refreshToken !== '' && $expireAt !== '') {
+			$nowTs = (new Datetime())->getTimestamp();
+			$expireAt = (int) $expireAt;
+			// if token expires in less than a minute or is already expired
+			if ($nowTs > $expireAt - 60) {
+				$this->refreshToken($userId);
+			}
+		}
+	}
+
+	/**
+	 * @param string $userId
+	 * @return bool
+	 * @throws PreConditionNotMetException
+	 */
+	private function refreshToken(string $userId): bool	{
+		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
+		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
+		$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
+		if (!$refreshToken) {
+			$this->logger->error('No Jira refresh token found', ['app' => Application::APP_ID]);
+			return false;
+		}
+
+		$result = $this->requestOAuthAccessToken([
+			'client_id' => $clientID,
+			'client_secret' => $clientSecret,
+			'grant_type' => 'refresh_token',
+			'refresh_token' => $refreshToken,
+		], 'POST');
+		if (isset($result['access_token'], $result['refresh_token'])) {
+			$accessToken = $result['access_token'];
+			$refreshToken = $result['refresh_token'];
+			$this->config->setUserValue($userId, Application::APP_ID, 'token', $accessToken);
+			$this->config->setUserValue($userId, Application::APP_ID, 'refresh_token', $refreshToken);
+			if (isset($result['expires_in'])) {
+				$nowTs = (new Datetime())->getTimestamp();
+				$expiresAt = $nowTs + (int) $result['expires_in'];
+				$this->config->setUserValue($userId, Application::APP_ID, 'token_expires_at', $expiresAt);
+			}
+			return true;
+		} else {
+			// impossible to refresh the token
+			$this->logger->error(
+				'Token is not valid anymore. Impossible to refresh it. '
+				. $result['error'] . ' '
+				. $result['error_description'] ?? '[no error description]',
+				['app' => Application::APP_ID]
+			);
+			return false;
 		}
 	}
 
@@ -638,7 +649,7 @@ class JiraAPIService {
 				return json_decode($body, true);
 			}
 		} catch (Exception | Throwable $e) {
-			$this->logger->warning('Jira OAuth error : '.$e->getMessage(), ['app' => $this->appName]);
+			$this->logger->warning('Jira OAuth error : '.$e->getMessage(), ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		}
 	}
