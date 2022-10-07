@@ -24,6 +24,7 @@ OC.L10N.register(
     "ID of your application" : "Αναγνωριστικό της εφαρμογής σας",
     "Client secret" : "Μυστικό πελάτη",
     "Your application secret" : "Το μυστικό της αίτησής σας",
+    "Restrict self hosted URL to" : "Περιορίστε τη διεύθυνση URL που φιλοξενείται από εσάς σε",
     "Instance address" : "Διεύθυνση παρουσίας",
     "Jira admin options saved" : "Οι επιλογές διαχειριστή Jira αποθηκεύτηκαν",
     "Failed to save Jira admin options" : "Αποτυχία αποθήκευσης των επιλογών διαχειριστή Jira",
