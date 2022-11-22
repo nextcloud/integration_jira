@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error getting OAuth access token." : "Kunde inte hämta OAuth-token.",
     "Error during OAuth exchanges" : "Fel vid utväxling av OAuth-token",
     "Jira" : "Jira",
     "Bad HTTP method" : "Felaktig HTTP-metod",
@@ -12,6 +13,7 @@ OC.L10N.register(
     "Client secret" : "Klienthemlighet",
     "Connected as {username}" : "Ansluten som {user}",
     "Warning, everything you type in the search bar will be sent to Jira." : "Varning, allt du skriver i sökfältet skickas till Jira.",
+    "Enable notifications for open tickets" : "Aktivera aviseringar för öppna ärenden",
     "User" : "Användare",
     "Password" : "Lösenord"
 },
