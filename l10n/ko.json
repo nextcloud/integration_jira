@@ -8,6 +8,7 @@
     "Client secret" : "클라이언트 비밀 값",
     "User" : "사용자",
     "Password" : "암호",
-    "OAuth access token could not be obtained:" : "OAuth 접근 토큰을 얻을 수 없었습니다: "
+    "OAuth access token could not be obtained:" : "OAuth 접근 토큰을 얻을 수 없었습니다: ",
+    "No Jira account connected" : "연결된 Jira 계정ㅇ 없음"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

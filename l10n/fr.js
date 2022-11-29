@@ -49,7 +49,7 @@ OC.L10N.register(
     "Jira options saved" : "Options Jira enregistrées",
     "Failed to save Jira options" : "Impossible d'enregistrer les options Jira",
     "Impossible to connect to Jira instance" : "Échec de la connexion à l'instance Jira",
-    "Login/password are invalid or account is locked" : "Les identifiant ne sont pas corrects ou le compte est bloqué",
+    "Login/password are invalid or account is locked" : "Les identifiants ne sont pas corrects ou le compte est bloqué",
     "Failed to connect to Jira Software" : "Échec de la connexion à l'application Jira",
     "Failed to save Jira OAuth state" : "Échec de l'enregistrement de l'état OAuth de Jira",
     "Connect to Jira" : "Se connecter à Jira",
