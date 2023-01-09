@@ -11,6 +11,7 @@
     "Jira integration" : "Združevalnik Jira",
     "Integration of Jira user support/ticketing solution" : "Združevalnik za podporni/kartični sistem Jira",
     "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Združevalnik Jira omogoča uporabo gradnikov nadzorne plošče, ki prikazujejo pomembna obvestila,\nenotno iskalno orodje za brskanje med prijavljenimi napakami in objavami\nin obvestila o nedavni dejavnosti pri vaših objavah.",
+    "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Za overitev okolja Jira znotraj oblaka Nextcloud je treba ustvariti program za overitev preko možnosti OAuth. Med skrbniškimi nastavitvami Jira nastavite določilo ID programa in skrivno geslo.",
     "Jira app settings" : "Nastavitve programa Jira",
     "Make sure you set the redirection/callback URL to" : "Poskrbite, da bo preusmeritveni / povratni naslov URL nastavljen na",
     "Don't forget to make your Jira OAuth application public." : "Ne pozabiti nastaviti Jira OAuth kot javnega programa.",
