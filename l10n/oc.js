@@ -2,6 +2,7 @@ OC.L10N.register(
     "integration_jira",
     {
     "Bad credentials" : "Marrits identificants",
+    "Connected accounts" : "Comptes connectats",
     "Client ID" : "ID client",
     "Connected as {username}" : "Connectat coma {username}",
     "User" : "User",
