@@ -15,6 +15,7 @@ OC.L10N.register(
     "Warning, everything you type in the search bar will be sent to Jira." : "Varning, allt du skriver i sökfältet skickas till Jira.",
     "Enable notifications for open tickets" : "Aktivera aviseringar för öppna ärenden",
     "User" : "Användare",
-    "Password" : "Lösenord"
+    "Password" : "Lösenord",
+    "OAuth access token could not be obtained:" : "OAuth-åtkomsttoken kunde inte erhållas:"
 },
 "nplurals=2; plural=(n != 1);");
