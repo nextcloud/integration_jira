@@ -5,6 +5,7 @@ OC.L10N.register(
     "Error during OAuth exchanges" : "שגיאה במהלך החלפות OAuth",
     "Jira notifications" : "התראות Jira",
     "Jira" : "Jira",
+    "Bad HTTP method" : "שגיאה במתודת HTTP",
     "Bad credentials" : "פרטי גישה שגויים",
     "OAuth access token refused" : "אסימון הגישה ב־OAuth סורב",
     "Connected accounts" : "חשבונות מחוברים",
