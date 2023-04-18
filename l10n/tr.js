@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Error getting OAuth accessible resource list." : "OAuth erişilebilir kaynak listesi alınırken sorun çıktı.",
     "Error getting OAuth access token." : "OAuth erişim kodu alınırken sorun çıktı.",
-    "Error during OAuth exchanges" : "OAuth takasında sorun çıktı",
+    "Error during OAuth exchanges" : "OAuth alış verişinde sorun çıktı",
     "Jira notifications" : "Jira bildirimleri",
     "Jira" : "Jira",
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Jira üzerinde açık %s destek kaydınız var.","Jira üzerinde açık %s destek kaydınız var."],
