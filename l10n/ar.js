@@ -7,6 +7,7 @@ OC.L10N.register(
     "OAuth access token refused" : "أمارة token مرفوضة",
     "Connected accounts" : "حسابات مترابطة",
     "Client ID" : "معرف العميل",
+    "Client secret" : "كلمة سر العميل",
     "Connected as {username}" : "متصل كـ {username}",
     "User" : "المستخدم",
     "Password" : "كلمة السر"
