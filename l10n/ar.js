@@ -8,6 +8,7 @@ OC.L10N.register(
     "Connected accounts" : "حسابات مترابطة",
     "Client ID" : "معرف العميل",
     "Client secret" : "كلمة سر العميل",
+    "Instance address" : "عنوان نسخة التطبيق العاملة",
     "Connected as {username}" : "متصل كـ {username}",
     "User" : "المستخدم",
     "Password" : "كلمة السر"
