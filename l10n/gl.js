@@ -44,7 +44,7 @@ OC.L10N.register(
     "Password" : "Contrasinal",
     "Jira password" : "Contrasinal de Jira",
     "Connect to this Jira instance" : "Conectar con esta instancia de Jira",
-    "Successfully connected to Jira!" : "Conectou satisfactoriamente con Jira",
+    "Successfully connected to Jira!" : "Conectou satisfactoriamente con Jira!",
     "OAuth access token could not be obtained:" : "Non foi posíbel obter o testemuño de acceso OAuth",
     "Jira options saved" : "Gardáronse as opcións de Jira",
     "Failed to save Jira options" : "Produciuse un fallo ao gardar as opcións de Jira.",
