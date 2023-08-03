@@ -54,7 +54,7 @@ OC.L10N.register(
     "Failed to save Jira OAuth state" : "Jira OAuth durumu kaydedilemedi",
     "Connect to Jira" : "Jira bağlantısı kur",
     "No Jira account connected" : "Bağlı bir Jira hesabı yok",
-    "Error connecting to Jira" : "Jira bağlantısı kurulurken sorun çıktı",
+    "Error connecting to Jira" : "Jira ile bağlantı kurulurken sorun çıktı",
     "No Jira notifications!" : "Herhangi bir Jira bildirimi yok!",
     "Failed to get Jira notifications" : "Jira bildirimleri alınamadı"
 },
