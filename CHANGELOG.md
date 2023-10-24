@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.0.6 – 2023-10-24
+### Changed
+- added support of NC28
+- bump js libs
+
 ## 1.0.5 – 2023-05-12
 ### Changed
 - bump js libs
