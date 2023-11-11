@@ -16,7 +16,7 @@ OC.L10N.register(
     "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Die GitHub-Einbindung bietet ein Dashboard-Widget mit wichtigen Benachrichtigungen und einen einheitlichen Suchanbieter für die Suche nach Problemen und Benachrichtigungen über kürzliche Aktivitäten im Zusammenhang mit dir zugewiesenen Themen. ",
     "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Wenn du deinen Nextcloud-Benutzern erlauben möchtest, sich mit OAuth bei Jira deiner Wahl zu authentifizieren, erstelle eine Anwendung in deinen Jira-Einstellungen und lege hier die ID und das Geheimnis fest.",
     "Jira app settings" : "Jira-App Einstellungen",
-    "Make sure you set the redirection/callback URL to" : "Stellen sicher, dass du die Umleitungs- / Rückruf-URL auf folgende URL setzt",
+    "Make sure you set the redirection/callback URL to" : "Stellen sicher, dass du die Umleitungs-/Rückruf-URL auf folgende URL setzt",
     "Don't forget to make your Jira OAuth application public." : "Vergesse nicht, deine Jira OAuth-Anwendung zu veröffentlichen.",
     "How to make Jira OAuth public" : "Anleitung zu Veröffentlichung von Jira-OAuth",
     "Put the \"Client ID\" and \"Client secret\" below. Your Nextcloud users will then see a \"Connect to Jira\" button in their personal settings." : "Trage die \"Client-ID\" und \"Client Geheimnis\" unten ein. Deine Nextcloud-Benutzer sehen dann einen \"Verbinde mit Jira\" Knopf in ihren persönlichen Einstellungen.",
