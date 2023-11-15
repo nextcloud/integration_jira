@@ -24,11 +24,11 @@ declare(strict_types=1);
  */
 namespace OCA\Jira\Search;
 
-use OCA\Jira\Service\JiraAPIService;
 use OCA\Jira\AppInfo\Application;
+use OCA\Jira\Service\JiraAPIService;
 use OCP\App\IAppManager;
-use OCP\IL10N;
 use OCP\IConfig;
+use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\Search\IProvider;
@@ -64,10 +64,10 @@ class JiraSearchProvider implements IProvider {
 	 * @param JiraAPIService $service
 	 */
 	public function __construct(IAppManager $appManager,
-								IL10N $l10n,
-								IConfig $config,
-								IURLGenerator $urlGenerator,
-								JiraAPIService $service) {
+		IL10N $l10n,
+		IConfig $config,
+		IURLGenerator $urlGenerator,
+		JiraAPIService $service) {
 		$this->appManager = $appManager;
 		$this->l10n = $l10n;
 		$this->config = $config;

@@ -11,12 +11,12 @@
 
 namespace OCA\Jira\Controller;
 
-use OCP\AppFramework\Http\DataDisplayResponse;
-use OCP\IRequest;
-use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\Controller;
-
 use OCA\Jira\Service\JiraAPIService;
+use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\DataDisplayResponse;
+use OCP\AppFramework\Http\DataResponse;
+
+use OCP\IRequest;
 
 class JiraAPIController extends Controller {
 
@@ -30,9 +30,9 @@ class JiraAPIController extends Controller {
 	private $userId;
 
 	public function __construct(string $appName,
-								IRequest $request,
-								JiraAPIService $jiraAPIService,
-								?string $userId) {
+		IRequest $request,
+		JiraAPIService $jiraAPIService,
+		?string $userId) {
 		parent::__construct($appName, $request);
 		$this->jiraAPIService = $jiraAPIService;
 		$this->userId = $userId;
@@ -53,7 +53,7 @@ class JiraAPIController extends Controller {
 			return new DataDisplayResponse('', 401);
 		} else {
 			$response = new DataDisplayResponse($avatarContent);
-			$response->cacheFor(60*60*24);
+			$response->cacheFor(60 * 60 * 24);
 			return $response;
 		}
 	}

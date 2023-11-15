@@ -12,53 +12,38 @@
 namespace OCA\Jira\Controller;
 
 use DateTime;
-use OCP\IURLGenerator;
+use OCA\Jira\AppInfo\Application;
+use OCA\Jira\Service\NetworkService;
+use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\RedirectResponse;
 use OCP\IConfig;
 use OCP\IL10N;
-use OCP\AppFramework\Http\RedirectResponse;
-use OCP\IRequest;
-use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\Controller;
 
-use OCA\Jira\Service\JiraAPIService;
-use OCA\Jira\AppInfo\Application;
+use OCP\IRequest;
+use OCP\IURLGenerator;
 
 class ConfigController extends Controller {
 
-	/**
-	 * @var IConfig
-	 */
-	private $config;
-	/**
-	 * @var IURLGenerator
-	 */
-	private $urlGenerator;
-	/**
-	 * @var IL10N
-	 */
-	private $l;
-	/**
-	 * @var JiraAPIService
-	 */
-	private $jiraAPIService;
-	/**
-	 * @var string|null
-	 */
-	private $userId;
+	private IConfig $config;
+	private IURLGenerator $urlGenerator;
+	private IL10N $l;
+	private ?string $userId;
+	private NetworkService $networkService;
 
 	public function __construct(string $appName,
-								IRequest $request,
-								IConfig $config,
-								IURLGenerator $urlGenerator,
-								IL10N $l,
-								JiraAPIService $jiraAPIService,
-								?string $userId) {
+		IRequest $request,
+		IConfig $config,
+		IURLGenerator $urlGenerator,
+		IL10N $l,
+		NetworkService $networkService,
+		?string $userId) {
 		parent::__construct($appName, $request);
 		$this->config = $config;
 		$this->urlGenerator = $urlGenerator;
 		$this->l = $l;
-		$this->jiraAPIService = $jiraAPIService;
 		$this->userId = $userId;
+		$this->networkService = $networkService;
 	}
 
 	/**
@@ -121,7 +106,7 @@ class ConfigController extends Controller {
 
 		$basicAuthHeader = base64_encode($login . ':' . $password);
 
-		$info = $this->jiraAPIService->basicRequest($targetInstanceUrl, $basicAuthHeader, 'rest/api/2/myself');
+		$info = $this->networkService->basicRequest($targetInstanceUrl, $basicAuthHeader, 'rest/api/2/myself');
 		if (isset($info['displayName'])) {
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
 			// in self hosted version, key is the only account identifier
@@ -153,13 +138,13 @@ class ConfigController extends Controller {
 
 		if ($clientID && $clientSecret && $configState !== '' && $configState === $state) {
 			$redirect_uri = $this->config->getUserValue($this->userId, Application::APP_ID, 'redirect_uri');
-			$result = $this->jiraAPIService->requestOAuthAccessToken([
+			$result = $this->networkService->requestOAuthAccessToken([
 				'client_id' => $clientID,
 				'client_secret' => $clientSecret,
 				'code' => $code,
 				'redirect_uri' => $redirect_uri,
 				'grant_type' => 'authorization_code'
-			], 'POST');
+			]);
 			if (isset($result['access_token'])) {
 				$accessToken = $result['access_token'];
 				$this->config->setUserValue($this->userId, Application::APP_ID, 'token', $accessToken);
@@ -171,13 +156,13 @@ class ConfigController extends Controller {
 					$this->config->setUserValue($this->userId, Application::APP_ID, 'token_expires_at', $expiresAt);
 				}
 				// get accessible resources
-				$resources = $this->jiraAPIService->oauthRequest($this->userId, 'oauth/token/accessible-resources');
+				$resources = $this->networkService->oauthRequest($this->userId, 'oauth/token/accessible-resources');
 				if (!isset($resources['error']) && count($resources) > 0) {
 					$encodedResources = json_encode($resources);
 					$this->config->setUserValue($this->userId, Application::APP_ID, 'resources', $encodedResources);
 					// get user info
 					$cloudId = $resources[0]['id'];
-					$info = $this->jiraAPIService->oauthRequest($this->userId, 'ex/jira/' . $cloudId . '/rest/api/2/myself');
+					$info = $this->networkService->oauthRequest($this->userId, 'ex/jira/' . $cloudId . '/rest/api/2/myself');
 					if (isset($info['accountId'], $info['displayName'])) {
 						$this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
 						// in cloud version, accountId is there and key is not

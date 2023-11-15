@@ -23,12 +23,12 @@
 
 namespace OCA\Jira\Dashboard;
 
+use OCA\Jira\AppInfo\Application;
 use OCP\Dashboard\IWidget;
 use OCP\IL10N;
-use OCP\Util;
 use OCP\IURLGenerator;
 
-use OCA\Jira\AppInfo\Application;
+use OCP\Util;
 
 class JiraWidget implements IWidget {
 
@@ -40,7 +40,7 @@ class JiraWidget implements IWidget {
 	private $url;
 
 	public function __construct(IL10N $l10n,
-								IURLGenerator $url) {
+		IURLGenerator $url) {
 		$this->l10n = $l10n;
 		$this->url = $url;
 	}
@@ -57,7 +57,7 @@ class JiraWidget implements IWidget {
 	 */
 	public function getTitle(): string {
 		return $this->l10n->t('Jira notifications');
-		}
+	}
 
 	/**
 	 * @inheritDoc
