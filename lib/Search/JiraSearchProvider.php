@@ -37,22 +37,11 @@ use OCP\Search\SearchResult;
 
 class JiraSearchProvider implements IProvider {
 
-	/** @var IAppManager */
-	private $appManager;
-
-	/** @var IL10N */
-	private $l10n;
-
-	/** @var IURLGenerator */
-	private $urlGenerator;
-	/**
-	 * @var IConfig
-	 */
-	private $config;
-	/**
-	 * @var JiraAPIService
-	 */
-	private $service;
+	private IAppManager $appManager;
+	private IL10N $l10n;
+	private IURLGenerator $urlGenerator;
+	private IConfig $config;
+	private JiraAPIService $service;
 
 	/**
 	 * CospendSearchProvider constructor.

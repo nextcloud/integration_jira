@@ -36,11 +36,9 @@ use Psr\Log\LoggerInterface;
  */
 class CheckOpenTickets extends TimedJob {
 
-	/** @var JiraAPIService */
-	protected $jiraAPIService;
+	protected JiraAPIService $jiraAPIService;
 
-	/** @var LoggerInterface */
-	protected $logger;
+	protected LoggerInterface $logger;
 
 	public function __construct(ITimeFactory $time,
 		JiraAPIService $jiraAPIService,

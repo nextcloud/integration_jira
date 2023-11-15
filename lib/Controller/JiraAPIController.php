@@ -20,14 +20,9 @@ use OCP\IRequest;
 
 class JiraAPIController extends Controller {
 
-	/**
-	 * @var JiraAPIService
-	 */
-	private $jiraAPIService;
-	/**
-	 * @var string|null
-	 */
-	private $userId;
+	private JiraAPIService $jiraAPIService;
+
+	private ?string $userId;
 
 	public function __construct(string $appName,
 		IRequest $request,

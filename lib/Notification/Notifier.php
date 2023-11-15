@@ -22,17 +22,13 @@ use OCP\Notification\INotifier;
 
 class Notifier implements INotifier {
 
-	/** @var IFactory */
-	protected $factory;
+	protected IFactory $factory;
 
-	/** @var IUserManager */
-	protected $userManager;
+	protected IUserManager $userManager;
 
-	/** @var INotificationManager */
-	protected $notificationManager;
+	protected INotificationManager $notificationManager;
 
-	/** @var IURLGenerator */
-	protected $url;
+	protected IURLGenerator $url;
 
 	/**
 	 * @param IFactory $factory

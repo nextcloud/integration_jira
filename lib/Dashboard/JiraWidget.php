@@ -32,12 +32,8 @@ use OCP\Util;
 
 class JiraWidget implements IWidget {
 
-	/** @var IL10N */
-	private $l10n;
-	/**
-	 * @var IURLGenerator
-	 */
-	private $url;
+	private IL10N $l10n;
+	private IURLGenerator $url;
 
 	public function __construct(IL10N $l10n,
 		IURLGenerator $url) {
