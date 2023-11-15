@@ -23,11 +23,11 @@ declare(strict_types=1);
 
 namespace OCA\Jira\BackgroundJob;
 
-use OCP\BackgroundJob\TimedJob;
-use OCP\AppFramework\Utility\ITimeFactory;
-use Psr\Log\LoggerInterface;
-
 use OCA\Jira\Service\JiraAPIService;
+use OCP\AppFramework\Utility\ITimeFactory;
+use OCP\BackgroundJob\TimedJob;
+
+use Psr\Log\LoggerInterface;
 
 /**
  * Class CheckOpenTickets
@@ -36,15 +36,13 @@ use OCA\Jira\Service\JiraAPIService;
  */
 class CheckOpenTickets extends TimedJob {
 
-	/** @var JiraAPIService */
-	protected $jiraAPIService;
+	protected JiraAPIService $jiraAPIService;
 
-	/** @var LoggerInterface */
-	protected $logger;
+	protected LoggerInterface $logger;
 
 	public function __construct(ITimeFactory $time,
-								JiraAPIService $jiraAPIService,
-								LoggerInterface $logger) {
+		JiraAPIService $jiraAPIService,
+		LoggerInterface $logger) {
 		parent::__construct($time);
 		// Every 15 minutes
 		$this->setInterval(60 * 15);

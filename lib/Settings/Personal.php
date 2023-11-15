@@ -1,31 +1,23 @@
 <?php
+
 namespace OCA\Jira\Settings;
 
+use OCA\Jira\AppInfo\Application;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\IConfig;
-use OCP\Settings\ISettings;
 
-use OCA\Jira\AppInfo\Application;
+use OCP\Settings\ISettings;
 
 class Personal implements ISettings {
 
-	/**
-	 * @var IConfig
-	 */
-	private $config;
-	/**
-	 * @var IInitialState
-	 */
-	private $initialStateService;
-	/**
-	 * @var string|null
-	 */
-	private $userId;
+	private IConfig $config;
+	private IInitialState $initialStateService;
+	private ?string $userId;
 
 	public function __construct(IConfig $config,
-								IInitialState $initialStateService,
-								?string $userId) {
+		IInitialState $initialStateService,
+		?string $userId) {
 		$this->config = $config;
 		$this->initialStateService = $initialStateService;
 		$this->userId = $userId;

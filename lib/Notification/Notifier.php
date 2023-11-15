@@ -12,27 +12,23 @@
 namespace OCA\Jira\Notification;
 
 use InvalidArgumentException;
+use OCA\Jira\AppInfo\Application;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
-use OCA\Jira\AppInfo\Application;
 
 class Notifier implements INotifier {
 
-	/** @var IFactory */
-	protected $factory;
+	protected IFactory $factory;
 
-	/** @var IUserManager */
-	protected $userManager;
+	protected IUserManager $userManager;
 
-	/** @var INotificationManager */
-	protected $notificationManager;
+	protected INotificationManager $notificationManager;
 
-	/** @var IURLGenerator */
-	protected $url;
+	protected IURLGenerator $url;
 
 	/**
 	 * @param IFactory $factory
@@ -41,9 +37,9 @@ class Notifier implements INotifier {
 	 * @param IURLGenerator $urlGenerator
 	 */
 	public function __construct(IFactory $factory,
-								IUserManager $userManager,
-								INotificationManager $notificationManager,
-								IURLGenerator $urlGenerator) {
+		IUserManager $userManager,
+		INotificationManager $notificationManager,
+		IURLGenerator $urlGenerator) {
 		$this->factory = $factory;
 		$this->userManager = $userManager;
 		$this->notificationManager = $notificationManager;
@@ -85,25 +81,25 @@ class Notifier implements INotifier {
 		$l = $this->factory->get('integration_jira', $languageCode);
 
 		switch ($notification->getSubject()) {
-		case 'new_open_tickets':
-			$p = $notification->getSubjectParameters();
-			$nbOpen = (int) ($p['nbOpen'] ?? 0);
-			$content = $l->n('You have %s open issue with recent activity in Jira.', 'You have %s open issues with recent activity in Jira.', $nbOpen, [$nbOpen]);
+			case 'new_open_tickets':
+				$p = $notification->getSubjectParameters();
+				$nbOpen = (int) ($p['nbOpen'] ?? 0);
+				$content = $l->n('You have %s open issue with recent activity in Jira.', 'You have %s open issues with recent activity in Jira.', $nbOpen, [$nbOpen]);
 
-			//$theme = $this->config->getUserValue($userId, 'accessibility', 'theme', '');
-			//$iconUrl = ($theme === 'dark')
-			//	? $this->url->imagePath(Application::APP_ID, 'app.svg')
-			//	: $this->url->imagePath(Application::APP_ID, 'app-dark.svg');
+				//$theme = $this->config->getUserValue($userId, 'accessibility', 'theme', '');
+				//$iconUrl = ($theme === 'dark')
+				//	? $this->url->imagePath(Application::APP_ID, 'app.svg')
+				//	: $this->url->imagePath(Application::APP_ID, 'app-dark.svg');
 
-			$notification->setParsedSubject($content)
-				->setLink($p['link'] ?? '')
-				->setIcon($this->url->getAbsoluteURL($this->url->imagePath(Application::APP_ID, 'app-dark.svg')));
+				$notification->setParsedSubject($content)
+					->setLink($p['link'] ?? '')
+					->setIcon($this->url->getAbsoluteURL($this->url->imagePath(Application::APP_ID, 'app-dark.svg')));
 				//->setIcon($this->url->getAbsoluteURL($iconUrl));
-			return $notification;
+				return $notification;
 
-		default:
-			// Unknown subject => Unknown notification => throw
-			throw new InvalidArgumentException();
+			default:
+				// Unknown subject => Unknown notification => throw
+				throw new InvalidArgumentException();
 		}
 	}
 }

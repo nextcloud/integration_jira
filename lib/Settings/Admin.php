@@ -1,26 +1,21 @@
 <?php
+
 namespace OCA\Jira\Settings;
 
+use OCA\Jira\AppInfo\Application;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\IConfig;
-use OCP\Settings\ISettings;
 
-use OCA\Jira\AppInfo\Application;
+use OCP\Settings\ISettings;
 
 class Admin implements ISettings {
 
-	/**
-	 * @var IConfig
-	 */
-	private $config;
-	/**
-	 * @var IInitialState
-	 */
-	private $initialStateService;
+	private IConfig $config;
+	private IInitialState $initialStateService;
 
 	public function __construct(IConfig $config,
-								IInitialState $initialStateService) {
+		IInitialState $initialStateService) {
 		$this->config = $config;
 		$this->initialStateService = $initialStateService;
 	}

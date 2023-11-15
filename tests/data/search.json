@@ -1,0 +1,169 @@
+{
+	"expand": "names,schema",
+	"startAt": 0,
+	"maxResults": 50,
+	"total": 1,
+	"issues": [
+		{
+			"expand": "operations,versionedRepresentations,editmeta,changelog,customfield_10010.requestTypePractice,renderedFields",
+			"id": "10000",
+			"self": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/issue/10000",
+			"key": "FIRST-1",
+			"fields": {
+				"statuscategorychangedate": "2023-11-07T11:30:50.836+0300",
+				"issuetype": {
+					"self": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/issuetype/10001",
+					"id": "10001",
+					"description": "A small, distinct piece of work.",
+					"iconUrl": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/universal_avatar/view/type/issuetype/avatar/10318?size=medium",
+					"name": "Task",
+					"subtask": false,
+					"avatarId": 10318,
+					"entityId": "5855a632-8ebb-40ea-9536-3768542c30e4",
+					"hierarchyLevel": 0
+				},
+				"timespent": null,
+				"customfield_10030": null,
+				"project": {
+					"self": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/project/10000",
+					"id": "10000",
+					"key": "FIRST",
+					"name": "My first project",
+					"projectTypeKey": "business",
+					"simplified": true,
+					"avatarUrls": {
+						"48x48": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/universal_avatar/view/type/project/avatar/10406",
+						"24x24": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/universal_avatar/view/type/project/avatar/10406?size=small",
+						"16x16": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/universal_avatar/view/type/project/avatar/10406?size=xsmall",
+						"32x32": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/universal_avatar/view/type/project/avatar/10406?size=medium"
+					}
+				},
+				"customfield_10031": null,
+				"fixVersions": [],
+				"aggregatetimespent": null,
+				"resolution": null,
+				"customfield_10027": null,
+				"customfield_10028": null,
+				"customfield_10029": null,
+				"resolutiondate": null,
+				"workratio": -1,
+				"lastViewed": "2023-11-15T12:59:01.234+0300",
+				"watches": {
+					"self": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/issue/FIRST-1/watchers",
+					"watchCount": 1,
+					"isWatching": true
+				},
+				"created": "2023-11-07T11:30:50.445+0300",
+				"customfield_10020": null,
+				"customfield_10021": null,
+				"customfield_10022": null,
+				"priority": {
+					"self": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/priority/3",
+					"iconUrl": "https://ncintegration.atlassian.net/images/icons/priorities/medium.svg",
+					"name": "Medium",
+					"id": "3"
+				},
+				"customfield_10023": null,
+				"customfield_10024": null,
+				"customfield_10025": null,
+				"customfield_10026": null,
+				"labels": [],
+				"customfield_10016": null,
+				"customfield_10017": null,
+				"customfield_10018": {
+					"hasEpicLinkFieldDependency": false,
+					"showField": false,
+					"nonEditableReason": {
+						"reason": "PLUGIN_LICENSE_ERROR",
+						"message": "The Parent Link is only available to Jira Premium users."
+					}
+				},
+				"customfield_10019": "0|hzzzzz:",
+				"aggregatetimeoriginalestimate": null,
+				"timeestimate": null,
+				"versions": [],
+				"issuelinks": [],
+				"assignee": null,
+				"updated": "2023-11-07T11:30:50.778+0300",
+				"status": {
+					"self": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/status/10000",
+					"description": "",
+					"iconUrl": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/",
+					"name": "To Do",
+					"id": "10000",
+					"statusCategory": {
+						"self": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/statuscategory/2",
+						"id": 2,
+						"key": "new",
+						"colorName": "blue-gray",
+						"name": "To Do"
+					}
+				},
+				"components": [],
+				"timeoriginalestimate": null,
+				"description": null,
+				"customfield_10010": null,
+				"customfield_10014": null,
+				"customfield_10015": null,
+				"customfield_10005": null,
+				"customfield_10006": null,
+				"security": null,
+				"customfield_10007": null,
+				"customfield_10008": null,
+				"aggregatetimeestimate": null,
+				"customfield_10009": null,
+				"summary": "ZOPA test",
+				"creator": {
+					"self": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/user?accountId=60d784b9f650540069947f37",
+					"accountId": "60d784b9f650540069947f37",
+					"emailAddress": "9jypxzmf6w@privaterelay.appleid.com",
+					"avatarUrls": {
+						"48x48": "https://secure.gravatar.com/avatar/18b2b579c3258ccfa02aadb79a2f9262?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FAP-5.png",
+						"24x24": "https://secure.gravatar.com/avatar/18b2b579c3258ccfa02aadb79a2f9262?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FAP-5.png",
+						"16x16": "https://secure.gravatar.com/avatar/18b2b579c3258ccfa02aadb79a2f9262?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FAP-5.png",
+						"32x32": "https://secure.gravatar.com/avatar/18b2b579c3258ccfa02aadb79a2f9262?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FAP-5.png"
+					},
+					"displayName": "Alexander Piskun",
+					"active": true,
+					"timeZone": "Europe/Simferopol",
+					"accountType": "atlassian"
+				},
+				"subtasks": [],
+				"reporter": {
+					"self": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/user?accountId=60d784b9f650540069947f37",
+					"accountId": "60d784b9f650540069947f37",
+					"emailAddress": "9jypxzmf6w@privaterelay.appleid.com",
+					"avatarUrls": {
+						"48x48": "https://secure.gravatar.com/avatar/18b2b579c3258ccfa02aadb79a2f9262?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FAP-5.png",
+						"24x24": "https://secure.gravatar.com/avatar/18b2b579c3258ccfa02aadb79a2f9262?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FAP-5.png",
+						"16x16": "https://secure.gravatar.com/avatar/18b2b579c3258ccfa02aadb79a2f9262?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FAP-5.png",
+						"32x32": "https://secure.gravatar.com/avatar/18b2b579c3258ccfa02aadb79a2f9262?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FAP-5.png"
+					},
+					"displayName": "Alexander Piskun",
+					"active": true,
+					"timeZone": "Europe/Simferopol",
+					"accountType": "atlassian"
+				},
+				"aggregateprogress": {
+					"progress": 0,
+					"total": 0
+				},
+				"customfield_10001": null,
+				"customfield_10002": null,
+				"customfield_10003": null,
+				"customfield_10004": null,
+				"environment": null,
+				"duedate": null,
+				"progress": {
+					"progress": 0,
+					"total": 0
+				},
+				"votes": {
+					"self": "https://api.atlassian.com/ex/jira/7dc26f20-c097-4ca6-8d41-d8617d9b258e/rest/api/2/issue/FIRST-1/votes",
+					"votes": 0,
+					"hasVoted": false
+				}
+			}
+		}
+	]
+}
