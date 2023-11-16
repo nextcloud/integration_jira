@@ -6,7 +6,6 @@
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Sinulla on %s avoin ongelma äskettäisen aktiviteetin kera Jirassa.","Sinulla on %s avointa ongelmaa äskettäisen aktiviteetin kera Jirassa."],
     "Bad HTTP method" : "Virheellinen HTTP-metodi",
     "Bad credentials" : "Virheelliset kirjautumistiedot",
-    "OAuth access token refused" : "OAuth-valtuutus hylätty",
     "Connected accounts" : "Yhdistetyt tilit",
     "Jira integration" : "Jira-integraatio",
     "Jira app settings" : "Jira-sovellusasetukset",

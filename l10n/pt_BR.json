@@ -7,7 +7,6 @@
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Você tem %s um problema em aberto com atividades recentes no Jira.","Você tem %s problemas em aberto com atividades recentes no Jira.","Você tem %s problemas em aberto com atividades recentes no Jira."],
     "Bad HTTP method" : "Método HTTP ruim",
     "Bad credentials" : "Credenciais erradas",
-    "OAuth access token refused" : "Token de acesso OAuth recusado",
     "Connected accounts" : "Contas conectadas",
     "Jira integration" : "Integração Jira",
     "Integration of Jira user support/ticketing solution" : "Integração do suporte ao usuário/solução de bilhetagem do Jira",

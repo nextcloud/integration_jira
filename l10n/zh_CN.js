@@ -9,7 +9,6 @@ OC.L10N.register(
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["你在Jira近期活动中有%s有效的请求"],
     "Bad HTTP method" : "错误的HTTP方法",
     "Bad credentials" : "不好的证书",
-    "OAuth access token refused" : "OAuth 访问令牌拒绝",
     "Connected accounts" : "关联账号",
     "Jira integration" : "Jira 整合",
     "Integration of Jira user support/ticketing solution" : "集成 Jira 用户支持/票务解决方案",

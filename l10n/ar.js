@@ -9,7 +9,6 @@ OC.L10N.register(
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["لديك %s مشكلات مفتوحة مع النشاط الأخير في برنامج جيرا.","لديك %s مشكلة مفتوحة مع النشاط الأخير في برنامج جيرا.","لديك %s مشكلات مفتوحة مع النشاط الأخير في برنامج جيرا.","لديك%s مشكلات مفتوحة مع النشاط الأخير في برنامج جيرا.","لديك%s مشكلات مفتوحة مع النشاط الأخير في برنامج جيرا.","لديك%s مشكلات مفتوحة مع النشاط الأخير في برنامج جيرا."],
     "Bad HTTP method" : "دالة HTTP  غير صحيحة",
     "Bad credentials" : "معلومات تسجيل الدخول غير صحيحة",
-    "OAuth access token refused" : "أمارة token مرفوضة",
     "Connected accounts" : "حسابات مترابطة",
     "Jira integration" : "تكامل تطبيق Jira",
     "Integration of Jira user support/ticketing solution" : "تكامل دعم مستخدم تطبيق Jira/ حل إصدار التذاكر",

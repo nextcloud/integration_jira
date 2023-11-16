@@ -8,7 +8,6 @@ OC.L10N.register(
     "Jira" : "„Jira“",
     "Bad HTTP method" : "Blogas HTTP metodas",
     "Bad credentials" : "Blogi prisijungimo duomenys",
-    "OAuth access token refused" : "„OAuth“ prieigos raktas atmestas",
     "Connected accounts" : "Prijungtos paskyros",
     "Jira integration" : "„Jira“ integracija",
     "Client ID" : "Kliento ID",

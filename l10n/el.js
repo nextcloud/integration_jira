@@ -9,7 +9,6 @@ OC.L10N.register(
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Έχετε %s ανοιχτό ζήτημα από την τελευταία δραστηριότητα στο Jira.","Έχετε %s ανοιχτά ζητήματα από την τελευταία δραστηριότητα στο Jira."],
     "Bad HTTP method" : "Κακή μέθοδος HTTP",
     "Bad credentials" : "Εσφαλμένα διαπιστευτήρια",
-    "OAuth access token refused" : "Το διακριτικό πρόσβασης OAuth απορρίφθηκε",
     "Connected accounts" : "Συνδεδεμένοι λογαριασμοί",
     "Jira integration" : "Ενσωμάτωση Jira",
     "Integration of Jira user support/ticketing solution" : "Ενσωμάτωση της λύσης υποστήριξης χρηστών/εισιτηρίων Jira",

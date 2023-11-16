@@ -5,7 +5,6 @@
     "Jira" : "Jira",
     "Bad HTTP method" : "שגיאה במתודת HTTP",
     "Bad credentials" : "פרטי גישה שגויים",
-    "OAuth access token refused" : "אסימון הגישה ב־OAuth סורב",
     "Connected accounts" : "חשבונות מחוברים",
     "Jira integration" : "שילוב עם Jira",
     "Jira app settings" : "הגדרות יישומון Jira",

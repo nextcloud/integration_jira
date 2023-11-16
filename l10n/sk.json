@@ -7,7 +7,6 @@
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Máte otvorený %s problém s nedávnou aktivitou v Jire.","Máte otvorených %s problémov s nedávnou aktivitou v Jire.","Máte otvorených %s problémov s nedávnou aktivitou v Jire.","Máte otvorených %s problémov s nedávnou aktivitou v Jire."],
     "Bad HTTP method" : "Zlá metóda HTTP",
     "Bad credentials" : "Nesprávne prihlasovacie údaje",
-    "OAuth access token refused" : "Prístupový token OAuth bol zamietnutý",
     "Connected accounts" : "Prepojené účty",
     "Jira integration" : "Jira integrácia",
     "Integration of Jira user support/ticketing solution" : "Integrácia riešenia podpory používateľov/tiketov Jira",

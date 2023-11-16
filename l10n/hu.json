@@ -7,7 +7,6 @@
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["%s olyan nyitott problémája van a Jirában, amelynél tevékenység volt a közelmúltban.","%s olyan nyitott problémája van a Jirában, amelynél tevékenység volt a közelmúltban."],
     "Bad HTTP method" : "Hibás HTTP metódus",
     "Bad credentials" : "Hibás hitelesítő adatok",
-    "OAuth access token refused" : "Az OAuth hozzáférési token lekérése visszautasítva",
     "Connected accounts" : "Kapcsolt fiókok",
     "Jira integration" : "Jira integráció",
     "Integration of Jira user support/ticketing solution" : "A Jira felhasználó támogatási/jegykezelő rendszer integrálása",

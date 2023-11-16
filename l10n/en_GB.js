@@ -9,7 +9,6 @@ OC.L10N.register(
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["You have %s open issue with recent activity in Jira.","You have %s open issues with recent activity in Jira."],
     "Bad HTTP method" : "Bad HTTP method",
     "Bad credentials" : "Bad credentials",
-    "OAuth access token refused" : "OAuth access token refused",
     "Connected accounts" : "Connected accounts",
     "Jira integration" : "Jira integration",
     "Integration of Jira user support/ticketing solution" : "Integration of Jira user support/ticketing solution",

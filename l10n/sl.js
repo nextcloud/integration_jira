@@ -8,7 +8,6 @@ OC.L10N.register(
     "Jira" : "Jira",
     "Bad HTTP method" : "Neustrezna metoda HTTP",
     "Bad credentials" : "Neustrezna poverila",
-    "OAuth access token refused" : "Žeton OAuth za dostop je bil zavrnjen",
     "Connected accounts" : "Povezani računi",
     "Jira integration" : "Združevalnik Jira",
     "Integration of Jira user support/ticketing solution" : "Združevalnik za podporni/kartični sistem Jira",

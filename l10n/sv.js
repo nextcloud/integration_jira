@@ -6,7 +6,6 @@ OC.L10N.register(
     "Jira" : "Jira",
     "Bad HTTP method" : "Felaktig HTTP-metod",
     "Bad credentials" : "Ogiltiga inloggningsuppgifter",
-    "OAuth access token refused" : "OAuth-token avvisades",
     "Connected accounts" : "Anslutna konton",
     "Jira integration" : "Jira-integrering",
     "Client ID" : "Klient-ID",

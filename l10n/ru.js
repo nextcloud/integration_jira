@@ -9,7 +9,6 @@ OC.L10N.register(
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["У вас есть %s открытая проблема с непросмотренной активностью в Jira.","У вас есть %s открытые проблемы с непросмотренной активностью в Jira.","У вас есть %s открытых проблем с непросмотренной активностью в Jira.","У вас есть %s открытых проблем с непросмотренной активностью в Jira."],
     "Bad HTTP method" : "Неверный метод HTTP",
     "Bad credentials" : "Неверные учётные данные",
-    "OAuth access token refused" : "Токен доступа OAuth отклонён",
     "Connected accounts" : "Подключённые учётные записи",
     "Jira integration" : "интеграция с Jira",
     "Integration of Jira user support/ticketing solution" : "Интеграция техподдержки/тикетов Jira",

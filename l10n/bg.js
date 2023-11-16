@@ -9,7 +9,6 @@ OC.L10N.register(
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Имате %s отворени проблема със скорошна активност в Jira.","Имате %s отворени проблема със скорошна активност в Jira."],
     "Bad HTTP method" : "Лош HTTP метод",
     "Bad credentials" : "Лоши идентификационни данни",
-    "OAuth access token refused" : " Маркерът за достъп OAuth е отказан",
     "Connected accounts" : "Свързани профили",
     "Jira integration" : "Jira интеграция",
     "Integration of Jira user support/ticketing solution" : "Интегриране на решение за поддръжка/изпращане на картони на Jira",

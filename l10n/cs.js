@@ -9,7 +9,6 @@ OC.L10N.register(
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["V Jira máte %s otevřený požadavek s nedávnou aktivitou.","V Jira máte %s otevřené požadavky s nedávnou aktivitou.","V Jira máte %s otevřených požadavků s nedávnou aktivitou.","V Jira máte %s otevřené požadavky s nedávnou aktivitou."],
     "Bad HTTP method" : "Nesprávná HTTP metoda",
     "Bad credentials" : "Nesprávné přihlašovací údaje",
-    "OAuth access token refused" : "OAuth přístupový token odmítnut",
     "Connected accounts" : "Propojené účty",
     "Jira integration" : "Napojení na Jira",
     "Integration of Jira user support/ticketing solution" : "Napojení na řešení podpory uživatelů / správy hlášení problémů Jira",
