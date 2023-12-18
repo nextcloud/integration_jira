@@ -7,6 +7,7 @@ OC.L10N.register(
     "Connected accounts" : "Підключені облікові записи",
     "Client ID" : "Ідентифікатор клієнта",
     "Client secret" : "Ключ клієнта",
+    "Enable unified search for tickets" : "Увімкнути універсальний пошук заявок",
     "User" : "Користувач",
     "Password" : "Пароль",
     "OAuth access token could not be obtained:" : "Не вдалося отримати маркер доступу OAuth:"
