@@ -1,0 +1,7 @@
+{ "translations": {
+    "Client ID" : "Client ID",
+    "Client secret" : "Client secret",
+    "User" : "User",
+    "Password" : "პაროლი"
+},"pluralForm" :"nplurals=2; plural=(n!=1);"
+}
