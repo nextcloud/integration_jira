@@ -38,7 +38,7 @@ OC.L10N.register(
     "Self-hosted Jira Software" : "Application Jira auto-hébergée",
     "Jira self-hosted instance address" : "Adresse de l'instance Jira auto-hébergée",
     "Jira address" : "Adresse Jira",
-    "User" : "Utilisateurs",
+    "User" : "Utilisateur",
     "Jira user name" : "Utilisateur Jira",
     "Password" : "Mot de passe",
     "Jira password" : "Mot de passe Jira",
