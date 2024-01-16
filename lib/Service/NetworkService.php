@@ -154,6 +154,9 @@ class NetworkService {
 			$method,
 			returnRaw: true,
 		);
+		if (is_array($response)) {
+			return $response;
+		}
 		$body = $response->getBody();
 		$respCode = $response->getStatusCode();
 		$headers = $response->getHeaders();
@@ -222,7 +225,7 @@ class NetworkService {
 			$this->logger->error(
 				'Token is not valid anymore. Impossible to refresh it. '
 				. $result['error'] . ' '
-				. $result['error_description'] ?? '[no error description]',
+				. ($result['error_description'] ?? '[no error description]'),
 				['app' => Application::APP_ID]
 			);
 			return false;
