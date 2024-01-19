@@ -17,7 +17,7 @@ and notifications about recent activity related to your assigned issues.]]></des
 	<category>dashboard</category>
 	<website>https://github.com/nextcloud/integration_jira</website>
 	<bugs>https://github.com/nextcloud/integration_jira/issues</bugs>
-	<screenshot>https://github.com/nextcloud/integration_jira/raw/master/img/screenshot1.jpg</screenshot>
+	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_jira/main/img/screenshot1.jpg</screenshot>
 	<dependencies>
 		<nextcloud min-version="26" max-version="28"/>
 	</dependencies>
