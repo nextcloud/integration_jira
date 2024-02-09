@@ -7,6 +7,7 @@ OC.L10N.register(
     "Connected accounts" : "Tilknyttede kontoer",
     "Client ID" : "Klient-ID",
     "Client secret" : "Klient-hemmelighet",
+    "Enable unified search for tickets" : "Aktiver enhetlig søk etter billetter",
     "User" : "Bruker",
     "Password" : "Passord",
     "OAuth access token could not be obtained:" : "OAuth access token kunne ikke innhentes:"
