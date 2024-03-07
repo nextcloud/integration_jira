@@ -20,21 +20,21 @@
 				</div>
 
 				<div id="jira-search-block">
-					<CheckboxRadioSwitch
+					<NcCheckboxRadioSwitch
 						:checked.sync="state.search_enabled"
 						@update:checked="onCheckboxChanged($event, 'search_enabled')">
 						{{ t('integration_jira', 'Enable unified search for tickets') }}
-					</CheckboxRadioSwitch>
+					</NcCheckboxRadioSwitch>
 					<br>
 					<p v-if="state.search_enabled" class="settings-hint">
 						<InformationOutlineIcon :size="20" class="icon" />
 						{{ t('integration_jira', 'Warning, everything you type in the search bar will be sent to Jira.') }}
 					</p>
-					<CheckboxRadioSwitch
+					<NcCheckboxRadioSwitch
 						:checked.sync="state.notification_enabled"
 						@update:checked="onCheckboxChanged($event, 'notification_enabled')">
 						{{ t('integration_jira', 'Enable notifications for open tickets') }}
-					</CheckboxRadioSwitch>
+					</NcCheckboxRadioSwitch>
 				</div>
 			</div>
 			<div v-else>
@@ -131,15 +131,15 @@ import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 
-import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch.js'
-import NcButton from '@nextcloud/vue/dist/Components/Button.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 
 export default {
 	name: 'PersonalSettings',
 
 	components: {
 		NcButton,
-		CheckboxRadioSwitch,
+		NcCheckboxRadioSwitch,
 		JiraIcon,
 		CheckIcon,
 		CloseIcon,
@@ -215,7 +215,7 @@ export default {
 				.catch((error) => {
 					showError(
 						t('integration_jira', 'Failed to save Jira options')
-						+ ': ' + error.response.request.responseText
+						+ ': ' + error.response.request.responseText,
 					)
 				})
 				.then(() => {
@@ -243,7 +243,7 @@ export default {
 				.catch((error) => {
 					showError(
 						t('integration_jira', 'Failed to connect to Jira Software')
-						+ ': ' + error.response?.request?.responseText
+						+ ': ' + error.response?.request?.responseText,
 					)
 				})
 				.then(() => {
@@ -285,7 +285,7 @@ export default {
 				.catch((error) => {
 					showError(
 						t('integration_jira', 'Failed to save Jira OAuth state')
-						+ ': ' + error.response.request.responseText
+						+ ': ' + error.response.request.responseText,
 					)
 				})
 				.then(() => {
