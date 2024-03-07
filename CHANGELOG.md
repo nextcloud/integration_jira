@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.1.0 - 2024-03-07
+### Changed
+- added support of NC29, minimum required NC raised from v26 to v27
+- bump js libs
+
 ## 1.0.7 – 2024-01-19
 ### Changed
 - minimum required NC raised from v25 to v26
