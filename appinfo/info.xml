@@ -6,7 +6,7 @@
 	<description><![CDATA[Jira integration provides a dashboard widget displaying your important notifications,
 a unified search provider to search for issues
 and notifications about recent activity related to your assigned issues.]]></description>
-	<version>1.1.0</version>
+	<version>1.2.0</version>
 	<licence>agpl</licence>
 	<author>Julien Veyssier</author>
 	<namespace>Jira</namespace>
@@ -19,7 +19,7 @@ and notifications about recent activity related to your assigned issues.]]></des
 	<bugs>https://github.com/nextcloud/integration_jira/issues</bugs>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_jira/main/img/screenshot1.jpg</screenshot>
 	<dependencies>
-		<nextcloud min-version="27" max-version="29"/>
+		<nextcloud min-version="27" max-version="30"/>
 	</dependencies>
 	<background-jobs>
 		<job>OCA\Jira\BackgroundJob\CheckOpenTickets</job>
