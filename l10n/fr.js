@@ -13,7 +13,7 @@ OC.L10N.register(
     "Jira integration" : "intégration Jira",
     "Integration of Jira user support/ticketing solution" : "Intégration de la solution de support utilisateur / ticketing Jira",
     "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "L'intégration de Jira fournit un widget de tableau de bord affichant vos notifications importantes,\nun moteur de recherche de tickets et des notifications d'activité récente pour vos tickets ouverts.",
-    "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Si vous souhaitez permettre à vos utilisateurs Nextcloud d'utiliser OAuth pour s'identifier sur Jira, créez une application dans vos paramètres d'administration Jira et renseignez l'ID et le secret ici.",
+    "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Si vous souhaitez permettre à vos utilisateurs Nextcloud d’utiliser OAuth pour s’identifier sur Jira, créez une application dans vos paramètres d'administration Jira et renseignez l’ID et le secret ici.",
     "Jira app settings" : "Paramètres d'applications Jira",
     "Make sure you set the redirection/callback URL to" : "Assurez-vous que l'URL de redirection/callback a la valeur",
     "Don't forget to make your Jira OAuth application public." : "N'oubliez pas de rendre votre application OAuth Jira publique.",
