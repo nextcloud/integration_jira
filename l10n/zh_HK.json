@@ -46,7 +46,7 @@
     "Jira options saved" : "已儲存 Jira 選項",
     "Failed to save Jira options" : "儲存 Jira 選項失敗",
     "Impossible to connect to Jira instance" : "無法連接到 Jira 實例",
-    "Login/password are invalid or account is locked" : "登入名/密碼無效或賬戶已被上鎖",
+    "Login/password are invalid or account is locked" : "登入名/密碼無效或帳戶已被上鎖",
     "Failed to connect to Jira Software" : "連接至 Jira 失敗",
     "Failed to save Jira OAuth state" : "儲存 Jira OAuth 狀態失敗",
     "Connect to Jira" : "連線至 Jira",
