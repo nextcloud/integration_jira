@@ -4,8 +4,10 @@ OC.L10N.register(
     "Error during OAuth exchanges" : "Earráid le linn malartuithe OAuth",
     "Bad HTTP method" : "Droch-mhodh HTTP",
     "Bad credentials" : "Dintiúir dona",
+    "Connected accounts" : "Cuntais nasctha",
     "Client ID" : "Aitheantas Cliant",
     "Client secret" : "Rún an chliaint",
+    "Instance address" : "Seoladh cás",
     "User" : "Úsáideoir",
     "Password" : "Pasfhocal",
     "OAuth access token could not be obtained:" : "Níorbh fhéidir comhartha rochtana OAuth a fháil:"
