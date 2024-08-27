@@ -19,7 +19,7 @@ and notifications about recent activity related to your assigned issues.]]></des
 	<bugs>https://github.com/nextcloud/integration_jira/issues</bugs>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_jira/main/img/screenshot1.jpg</screenshot>
 	<dependencies>
-		<nextcloud min-version="28" max-version="30"/>
+		<nextcloud min-version="28" max-version="31"/>
 	</dependencies>
 	<background-jobs>
 		<job>OCA\Jira\BackgroundJob\CheckOpenTickets</job>

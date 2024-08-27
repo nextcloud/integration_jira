@@ -15,6 +15,8 @@ use DateTime;
 use OCA\Jira\AppInfo\Application;
 use OCA\Jira\Service\NetworkService;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\RedirectResponse;
 use OCP\IConfig;
@@ -22,6 +24,7 @@ use OCP\IL10N;
 
 use OCP\IRequest;
 use OCP\IURLGenerator;
+use OCP\PreConditionNotMetException;
 
 class ConfigController extends Controller {
 
@@ -47,12 +50,11 @@ class ConfigController extends Controller {
 	}
 
 	/**
-	 * set config values
-	 * @NoAdminRequired
-	 *
 	 * @param array $values
 	 * @return DataResponse
+	 * @throws PreConditionNotMetException
 	 */
+	#[NoAdminRequired]
 	public function setConfig(array $values): DataResponse {
 		foreach ($values as $key => $value) {
 			$this->config->setUserValue($this->userId, Application::APP_ID, $key, $value);
@@ -92,12 +94,13 @@ class ConfigController extends Controller {
 	}
 
 	/**
-	 * @NoAdminRequired
 	 * @param string $url
 	 * @param string $login
 	 * @param string $password
 	 * @return DataResponse
+	 * @throws PreConditionNotMetException
 	 */
+	#[NoAdminRequired]
 	public function connectToSoftware(string $url, string $login, string $password): DataResponse {
 		$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
 		$targetInstanceUrl = ($forcedInstanceUrl === '')
@@ -109,7 +112,7 @@ class ConfigController extends Controller {
 		$info = $this->networkService->basicRequest($targetInstanceUrl, $basicAuthHeader, 'rest/api/2/myself');
 		if (isset($info['displayName'])) {
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
-			// in self hosted version, key is the only account identifier
+			// in self-hosted version, key is the only account identifier
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_key', strval($info['key']));
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'url', $targetInstanceUrl);
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', $basicAuthHeader);
@@ -121,13 +124,14 @@ class ConfigController extends Controller {
 
 	/**
 	 * receive oauth code and get oauth access token
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
 	 *
 	 * @param string $code
 	 * @param string $state
 	 * @return RedirectResponse
+	 * @throws PreConditionNotMetException
 	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
 	public function oauthRedirect(string $code = '', string $state = ''): RedirectResponse {
 		$configState = $this->config->getUserValue($this->userId, Application::APP_ID, 'oauth_state');
 		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
