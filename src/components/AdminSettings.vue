@@ -1,3 +1,8 @@
+<!--
+  - SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
+  - SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 <template>
 	<div id="jira_prefs" class="section">
 		<h2>
@@ -133,7 +138,7 @@ export default {
 				.catch((error) => {
 					showError(
 						t('integration_jira', 'Failed to save Jira admin options')
-						+ ': ' + error.response.request.responseText
+						+ ': ' + error.response.request.responseText,
 					)
 				})
 				.then(() => {
