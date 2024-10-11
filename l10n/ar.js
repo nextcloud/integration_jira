@@ -40,7 +40,7 @@ OC.L10N.register(
     "Jira address" : "عنوان Jira",
     "User" : "المستخدم",
     "Jira user name" : "اسم مستخدم Jira",
-    "Password" : "كلمة السر",
+    "Password" : "كلمة المرور",
     "Jira password" : "كلمة مرور Jira",
     "Connect to this Jira instance" : "الاتصال بمثيل جيرا هذا",
     "Successfully connected to Jira!" : "تم الاتصال بنجاح ببرنامج Jira!",
