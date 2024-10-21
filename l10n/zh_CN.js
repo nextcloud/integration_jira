@@ -10,7 +10,7 @@ OC.L10N.register(
     "Bad HTTP method" : "错误的HTTP方法",
     "Bad credentials" : "不好的证书",
     "Connected accounts" : "关联账号",
-    "Jira integration" : "Jira 整合",
+    "Jira integration" : "Jira 集成",
     "Integration of Jira user support/ticketing solution" : "集成 Jira 用户支持/票务解决方案",
     "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Jira集成提供了一个仪表板小部件，用于显示您的重要通告，\n统一搜寻提供者以搜寻问题\n以及与您分配的问题相关的近期活动的通告。",
     "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "如果您想允许 Nextcloud 用户使用 OAuth 对 Jira 进行身份验证，请在您的 Jira 管理员设置中创建一个应用程序并在此处设置 ID 和密码。",
