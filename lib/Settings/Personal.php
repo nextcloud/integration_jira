@@ -15,21 +15,13 @@ use OCP\Settings\ISettings;
 
 class Personal implements ISettings {
 
-	private IConfig $config;
-	private IInitialState $initialStateService;
-	private ?string $userId;
-
-	public function __construct(IConfig $config,
-		IInitialState $initialStateService,
-		?string $userId) {
-		$this->config = $config;
-		$this->initialStateService = $initialStateService;
-		$this->userId = $userId;
+	public function __construct(
+		private IConfig $config,
+		private IInitialState $initialStateService,
+		private ?string $userId,
+	) {
 	}
 
-	/**
-	 * @return TemplateResponse
-	 */
 	public function getForm(): TemplateResponse {
 		$userName = $this->config->getUserValue($this->userId, Application::APP_ID, 'user_name');
 		$url = $this->config->getUserValue($this->userId, Application::APP_ID, 'url');

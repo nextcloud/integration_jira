@@ -7,24 +7,21 @@
 namespace OCA\Jira\Tests;
 
 use OC\Http\Client\ClientService;
-use OC\L10N\L10N;
 use OCA\Jira\AppInfo\Application;
 use OCA\Jira\Service\JiraAPIService;
 use OCA\Jira\Service\NetworkService;
 use OCP\Http\Client\IClientService;
 use OCP\IConfig;
-use OCP\IL10N;
 use OCP\IUserManager;
 use OCP\Notification\IManager as INotificationManager;
+use OCP\Security\ICrypto;
 
 use PHPUnit\Framework\TestCase;
-use Psr\Log\LoggerInterface;
 
 class JiraAPIServiceTest extends TestCase {
 
 	private IUserManager $userManager;
-	private LoggerInterface $logger;
-	private IL10N $l10n;
+	private ICrypto $crypto;
 	private IConfig $config;
 	private INotificationManager $notificationManager;
 	private NetworkService $networkService;
@@ -45,8 +42,7 @@ class JiraAPIServiceTest extends TestCase {
 
 	private function setupDummies(): void {
 		$this->userManager = $this->createMock(IUserManager::class);
-		$this->logger = $this->createMock(LoggerInterface::class);
-		$this->l10n = $this->createMock(L10N::class);
+		$this->crypto = $this->createMock(ICrypto::class);
 		$this->config = $this->createMock(IConfig::class);
 		$this->notificationManager = $this->createMock(INotificationManager::class);
 		$this->networkService = $this->createMock(NetworkService::class);
@@ -54,11 +50,10 @@ class JiraAPIServiceTest extends TestCase {
 
 		$this->apiService = new JiraAPIService(
 			$this->userManager,
-			$this->logger,
-			$this->l10n,
 			$this->config,
 			$this->notificationManager,
 			$this->networkService,
+			$this->crypto,
 			$this->clientService
 		);
 	}
