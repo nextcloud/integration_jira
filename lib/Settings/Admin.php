@@ -15,18 +15,12 @@ use OCP\Settings\ISettings;
 
 class Admin implements ISettings {
 
-	private IConfig $config;
-	private IInitialState $initialStateService;
-
-	public function __construct(IConfig $config,
-		IInitialState $initialStateService) {
-		$this->config = $config;
-		$this->initialStateService = $initialStateService;
+	public function __construct(
+		private IConfig $config,
+		private IInitialState $initialStateService,
+	) {
 	}
 
-	/**
-	 * @return TemplateResponse
-	 */
 	public function getForm(): TemplateResponse {
 		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
 		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
@@ -34,7 +28,7 @@ class Admin implements ISettings {
 
 		$adminConfig = [
 			'client_id' => $clientID,
-			'client_secret' => $clientSecret,
+			'client_secret' => $clientSecret !== '' ? 'dummySecret' : '',
 			'forced_instance_url' => $forcedInstanceUrl,
 		];
 		$this->initialStateService->provideInitialState('admin-config', $adminConfig);

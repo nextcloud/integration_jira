@@ -11,41 +11,27 @@ use OCA\Jira\AppInfo\Application;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
 use OCP\IConfig;
-use OCP\IL10N;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\PreConditionNotMetException;
-
-use Psr\Log\LoggerInterface;
+use OCP\Security\ICrypto;
 
 class JiraAPIService {
-	private IUserManager $userManager;
-	private LoggerInterface $logger;
-	private IL10N $l10n;
-	private IConfig $config;
-	private INotificationManager $notificationManager;
-	private NetworkService $networkService;
+
 	private IClient $client;
 
 	/**
 	 * Service to make requests to Jira v3 (JSON) API
 	 */
 	public function __construct(
-		IUserManager $userManager,
-		LoggerInterface $logger,
-		IL10N $l10n,
-		IConfig $config,
-		INotificationManager $notificationManager,
-		NetworkService $networkService,
-		IClientService $clientService
+		private IUserManager $userManager,
+		private IConfig $config,
+		private INotificationManager $notificationManager,
+		private NetworkService $networkService,
+		private ICrypto $crypto,
+		IClientService $clientService,
 	) {
-		$this->userManager = $userManager;
-		$this->logger = $logger;
-		$this->l10n = $l10n;
-		$this->config = $config;
-		$this->notificationManager = $notificationManager;
-		$this->networkService = $networkService;
 		$this->client = $clientService->newClient();
 	}
 
@@ -150,6 +136,7 @@ class JiraAPIService {
 		$endPoint = 'rest/api/2/search';
 
 		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
+		$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->decrypt($basicAuthHeader);
 		// self-hosted Jira
 		if ($basicAuthHeader !== '') {
 			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
@@ -247,6 +234,7 @@ class JiraAPIService {
 		];
 
 		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
+		$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->decrypt($basicAuthHeader);
 		// self-hosted Jira
 		if ($basicAuthHeader !== '') {
 			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
@@ -306,6 +294,7 @@ class JiraAPIService {
 		$endPoint = 'rest/api/2/user';
 
 		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
+		$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->decrypt($basicAuthHeader);
 		if ($basicAuthHeader !== '') {
 			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 
@@ -367,7 +356,9 @@ class JiraAPIService {
 		];
 
 		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
+		$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->decrypt($basicAuthHeader);
 		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
+		$accessToken = $accessToken === '' ? '' : $this->crypto->decrypt($accessToken);
 		if ($basicAuthHeader !== '') {
 			$options['headers']['Authorization'] = 'Basic ' . $basicAuthHeader;
 		} elseif ($accessToken !== '') {

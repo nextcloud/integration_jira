@@ -18,6 +18,7 @@ use OCP\Http\Client\IResponse;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\PreConditionNotMetException;
+use OCP\Security\ICrypto;
 use Psr\Log\LoggerInterface;
 
 use Throwable;
@@ -33,6 +34,7 @@ class NetworkService {
 		private IConfig $config,
 		IClientService $clientService,
 		private LoggerInterface $logger,
+		private ICrypto $crypto,
 		private IL10N $l10n
 	) {
 		$this->client = $clientService->newClient();
@@ -150,6 +152,7 @@ class NetworkService {
 	public function oauthRequest(string $userId, string $endPoint, array $params = [], string $method = 'GET'): array {
 		$this->checkTokenExpiration($userId);
 		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
+		$accessToken = $accessToken === '' ? '' : $this->crypto->decrypt($accessToken);
 
 		$response = $this->request_integration(
 			'Bearer ' . $accessToken,
@@ -182,6 +185,7 @@ class NetworkService {
 	 */
 	private function checkTokenExpiration(string $userId): void {
 		$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
+		$refreshToken = $refreshToken === '' ? '' : $this->crypto->decrypt($refreshToken);
 		$expireAt = $this->config->getUserValue($userId, Application::APP_ID, 'token_expires_at');
 		if ($refreshToken !== '' && $expireAt !== '') {
 			$nowTs = (new Datetime())->getTimestamp();
@@ -201,7 +205,9 @@ class NetworkService {
 	private function refreshToken(string $userId): bool {
 		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
 		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
+		$clientSecret = $clientSecret === '' ? '' : $this->crypto->decrypt($clientSecret);
 		$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
+		$refreshToken = $refreshToken === '' ? '' : $this->crypto->decrypt($refreshToken);
 		if (!$refreshToken) {
 			$this->logger->error('No Jira refresh token found', ['app' => Application::APP_ID]);
 			return false;
@@ -216,8 +222,10 @@ class NetworkService {
 		if (isset($result['access_token'], $result['refresh_token'])) {
 			$accessToken = $result['access_token'];
 			$refreshToken = $result['refresh_token'];
-			$this->config->setUserValue($userId, Application::APP_ID, 'token', $accessToken);
-			$this->config->setUserValue($userId, Application::APP_ID, 'refresh_token', $refreshToken);
+			$encryptedAccessToken = $accessToken === '' ? '' : $this->crypto->encrypt($accessToken);
+			$this->config->setUserValue($userId, Application::APP_ID, 'token', $encryptedAccessToken);
+			$encryptedRefreshToken = $refreshToken === '' ? '' : $this->crypto->encrypt($refreshToken);
+			$this->config->setUserValue($userId, Application::APP_ID, 'refresh_token', $encryptedRefreshToken);
 			if (isset($result['expires_in'])) {
 				$nowTs = (new Datetime())->getTimestamp();
 				$expiresAt = $nowTs + (int) $result['expires_in'];
