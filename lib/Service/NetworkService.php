@@ -34,7 +34,7 @@ class NetworkService {
 		private IConfig $config,
 		IClientService $clientService,
 		private LoggerInterface $logger,
-		private ICrypto			$crypto,
+		private ICrypto $crypto,
 		private IL10N $l10n
 	) {
 		$this->client = $clientService->newClient();
