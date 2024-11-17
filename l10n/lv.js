@@ -1,6 +1,9 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Bad HTTP method" : "Nederīgs HTTP pieprasījuma veids",
+    "Bad credentials" : "Nederīgi pieteikšanās dati",
+    "Connected accounts" : "Savienotie konti",
     "Client ID" : "Klienta ID",
     "User" : "Lietotājs",
     "Password" : "Parole",
