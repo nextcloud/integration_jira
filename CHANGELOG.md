@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.2.1 - 2024-11-18
+### Changed
+- bump js libs
+
+### Fixed
+- encrypt secrets in the database and not expose them to UI
+
 ## 1.2.0 - 2024-07-24
 ### Changed
 - minimum required NC raised from v27 to v28
@@ -27,7 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - invalid error handling that prevented refresh token from updating
-	
+
 ## 1.0.6 – 2023-10-24
 ### Changed
 - added support of NC28
