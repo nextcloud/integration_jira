@@ -26,7 +26,7 @@ OC.L10N.register(
     "Instance address" : "مىسال ئادرېسى",
     "Jira admin options saved" : "Jira admin تاللانمىلىرى ساقلاندى",
     "Failed to save Jira admin options" : "Jira باشقۇرۇش تاللانمىلىرىنى ساقلىيالمىدى",
-    "Connected as {username}" : "{ئىشلەتكۈچى ئىسمى as قىلىپ ئۇلاندى",
+    "Connected as {username}" : "{username} ئىسمى as قىلىپ ئۇلاندى",
     "Disconnect from Jira" : "جىرادىن ئۈزۈڭ",
     "Enable unified search for tickets" : "بېلەتنى بىر تۇتاش ئىزدەشنى قوزغىتىڭ",
     "Warning, everything you type in the search bar will be sent to Jira." : "ئاگاھلاندۇرۇش ، ئىزدەش ستونىغا يازغانلىرىڭىزنىڭ ھەممىسى جىراغا ئەۋەتىلىدۇ.",
