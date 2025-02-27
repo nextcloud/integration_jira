@@ -11,6 +11,11 @@
     "Client ID" : "מזהה לקו",
     "Client secret" : "סוד לקוח",
     "Your application secret" : "סוד היישומן שלך",
+    "Successfully connected to Jira!" : "התחברת ל־Jira בהצלחה!",
+    "Jira options saved" : "האפשרויות של Jira נשמרו",
+    "Failed to save Jira options" : "שמירת האפשרויות של Jira נכשלה",
+    "Login/password are invalid or account is locked" : "פרטי הגישה/ססמה שגויים או שהחשבון נעול",
+    "Failed to connect to Jira Software" : "ההתחברות ל־Jira Software נכשלה",
     "Connected as {username}" : "התחברות בתור {username}",
     "Disconnect from Jira" : "ניתוק מ־Jira",
     "Jira Cloud" : "Jira Cloud",
@@ -20,15 +25,10 @@
     "Jira user name" : "שם משתמש ב־Jira",
     "Password" : "ססמה",
     "Jira password" : "ססמה ב־Jira",
-    "Successfully connected to Jira!" : "התחברת ל־Jira בהצלחה!",
-    "Jira options saved" : "האפשרויות של Jira נשמרו",
-    "Failed to save Jira options" : "שמירת האפשרויות של Jira נכשלה",
-    "Login/password are invalid or account is locked" : "פרטי הגישה/ססמה שגויים או שהחשבון נעול",
-    "Failed to connect to Jira Software" : "ההתחברות ל־Jira Software נכשלה",
-    "Connect to Jira" : "התחברות ל־Jira",
     "No Jira account connected" : "אין חשבון Jira מחובר",
     "Error connecting to Jira" : "שגיאה בהתחברות ל־Jira",
     "No Jira notifications!" : "אין התראות ב־Jira!",
-    "Failed to get Jira notifications" : "קבלת ההתראות מ־Jira נכשלה"
+    "Failed to get Jira notifications" : "קבלת ההתראות מ־Jira נכשלה",
+    "Connect to Jira" : "התחברות ל־Jira"
 },"pluralForm" :"nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;"
 }

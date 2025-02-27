@@ -10,13 +10,14 @@ OC.L10N.register(
     "Bad credentials" : "Blogi prisijungimo duomenys",
     "Connected accounts" : "Prijungtos paskyros",
     "Jira integration" : "„Jira“ integracija",
+    "Jira admin options saved" : "„Jira“ administratoriaus parinktys įrašytos",
+    "Failed to save Jira admin options" : "Nepavyko įrašyti „Jira“ administratoriaus parinkčių",
     "Client ID" : "Kliento ID",
     "ID of your application" : "Jūsų programos ID",
     "Client secret" : "Kliento paslaptis",
     "Your application secret" : "Jūsų programos paslaptis",
     "Instance address" : "Egzemplioriaus adresas",
-    "Jira admin options saved" : "„Jira“ administratoriaus parinktys įrašytos",
-    "Failed to save Jira admin options" : "Nepavyko įrašyti „Jira“ administratoriaus parinkčių",
+    "Impossible to connect to Jira instance" : "Neįmanoma prisijungti prie „Jira“ egzemplioriaus",
     "Connected as {username}" : "Prisijungta kaip {username}",
     "Disconnect from Jira" : "Atsijungti nuo „Jira“",
     "Warning, everything you type in the search bar will be sent to Jira." : "Įspėjimas: viskas, ką rašysite paieškos juostoje, bus siunčiama į „Jira“.",
@@ -25,8 +26,7 @@ OC.L10N.register(
     "Jira user name" : "„Jira“ naudotojo vardas",
     "Password" : "Slaptažodis",
     "Jira password" : "„Jira“ slaptažodis",
-    "Impossible to connect to Jira instance" : "Neįmanoma prisijungti prie „Jira“ egzemplioriaus",
-    "Connect to Jira" : "Prisijungti prie „Jira“",
-    "Failed to get Jira notifications" : "Nepavyko gauti „Jira“ pranešimų"
+    "Failed to get Jira notifications" : "Nepavyko gauti „Jira“ pranešimų",
+    "Connect to Jira" : "Prisijungti prie „Jira“"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

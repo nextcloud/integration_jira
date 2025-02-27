@@ -17,8 +17,8 @@ OC.L10N.register(
     "Jira user name" : "Jiraユーザー名",
     "Password" : "パスワード",
     "Jira password" : "Jiraパスワード",
-    "Connect to Jira" : "Jiraに接続",
     "No Jira account connected" : "接続済みJiraアカウントがありません",
-    "No Jira notifications!" : "Jira通知がありません！"
+    "No Jira notifications!" : "Jira通知がありません！",
+    "Connect to Jira" : "Jiraに接続"
 },
 "nplurals=1; plural=0;");

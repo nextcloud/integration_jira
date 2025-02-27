@@ -11,12 +11,12 @@ OC.L10N.register(
     "Client ID" : "Klient-ID",
     "ID of your application" : "ID för din app",
     "Client secret" : "Klienthemlighet",
+    "OAuth access token could not be obtained:" : "OAuth-åtkomsttoken kunde inte erhållas:",
     "Connected as {username}" : "Ansluten som {user}",
     "Enable unified search for tickets" : "Aktivera enhetlig sökning efter ärenden",
     "Warning, everything you type in the search bar will be sent to Jira." : "Varning, allt du skriver i sökfältet skickas till Jira.",
     "Enable notifications for open tickets" : "Aktivera aviseringar för öppna ärenden",
     "User" : "Användare",
-    "Password" : "Lösenord",
-    "OAuth access token could not be obtained:" : "OAuth-åtkomsttoken kunde inte erhållas:"
+    "Password" : "Lösenord"
 },
 "nplurals=2; plural=(n != 1);");
