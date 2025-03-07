@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.3.0 - 2025-03-13
+
+### Added
+
+- Link previews for Jira issues, toggle options in settings
+- Second dashboard widget to display notifications only for selected projects available to your Jira account
+
+### Changed
+
+- Update npm packages
+
 ## 1.2.1 - 2024-11-18
 ### Changed
 - bump js libs

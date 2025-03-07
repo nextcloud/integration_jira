@@ -12,6 +12,7 @@ return [
 		['name' => 'config#setAdminConfig', 'url' => '/admin-config', 'verb' => 'PUT'],
 		['name' => 'config#setSensitiveAdminConfig', 'url' => '/sensitive-admin-config', 'verb' => 'PUT'],
 		['name' => 'jiraAPI#getNotifications', 'url' => '/notifications', 'verb' => 'GET'],
+		['name' => 'jiraAPI#getProjects', 'url' => '/projects', 'verb' => 'GET'],
 		['name' => 'jiraAPI#getJiraUrl', 'url' => '/url', 'verb' => 'GET'],
 		['name' => 'jiraAPI#getJiraAvatar', 'url' => '/avatar', 'verb' => 'GET'],
 	]

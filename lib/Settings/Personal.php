@@ -35,6 +35,9 @@ class Personal implements ISettings {
 		// don't expose the client secret to users
 		$clientSecret = ($this->config->getAppValue(Application::APP_ID, 'client_secret') !== '');
 
+		$linkPreviewEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'link_preview_enabled', '1') === '1';
+		$dashboardJiraProjects = $this->config->getUserValue($this->userId, Application::APP_ID, 'dashboard_jira_projects', '[]');
+
 		$userConfig = [
 			'url' => $url,
 			'client_id' => $clientID,
@@ -43,6 +46,8 @@ class Personal implements ISettings {
 			'notification_enabled' => ($notificationEnabled === '1'),
 			'user_name' => $userName,
 			'forced_instance_url' => $forcedInstanceUrl,
+			'dashboard_jira_projects' => json_decode($dashboardJiraProjects, true),
+			'link_preview_enabled' => $linkPreviewEnabled,
 		];
 		$this->initialStateService->provideInitialState('user-config', $userConfig);
 		return new TemplateResponse(Application::APP_ID, 'personalSettings');

@@ -130,13 +130,16 @@ class JiraAPIService {
 	 * @param ?int $limit
 	 * @return array
 	 */
-	public function getNotifications(string $userId, ?string $since = null, ?int $limit = null): array {
+	public function getNotifications(string $userId, ?string $since = null, ?int $limit = null, bool $filterProjects = false): array {
 		$myIssues = [];
 
 		$endPoint = 'rest/api/2/search';
 
 		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
 		$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->decrypt($basicAuthHeader);
+		$dashboardJiraProjects = $this->config->getUserValue($userId, Application::APP_ID, 'dashboard_jira_projects', '[]');
+		$dashboardJiraProjects = json_decode($dashboardJiraProjects, true);
+
 		// self-hosted Jira
 		if ($basicAuthHeader !== '') {
 			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
@@ -156,7 +159,13 @@ class JiraAPIService {
 			foreach ($issuesResult['issues'] as $k => $issue) {
 				$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
 				$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'] ?? '';
-				$myIssues[] = $issuesResult['issues'][$k];
+				if ($filterProjects && count($dashboardJiraProjects) > 0) {
+					if (in_array($issuesResult['issues'][$k]['fields']['project']['name'], $dashboardJiraProjects)) {
+						$myIssues[] = $issuesResult['issues'][$k];
+					}
+				} else {
+					$myIssues[] = $issuesResult['issues'][$k];
+				}
 			}
 		} else {
 			// Jira cloud
@@ -170,7 +179,13 @@ class JiraAPIService {
 					foreach ($issuesResult['issues'] as $k => $issue) {
 						$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
 						$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'] ?? '';
-						$myIssues[] = $issuesResult['issues'][$k];
+						if ($filterProjects && count($dashboardJiraProjects) > 0) {
+							if (in_array($issuesResult['issues'][$k]['fields']['project']['id'], $dashboardJiraProjects)) {
+								$myIssues[] = $issuesResult['issues'][$k];
+							}
+						} else {
+							$myIssues[] = $issuesResult['issues'][$k];
+						}
 					}
 				} else {
 					return $issuesResult;
@@ -198,6 +213,58 @@ class JiraAPIService {
 		});
 
 		return $myIssues;
+	}
+
+	public function getProjects(string $userId) {
+		$projects = [];
+
+		$endPoint = 'rest/api/3/project/search';
+
+		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
+
+		$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->decrypt($basicAuthHeader);
+
+		// self-hosted Jira
+		if ($basicAuthHeader !== '') {
+			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
+
+			// check if there is a forced instance
+			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
+			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
+				return [
+					'error' => 'Unauthorized Jira instance URL',
+				];
+			}
+
+			$projectsResult = $this->networkService->basicRequest($jiraUrl, $basicAuthHeader, $endPoint);
+			if (isset($projectsResult['error'])) {
+				return $projectsResult;
+			}
+
+			foreach ($projectsResult['values'] as $k => $project) {
+				$projectsResult['values'][$k]['jiraUrl'] = $jiraUrl;
+				$projects[] = $projectsResult['values'][$k];
+			}
+		} else {
+			// Jira cloud
+			$resources = $this->getJiraResources($userId);
+
+			foreach ($resources as $resource) {
+				$cloudId = $resource['id'];
+				$jiraUrl = $resource['url'];
+				$projectsResult = $this->networkService->oauthRequest($userId, 'ex/jira/' . $cloudId . '/' . $endPoint);
+				if (!isset($projectsResult['error']) && isset($projectsResult['values'])) {
+					foreach ($projectsResult['values'] as $k => $project) {
+						$projectsResult['values'][$k]['jiraUrl'] = $jiraUrl;
+						$projects[] = $projectsResult['values'][$k];
+					}
+				} else {
+					return $projectsResult;
+				}
+			}
+		}
+
+		return $projects;
 	}
 
 	/**
@@ -274,6 +341,50 @@ class JiraAPIService {
 			}
 		}
 		return array_slice($myIssues, $offset, $limit);
+	}
+
+	public function getIssueInfo(string $userId, string $issueId): ?array {
+		$issueInfo = null;
+		$endPoint = 'rest/api/3/issue/' . $issueId;
+
+		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
+		$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->decrypt($basicAuthHeader);
+
+		// self-hosted Jira
+		if ($basicAuthHeader !== '') {
+			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
+
+			// check if there is a forced instance
+			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
+			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
+				return [
+					'error' => 'Unauthorized Jira instance URL',
+				];
+			}
+
+			$issuesResult = $this->networkService->basicRequest($jiraUrl, $basicAuthHeader, $endPoint);
+			if (isset($issuesResult['error'])) {
+				return $issuesResult;
+			}
+			if (isset($issuesResult['fields'])) {
+				$issueInfo = $issuesResult;
+			}
+		} else {
+			// Jira cloud
+			$resources = $this->getJiraResources($userId);
+
+			foreach ($resources as $resource) {
+				$cloudId = $resource['id'];
+				$issuesResult = $this->networkService->oauthRequest($userId, 'ex/jira/' . $cloudId . '/' . $endPoint);
+				if (!isset($issuesResult['error']) && isset($issuesResult['fields'])) {
+					$issueInfo = $issuesResult;
+				} else {
+					return $issuesResult;
+				}
+			}
+		}
+
+		return $issueInfo;
 	}
 
 	/**
