@@ -55,8 +55,21 @@ class JiraAPIController extends Controller {
 	 * @param ?string $since
 	 * @return DataResponse
 	 */
-	public function getNotifications(?string $since = null): DataResponse {
-		$result = $this->jiraAPIService->getNotifications($this->userId, $since, 7);
+	public function getNotifications(?string $since = null, bool $filterProjects = false): DataResponse {
+		$result = $this->jiraAPIService->getNotifications($this->userId, $since, 7, $filterProjects);
+		if (!isset($result['error'])) {
+			$response = new DataResponse($result);
+		} else {
+			$response = new DataResponse($result, 401);
+		}
+		return $response;
+	}
+
+	/**
+	 * @NoAdminRequired
+	 */
+	public function getProjects(): DataResponse {
+		$result = $this->jiraAPIService->getProjects($this->userId);
 		if (!isset($result['error'])) {
 			$response = new DataResponse($result);
 		} else {

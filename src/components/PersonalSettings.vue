@@ -30,6 +30,11 @@
 						@update:checked="onCheckboxChanged($event, 'search_enabled')">
 						{{ t('integration_jira', 'Enable unified search for tickets') }}
 					</NcCheckboxRadioSwitch>
+					<NcCheckboxRadioSwitch
+						:checked.sync="state.link_preview_enabled"
+						@update:checked="onCheckboxChanged($event, 'link_preview_enabled')">
+						{{ t('integration_jira', 'Enable user link preview') }}
+					</NcCheckboxRadioSwitch>
 					<br>
 					<p v-if="state.search_enabled" class="settings-hint">
 						<InformationOutlineIcon :size="20" class="icon" />
@@ -41,6 +46,27 @@
 						{{ t('integration_jira', 'Enable notifications for open tickets') }}
 					</NcCheckboxRadioSwitch>
 				</div>
+
+				<div class="line">
+					<label>
+						{{ t('integration_jira', 'Select Jira projects for Dashboard widget') }}
+					</label>
+					<NcSelect
+						v-model="selectedProjects"
+						:options="jiraProjectsOptions"
+						:multiple="true"
+						:label-outside="true"
+						:no-wrap="true"
+						:placeholder="t('integration_jira', 'Select Jira projects')"
+						:loading="loadingJiraProjects"
+						:disabled="loadingJiraProjects"
+						@input="onJiraSelectedProjectsChanged" />
+					<br>
+				</div>
+				<p class="settings-hint">
+					<InformationOutlineIcon :size="20" class="icon" />
+					{{ t('integration_jira', 'Only projects available to your Jira account are listed.') }}
+				</p>
 			</div>
 			<div v-else>
 				<h3>
@@ -105,6 +131,7 @@
 						:placeholder="t('integration_jira', 'Jira password')"
 						@keyup.enter="onSelfHostedAuth">
 				</div>
+
 				<NcButton v-show="state.forced_instance_url || state.url"
 					:class="{ loading: connecting }"
 					:disabled="!login || !password"
@@ -138,12 +165,14 @@ import { showSuccess, showError } from '@nextcloud/dialogs'
 
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 
 export default {
 	name: 'PersonalSettings',
 
 	components: {
 		NcButton,
+		NcSelect,
 		NcCheckboxRadioSwitch,
 		JiraIcon,
 		CheckIcon,
@@ -165,6 +194,10 @@ export default {
 			password: '',
 			connecting: false,
 			redirect_uri: window.location.protocol + '//' + window.location.host + generateUrl('/apps/integration_jira/oauth-redirect'),
+			dashboardJiraProjectsFilter: loadState('integration_jira', 'user-config')?.dashboard_jira_projects || [],
+			jiraProjects: [],
+			loadingJiraProjects: false,
+			selectedProjects: ['Loading...'],
 		}
 	},
 
@@ -174,6 +207,12 @@ export default {
 		},
 		connected() {
 			return this.state.user_name && this.state.user_name !== ''
+		},
+		jiraProjectsOptions() {
+			return this.jiraProjects.map((project) => ({
+				value: project.id,
+				label: project.name,
+			}))
 		},
 	},
 
@@ -190,6 +229,7 @@ export default {
 		} else if (zmToken === 'error') {
 			showError(t('integration_jira', 'OAuth access token could not be obtained:') + ' ' + urlParams.get('message'))
 		}
+		this.fetchJiraProjects()
 	},
 
 	methods: {
@@ -208,6 +248,9 @@ export default {
 		onCheckboxChanged(newValue, key) {
 			this.saveOptions({ [key]: newValue ? '1' : '0' })
 		},
+		onJiraSelectedProjectsChanged(newValue) {
+			this.saveOptions({ dashboard_jira_projects: JSON.stringify(newValue.map(({ value }) => value)) }) // save to array of strings
+		},
 		saveOptions(values) {
 			const req = {
 				values,
@@ -225,6 +268,32 @@ export default {
 				})
 				.then(() => {
 				})
+		},
+		fetchJiraProjects() {
+			if (!this.connected) {
+				return
+			}
+
+			this.loadingJiraProjects = true
+			axios.get(generateUrl('/apps/integration_jira/projects')).then((res) => {
+				console.debug('Jira projects: ', res)
+				this.jiraProjects = res.data
+				this.selectedProjects = this.dashboardJiraProjectsFilter.map((id) => {
+					const project = this.jiraProjects.find((p) => p.id === id)
+					return {
+						value: project.id,
+						label: project.name,
+					}
+				})
+			}).catch((error) => {
+				console.debug('Failed to get Jira projects: ', error)
+				showError(
+					t('integration_jira', 'Failed to get Jira projects')
+					+ ': ' + error.response.request.responseText,
+				)
+			}).finally(() => {
+				this.loadingJiraProjects = false
+			})
 		},
 		onSelfHostedAuth() {
 			this.connecting = true
@@ -326,6 +395,8 @@ export default {
 	}
 
 	.line {
+		margin-bottom: 5px;
+
 		> label {
 			width: 300px;
 			display: flex;

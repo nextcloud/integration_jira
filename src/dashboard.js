@@ -18,4 +18,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		}).$mount(el)
 	})
 
+	OCA.Dashboard.register('jira_notifications_filter', (el, { widget }) => {
+		const View = Vue.extend(Dashboard)
+		new View({
+			propsData: { title: widget.title, filterProjects: true },
+		}).$mount(el)
+	})
+
 })

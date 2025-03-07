@@ -65,6 +65,11 @@ export default {
 			type: String,
 			required: true,
 		},
+		filterProjects: {
+			type: Boolean,
+			required: false,
+			default: () => false,
+		},
 	},
 
 	data() {
@@ -178,7 +183,7 @@ export default {
 					since: this.lastDate,
 				}
 			}
-			axios.get(generateUrl('/apps/integration_jira/notifications'), req).then((response) => {
+			axios.get(generateUrl(`/apps/integration_jira/notifications?filterProjects=${this.filterProjects}`), req).then((response) => {
 				this.processNotifications(response.data)
 				this.state = 'ok'
 			}).catch((error) => {
