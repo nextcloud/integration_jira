@@ -8,13 +8,13 @@ namespace OCA\Jira\Reference;
 
 use Exception;
 use OC\Collaboration\Reference\LinkReferenceProvider;
-use OCA\Jira\Service\JiraAPIService;
-use OCP\Collaboration\Reference\ADiscoverableReferenceProvider;
-use OCP\Collaboration\Reference\ISearchableReferenceProvider;
-use OCP\Collaboration\Reference\Reference;
 use OC\Collaboration\Reference\ReferenceManager;
 use OCA\Jira\AppInfo\Application;
+use OCA\Jira\Service\JiraAPIService;
+use OCP\Collaboration\Reference\ADiscoverableReferenceProvider;
 use OCP\Collaboration\Reference\IReference;
+use OCP\Collaboration\Reference\ISearchableReferenceProvider;
+use OCP\Collaboration\Reference\Reference;
 use OCP\IConfig;
 use OCP\IL10N;
 
@@ -38,7 +38,7 @@ class JiraReferenceProvider extends ADiscoverableReferenceProvider implements IS
 	/**
 	 * @inheritDoc
 	 */
-	public function getId(): string	{
+	public function getId(): string {
 		return 'jira-search';
 	}
 
@@ -52,7 +52,7 @@ class JiraReferenceProvider extends ADiscoverableReferenceProvider implements IS
 	/**
 	 * @inheritDoc
 	 */
-	public function getOrder(): int	{
+	public function getOrder(): int {
 		return 10;
 	}
 

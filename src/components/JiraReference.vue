@@ -2,26 +2,44 @@
 	<div class="jira-issue">
 		<div class="rows">
 			<div class="row">
-				<NcIconSvgWrapper inline class="icon" :path="circleIcon" style="color: var(--color-error);" />
+				<NcIconSvgWrapper
+					inline
+					class="icon"
+					:path="circleIcon"
+					style="color: var(--color-error);" />
 				<span>{{ displayName }}</span>
 			</div>
 			<div class="row">
 				<p class="type">
-					<NcIconSvgWrapper inline class="icon" :path="toolsIcon" />
+					<NcIconSvgWrapper
+						inline
+						class="icon"
+						:path="toolsIcon" />
 					<b>{{ t('integration_jira', 'Type') }}:</b> {{ type }}&nbsp;|&nbsp;
 				</p>
 				<p class="status">
-					<NcIconSvgWrapper inline class="icon" :path="pinIcon" style="color: var(--color-error);" />
+					<NcIconSvgWrapper
+						inline
+						class="icon"
+						:path="pinIcon"
+						style="color: var(--color-error);" />
 					<b>{{ t('integration_jira', 'Status') }}:</b> {{ status }}&nbsp;|&nbsp;
 				</p>
 				<p class="priority">
-					<NcIconSvgWrapper inline class="icon" :path="lightningBoltIcon" style="color: var(--color-warning);" />
+					<NcIconSvgWrapper
+						inline
+						class="icon"
+						:path="lightningBoltIcon"
+						style="color: var(--color-warning);" />
 					<b>{{ t('integration_jira', 'Priority') }}:</b> <span :class="`priority-${priorityColor}`">{{ priority }}</span>
 				</p>
 			</div>
 			<div v-if="labels.length > 0" class="row">
 				<p class="labels">
-					<NcIconSvgWrapper inline class="icon" :path="labelIcon" />
+					<NcIconSvgWrapper
+						inline
+						class="icon"
+						:path="labelIcon" />
 					<b>{{ t('integration_jira', 'Labels') }}:</b>
 					<span v-for="label in labels"
 						:key="label"
@@ -32,19 +50,31 @@
 			</div>
 			<div class="row">
 				<p class="assignee">
-					<NcIconSvgWrapper inline class="icon" :path="accountIcon" style="color: var(--color-info);" />
+					<NcIconSvgWrapper
+						inline
+						class="icon"
+						:path="accountIcon"
+						style="color: var(--color-info);" />
 					<b>{{ t('integration_jira', 'Assignee') }}:</b> {{ assignedTo }}
 				</p>
 			</div>
 			<p v-if="created" class="row created-time">
-				<NcIconSvgWrapper inline class="icon" :path="calendarCheckIcon" />
+				<NcIconSvgWrapper
+					inline
+					class="icon"
+					:path="calendarCheckIcon" />
 				<b>{{ t('integration_jira', 'Created') }}:</b> {{ created }}
 			</p>
 			<p v-if="updated" class="row updated-time">
-				<NcIconSvgWrapper inline class="icon" :path="calendarUpdatedIcon" />
+				<NcIconSvgWrapper
+					inline
+					class="icon"
+					:path="calendarUpdatedIcon" />
 				<b>{{ t('integration_jira', 'Updated') }}:</b> {{ updated }}
 			</p>
-			<p v-if="summary" class="summary">{{ summary }}</p>
+			<p v-if="summary" class="summary">
+				{{ summary }}
+			</p>
 		</div>
 	</div>
 </template>
@@ -113,23 +143,20 @@ export default {
 			return this.richObject ? this.richObject?.fields?.priority?.name : null
 		},
 		priorityColor() {
-			if (this.richObject) {
-				switch (this.richObject?.fields?.priority?.name) {
-					case 'Highest':
-						return 'dark-red'
-					case 'High':
-						return 'orange'
-					case 'Medium':
-						return 'yellow'
-					case 'Low':
-						return 'dark-grey'
-					case 'Lowest':
-						return 'light-grey'
-					default:
-						return 'yellow'
-				}
+			switch (this.richObject?.fields?.priority?.name) {
+			case 'Highest':
+				return 'dark-red'
+			case 'High':
+				return 'orange'
+			case 'Medium':
+				return 'yellow'
+			case 'Low':
+				return 'dark-grey'
+			case 'Lowest':
+				return 'light-grey'
+			default:
+				return 'yellow'
 			}
-			return 'yellow'
 		},
 		assignedTo() {
 			return this.richObject ? this.richObject?.fields?.assignee?.displayName ?? t('integration_jira', 'Unassigned') : t('integration_jira', 'Unassigned')
