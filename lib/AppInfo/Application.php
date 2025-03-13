@@ -7,13 +7,17 @@
 namespace OCA\Jira\AppInfo;
 
 use OCA\Jira\Dashboard\JiraWidget;
+use OCA\Jira\Dashboard\JiraWidgetWithFilter;
+use OCA\Jira\Listener\JiraReferenceListener;
 use OCA\Jira\Notification\Notifier;
+use OCA\Jira\Reference\JiraReferenceProvider;
 use OCA\Jira\Search\JiraSearchProvider;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
+use OCP\Collaboration\Reference\RenderReferenceEvent;
 use OCP\Notification\IManager as INotificationManager;
 
 /**
@@ -43,7 +47,10 @@ class Application extends App implements IBootstrap {
 
 	public function register(IRegistrationContext $context): void {
 		$context->registerDashboardWidget(JiraWidget::class);
+		$context->registerDashboardWidget(JiraWidgetWithFilter::class);
 		$context->registerSearchProvider(JiraSearchProvider::class);
+		$context->registerEventListener(RenderReferenceEvent::class, JiraReferenceListener::class);
+		$context->registerReferenceProvider(JiraReferenceProvider::class);
 	}
 
 	public function boot(IBootContext $context): void {

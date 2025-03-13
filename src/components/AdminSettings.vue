@@ -72,6 +72,13 @@
 					:placeholder="t('integration_jira', 'Instance address')"
 					@input="onInput">
 			</div>
+			<div class="line">
+				<NcCheckboxRadioSwitch
+					:checked.sync="state.link_preview_enabled"
+					@update:checked="onInput()">
+					{{ t('integration_jira', 'Enable link previews') }}
+				</NcCheckboxRadioSwitch>
+			</div>
 		</div>
 	</div>
 </template>
@@ -89,11 +96,13 @@ import axios from '@nextcloud/axios'
 import { delay } from '../utils.js'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import { confirmPassword } from '@nextcloud/password-confirmation'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 
 export default {
 	name: 'AdminSettings',
 
 	components: {
+		NcCheckboxRadioSwitch,
 		JiraIcon,
 		InformationOutlineIcon,
 		KeyIcon,
@@ -123,6 +132,7 @@ export default {
 				const values = {
 					client_id: this.state.client_id,
 					forced_instance_url: this.state.forced_instance_url,
+					link_preview_enabled: this.state.link_preview_enabled ? '1' : '0',
 				}
 				if (this.state.client_secret !== 'dummySecret') {
 					values.client_secret = this.state.client_secret
