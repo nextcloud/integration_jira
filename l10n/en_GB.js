@@ -27,6 +27,7 @@ OC.L10N.register(
     "Your application secret" : "Your application secret",
     "Restrict self hosted URL to" : "Restrict self hosted URL to",
     "Instance address" : "Instance address",
+    "Assignee" : "Assignee",
     "Successfully connected to Jira!" : "Successfully connected to Jira!",
     "OAuth access token could not be obtained:" : "OAuth access token could not be obtained:",
     "Jira options saved" : "Jira options saved",

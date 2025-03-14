@@ -3,6 +3,12 @@ OC.L10N.register(
     {
     "Client ID" : "Client ID",
     "Client secret" : "Client secret",
+    "Unassigned" : "Unassigned",
+    "Type" : "Type",
+    "Status" : "Status",
+    "Priority" : "Priority",
+    "Created" : "Created",
+    "Updated" : "Updated",
     "User" : "User",
     "Password" : "პაროლი"
 },

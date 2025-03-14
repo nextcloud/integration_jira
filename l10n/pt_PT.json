@@ -4,6 +4,10 @@
     "Bad credentials" : "Credenciais inválidas",
     "Client ID" : "Id. do Cliente",
     "Client secret" : "Segredo do cliente\\\\",
+    "Type" : "Tipo",
+    "Priority" : "Prioridade",
+    "Created" : "Criado",
+    "Updated" : "Atualizado",
     "User" : "Utilizador",
     "Password" : "Palavra-passe"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"

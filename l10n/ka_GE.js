@@ -3,6 +3,10 @@ OC.L10N.register(
     {
     "Client ID" : "კლიენტის ID",
     "Client secret" : "კლიენტის საიდუმლო",
+    "Status" : "სტაუტის",
+    "Priority" : "პრიორიტეტი",
+    "Created" : "შექმნილია",
+    "Updated" : "განახლებული",
     "User" : "მომხმარებელი",
     "Password" : "პაროლი"
 },

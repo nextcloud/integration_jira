@@ -8,6 +8,10 @@ OC.L10N.register(
     "Client ID" : "ID Klien",
     "Client secret" : "Rahasia klien",
     "Instance address" : "Alamat server",
+    "Unassigned" : "Belum ditugaskan",
+    "Type" : "tipe",
+    "Created" : "Dibuat",
+    "Updated" : "Diperbarui",
     "User" : "Pengguna",
     "Password" : "Kata kunci"
 },

@@ -4,6 +4,12 @@
     "Connected accounts" : "Tengdir aðgangar",
     "Client ID" : "Biðlaraauðkenni",
     "Client secret" : "Leynilykill biðlara",
+    "Unassigned" : "Ekki úthlutað",
+    "Type" : "Tegund",
+    "Priority" : "Forgangur",
+    "Labels" : "Skýringar",
+    "Created" : "Búið til þann",
+    "Updated" : "Uppfært",
     "User" : "Notandi",
     "Password" : "Lykilorð"
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"

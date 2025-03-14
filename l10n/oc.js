@@ -4,6 +4,8 @@ OC.L10N.register(
     "Bad credentials" : "Marrits identificants",
     "Connected accounts" : "Comptes connectats",
     "Client ID" : "ID client",
+    "Type" : "Tipe",
+    "Status" : "Estat",
     "Connected as {username}" : "Connectat coma {username}",
     "User" : "User",
     "Password" : "Senhal",

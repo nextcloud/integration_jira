@@ -1,5 +1,7 @@
 { "translations": {
     "Client ID" : "Хэрэглэгчийн ID",
+    "Type" : "Төрөл",
+    "Updated" : "шинэчлэгдсэн",
     "User" : "Хэрэглэгч",
     "Password" : "Нууц үг"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

@@ -6,6 +6,10 @@ OC.L10N.register(
     "Bad credentials" : "Credenciais inválidas",
     "Client ID" : "Id. do Cliente",
     "Client secret" : "Segredo do cliente\\\\",
+    "Type" : "Tipo",
+    "Priority" : "Prioridade",
+    "Created" : "Criado",
+    "Updated" : "Atualizado",
     "User" : "Utilizador",
     "Password" : "Palavra-passe"
 },

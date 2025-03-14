@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "Connected accounts" : "Tilkopla kontoar",
     "Client ID" : "Klient-ID",
+    "Type" : "Skriv",
+    "Updated" : "Oppdatert",
     "User" : "Bruker",
     "Password" : "Passord"
 },

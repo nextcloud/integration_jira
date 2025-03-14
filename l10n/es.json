@@ -25,6 +25,8 @@
     "Your application secret" : "Tu secreto de aplicación",
     "Restrict self hosted URL to" : "Restringir la URL propia a",
     "Instance address" : "Dirección de la instancia",
+    "Status" : "Estado",
+    "Assignee" : "Asignado a",
     "Successfully connected to Jira!" : "¡Conectado con éxito a Jira!",
     "OAuth access token could not be obtained:" : "No se ha podido obtener el token de acceso OAuth:",
     "Jira options saved" : "Guardadas las opciones de Jira",

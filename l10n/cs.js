@@ -27,6 +27,7 @@ OC.L10N.register(
     "Your application secret" : "Vaše tajemství pro aplikaci",
     "Restrict self hosted URL to" : "Omezit samohostovanou URL pro",
     "Instance address" : "Adresa instance",
+    "Assignee" : "Řešitel",
     "Successfully connected to Jira!" : "Úspěšně spojeno s Jira!",
     "OAuth access token could not be obtained:" : "Nepodařilo se získat OAuth přístupový token:",
     "Jira options saved" : "Předvolby pro Jira uloženy",

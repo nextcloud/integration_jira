@@ -6,6 +6,12 @@ OC.L10N.register(
     "Connected accounts" : "Tengdir aðgangar",
     "Client ID" : "Biðlaraauðkenni",
     "Client secret" : "Leynilykill biðlara",
+    "Unassigned" : "Ekki úthlutað",
+    "Type" : "Tegund",
+    "Priority" : "Forgangur",
+    "Labels" : "Skýringar",
+    "Created" : "Búið til þann",
+    "Updated" : "Uppfært",
     "User" : "Notandi",
     "Password" : "Lykilorð"
 },

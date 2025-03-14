@@ -1,6 +1,12 @@
 { "translations": {
     "Client ID" : "Client ID",
     "Client secret" : "Client secret",
+    "Unassigned" : "Unassigned",
+    "Type" : "Type",
+    "Status" : "Status",
+    "Priority" : "Priority",
+    "Created" : "Created",
+    "Updated" : "Updated",
     "User" : "User",
     "Password" : "პაროლი"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"

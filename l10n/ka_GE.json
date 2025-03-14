@@ -1,6 +1,10 @@
 { "translations": {
     "Client ID" : "კლიენტის ID",
     "Client secret" : "კლიენტის საიდუმლო",
+    "Status" : "სტაუტის",
+    "Priority" : "პრიორიტეტი",
+    "Created" : "შექმნილია",
+    "Updated" : "განახლებული",
     "User" : "მომხმარებელი",
     "Password" : "პაროლი"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"

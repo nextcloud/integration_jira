@@ -6,6 +6,10 @@
     "Client ID" : "ID Klien",
     "Client secret" : "Rahasia klien",
     "Instance address" : "Alamat server",
+    "Unassigned" : "Belum ditugaskan",
+    "Type" : "tipe",
+    "Created" : "Dibuat",
+    "Updated" : "Diperbarui",
     "User" : "Pengguna",
     "Password" : "Kata kunci"
 },"pluralForm" :"nplurals=1; plural=0;"

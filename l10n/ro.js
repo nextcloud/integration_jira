@@ -7,6 +7,10 @@ OC.L10N.register(
     "Connected accounts" : "Conturile conectate",
     "Client ID" : "ID client",
     "Client secret" : "Secret client",
+    "Unassigned" : "Nealocat",
+    "Type" : "Tip",
+    "Created" : "A fost creat",
+    "Updated" : "Actualizat",
     "User" : "Utilizator",
     "Password" : "Parolă"
 },
