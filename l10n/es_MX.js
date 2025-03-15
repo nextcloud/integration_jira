@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Client ID" : "ID del cliente",
     "Client secret" : "Secreto del cliente",
+    "Unassigned" : "Sin asignar",
     "Type" : "Tipo",
     "Priority" : "Prioridad",
     "Labels" : "Etiquetas",

@@ -1,0 +1,9 @@
+{ "translations": {
+    "Type" : "Typo",
+    "Priority" : "Prioritate",
+    "Labels" : "Etiquettas",
+    "Updated" : "Actualisate",
+    "User" : "User",
+    "Password" : "Contrasigno"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

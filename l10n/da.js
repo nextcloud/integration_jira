@@ -6,6 +6,13 @@ OC.L10N.register(
     "Connected accounts" : "Forbundne konti",
     "Client ID" : "Klient ID",
     "Client secret" : "Klienthemmelighed",
+    "Unassigned" : "Ikke tildelt",
+    "Type" : "Type",
+    "Status" : "Status",
+    "Priority" : "Prioritet",
+    "Labels" : "Labels",
+    "Created" : "Oprettet",
+    "Updated" : "Opdateret",
     "User" : "Bruger",
     "Password" : "Adgangskode"
 },

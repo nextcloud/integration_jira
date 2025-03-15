@@ -3,6 +3,10 @@ OC.L10N.register(
     {
     "Client ID" : "Klientidentigilo",
     "Client secret" : "Klientosekreto",
+    "Type" : "Tipo",
+    "Priority" : "Prioritato",
+    "Created" : "Kreita",
+    "Updated" : "Ĝisdatigita",
     "User" : "Uzanto",
     "Password" : "Pasvorto"
 },

@@ -3,6 +3,10 @@ OC.L10N.register(
     {
     "Client ID" : "ID del cliente",
     "Client secret" : "Secreto del cliente",
+    "Type" : "Escribir",
+    "Priority" : "Prioridad",
+    "Labels" : "Etiquetas",
+    "Created" : "Creado",
     "Updated" : "Actualizado",
     "User" : "Usuario",
     "Password" : "Contraseña"

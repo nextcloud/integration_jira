@@ -1,0 +1,8 @@
+{ "translations": {
+    "Client ID" : "Kliënt-ID",
+    "Priority" : "Prioriteit",
+    "Updated" : "Bygewerk",
+    "User" : "Gebruiker",
+    "Password" : "Wagwoord"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
