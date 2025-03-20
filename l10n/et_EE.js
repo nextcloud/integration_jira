@@ -5,6 +5,7 @@ OC.L10N.register(
     "Client secret" : "Kliendi salasõna",
     "Type" : "Tüüp",
     "Priority" : "Prioriteet",
+    "Created" : "Loodud",
     "Updated" : "Uuendatud",
     "User" : "Kasutaja",
     "Password" : "Parool"
