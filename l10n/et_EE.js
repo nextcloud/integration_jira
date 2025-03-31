@@ -1,12 +1,16 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Bad HTTP method" : "Vigane HTTP-meetod",
+    "Bad credentials" : "Vale kasutajanimi, salasõna või tunnusluba",
+    "Connected accounts" : "Ühendatud kasutajakontod",
     "Client ID" : "Kliendi ID",
     "Client secret" : "Kliendi salasõna",
     "Type" : "Tüüp",
     "Priority" : "Prioriteet",
     "Created" : "Loodud",
     "Updated" : "Uuendatud",
+    "Connected as {username}" : "Ühendatud kui {username}",
     "User" : "Kasutaja",
     "Password" : "Parool"
 },
