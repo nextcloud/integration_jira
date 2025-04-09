@@ -1,8 +1,9 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Jira" : "Jira",
     "Client ID" : "ID kliant",
-    "Type" : "Stumm",
+    "Type" : "Seurt",
     "Status" : "Statud",
     "Created" : "Krouet",
     "User" : "Implijer",
