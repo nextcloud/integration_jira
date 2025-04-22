@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error during OAuth exchanges" : "Fejl under OAuth-udvekslinger",
     "Bad HTTP method" : "Dårlig HTTPmetode",
     "Bad credentials" : "Forkerte legitimationsoplysninger",
     "Connected accounts" : "Forbundne konti",
@@ -13,6 +14,7 @@ OC.L10N.register(
     "Labels" : "Labels",
     "Created" : "Oprettet",
     "Updated" : "Opdateret",
+    "OAuth access token could not be obtained:" : "OAuth adgang token kunne ikke opnås:",
     "User" : "Bruger",
     "Password" : "Adgangskode"
 },
