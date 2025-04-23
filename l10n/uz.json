@@ -1,0 +1,9 @@
+{ "translations": {
+    "Bad HTTP method" : "Yomon HTTP usuli",
+    "Bad credentials" : "Akkaunt ma'lumotlari xato",
+    "Unassigned" : "Tayinlanmagan",
+    "Type" : "Turi",
+    "Status" : "Holat",
+    "Password" : "Password"
+},"pluralForm" :"nplurals=1; plural=0;"
+}
