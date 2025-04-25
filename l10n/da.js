@@ -14,7 +14,7 @@ OC.L10N.register(
     "Labels" : "Labels",
     "Created" : "Oprettet",
     "Updated" : "Opdateret",
-    "OAuth access token could not be obtained:" : "OAuth adgang token kunne ikke opnås:",
+    "OAuth access token could not be obtained:" : "OAuth adgangsnøgle kunne ikke skaffes:",
     "User" : "Bruger",
     "Password" : "Adgangskode"
 },
