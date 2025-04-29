@@ -14,7 +14,7 @@
     "Integration of Jira user support/ticketing solution" : "Integration der Jira User Support/Ticketing-Lösung",
     "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Die GitHub-Einbindung bietet ein Dashboard-Widget mit wichtigen Benachrichtigungen und einen einheitlichen Suchanbieter für die Suche nach Issues und Benachrichtigungen über kürzliche Aktivitäten im Zusammenhang mit den Ihnen zugewiesenen Themen. ",
     "Jira admin options saved" : "Jira-Administrationseinstellungen gespeichert",
-    "Failed to save Jira admin options" : "Fehler beim Speichern der Jira-Administrationseinstellungen",
+    "Failed to save Jira admin options" : "Jira-Administrationseinstellungen konnten nicht gespeichert werden",
     "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Wenn Sie Ihren Nextcloud-Benutzern erlauben möchten, sich mit OAuth bei Jira Ihrer Wahl zu authentifizieren, erstellen Sie eine Anwendung in Ihren Jira-Einstellungen und legen Sie hier die ID und das Geheimnis fest.",
     "Jira app settings" : "Jira-App Einstellungen",
     "Make sure you set the redirection/callback URL to" : "Stellen Sie sicher, dass Sie die Umleitungs- / Rückruf-URL auf folgende URL setzen",
@@ -39,12 +39,12 @@
     "Successfully connected to Jira!" : "Erfolgreich mit Jira verbunden!",
     "OAuth access token could not be obtained:" : "OAuth-Zugriffstoken konnte nicht abgerufen werden:",
     "Jira options saved" : "Jira-Einstellungen gespeichert",
-    "Failed to save Jira options" : "Fehler beim Speichern der Jira-Einstellungen",
+    "Failed to save Jira options" : "Jira-Einstellungen konnten nicht gespeichert werden",
     "Failed to get Jira projects" : "Jira-Projekte konnten nicht abgerufen werden",
     "Impossible to connect to Jira instance" : "Fehler beim Verbinden mit der Jira-Instanz",
     "Login/password are invalid or account is locked" : "Anmeldung/Passwort sind ungültig oder das Konto ist gesperrt",
-    "Failed to connect to Jira Software" : "Fehler beim Verbinden mit Jira Software",
-    "Failed to save Jira OAuth state" : "Fehler beim Speichern des Jira OAuth-Status",
+    "Failed to connect to Jira Software" : "Verbindung zu Jira Software fehlgeschlagen",
+    "Failed to save Jira OAuth state" : "Jira OAuth-Status konnte nicht gespeichert werden",
     "Connected as {username}" : "Verbunden als {username}",
     "Disconnect from Jira" : "Von Jira trennen",
     "Enable unified search for tickets" : "Einheitliche Suche nach Tickets aktivieren",
@@ -68,7 +68,7 @@
     "No Jira account connected" : "Kein Jira-Konto verbunden",
     "Error connecting to Jira" : "Fehler bei der Verbindung mit Jira",
     "No Jira notifications!" : "Keine Jira-Benachrichtigungen!",
-    "Failed to get Jira notifications" : "Fehler beim Abrufen der Jira-Benachrichtigungen",
+    "Failed to get Jira notifications" : "Jira-Benachrichtigungen konnten nicht abgerufen werden",
     "Connect to Jira" : "Mit Jira verbinden"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
