@@ -6,6 +6,7 @@ OC.L10N.register(
     "Connected accounts" : "Ühendatud kasutajakontod",
     "Client ID" : "Kliendi ID",
     "Client secret" : "Kliendi salasõna",
+    "Instance address" : "Serveri aadress",
     "Type" : "Tüüp",
     "Status" : "Olek",
     "Priority" : "Prioriteet",
