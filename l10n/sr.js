@@ -7,7 +7,7 @@ OC.L10N.register(
     "Jira notifications" : "Jira обавештења",
     "Jira filtered notifications" : "Jira филтрирана обавештења",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Имате %s отворени проблем са скорашњом активности у Jira.","Имате %s отворена проблема са скорашњом активности у Jira.","Имате %s отворениха проблем са скорашњом активности у Jira."],
+    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Имате %s отворени проблем са скорашњом активности у Jira.","Имате %s отворена проблема са скорашњом активности у Jira.","Имате %s отворених проблемa са скорашњом активности у Jira."],
     "Jira issues" : "Jira проблеми",
     "Bad HTTP method" : "Лоша HTTP метода",
     "Bad credentials" : "Лоши креденцијали",
