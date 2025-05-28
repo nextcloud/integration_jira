@@ -5,6 +5,7 @@ OC.L10N.register(
     "Bad credentials" : "Nederīgi pieteikšanās dati",
     "Connected accounts" : "Sasaistītie konti",
     "Client ID" : "Klienta ID",
+    "ID of your application" : "Lietotnes Id",
     "Type" : "Veids",
     "Priority" : "Prioritāte",
     "Updated" : "Atjaunināta",
