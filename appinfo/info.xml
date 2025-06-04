@@ -23,6 +23,7 @@ and notifications about recent activity related to your assigned issues.]]></des
 	<bugs>https://github.com/nextcloud/integration_jira/issues</bugs>
 	<screenshot>https://raw.githubusercontent.com/nextcloud/integration_jira/main/img/screenshot1.jpg</screenshot>
 	<dependencies>
+		<php min-version="8.1"/>
 		<nextcloud min-version="30" max-version="32"/>
 	</dependencies>
 	<background-jobs>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -296,7 +297,7 @@ class JiraAPIService {
 		$searchString = preg_replace('/\s+$/', '', $searchString);
 
 		$params = [
-			'jql' => 'text ~ "'.$searchString.'"',
+			'jql' => 'text ~ "' . $searchString . '"',
 			'limit' => 10,
 		];
 

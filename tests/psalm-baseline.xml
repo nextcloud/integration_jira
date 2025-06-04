@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="6.7.1@a2f190972555ea01b0cfcc1913924d6c5fc1a64e">
+  <file src="lib/AppInfo/Application.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function boot(IBootContext $context): void {]]></code>
+      <code><![CDATA[public function register(IRegistrationContext $context): void {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="lib/BackgroundJob/CheckOpenTickets.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function run($argument): void {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="lib/Controller/ConfigController.php">
+    <InvalidArgument>
+      <code><![CDATA[$expiresAt]]></code>
+    </InvalidArgument>
+  </file>
+  <file src="lib/Dashboard/JiraWidget.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getIconClass(): string {]]></code>
+      <code><![CDATA[public function getId(): string {]]></code>
+      <code><![CDATA[public function getOrder(): int {]]></code>
+      <code><![CDATA[public function getTitle(): string {]]></code>
+      <code><![CDATA[public function getUrl(): ?string {]]></code>
+      <code><![CDATA[public function load(): void {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="lib/Dashboard/JiraWidgetWithFilter.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getIconClass(): string {]]></code>
+      <code><![CDATA[public function getId(): string {]]></code>
+      <code><![CDATA[public function getOrder(): int {]]></code>
+      <code><![CDATA[public function getTitle(): string {]]></code>
+      <code><![CDATA[public function getUrl(): ?string {]]></code>
+      <code><![CDATA[public function load(): void {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="lib/Listener/JiraReferenceListener.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function handle(Event $event): void {]]></code>
+    </MissingOverrideAttribute>
+    <MissingTemplateParam>
+      <code><![CDATA[IEventListener]]></code>
+    </MissingTemplateParam>
+  </file>
+  <file src="lib/Migration/Version1200Date202410151354.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function postSchemaChange(IOutput $output, Closure $schemaClosure, array $options) {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="lib/Notification/Notifier.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getID(): string {]]></code>
+      <code><![CDATA[public function getName(): string {]]></code>
+      <code><![CDATA[public function prepare(INotification $notification, string $languageCode): INotification {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="lib/Reference/JiraReferenceProvider.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getCacheKey(string $referenceId): ?string {]]></code>
+      <code><![CDATA[public function getCachePrefix(string $referenceId): string {]]></code>
+      <code><![CDATA[public function getIconUrl(): string {]]></code>
+      <code><![CDATA[public function getId(): string {]]></code>
+      <code><![CDATA[public function getOrder(): int {]]></code>
+      <code><![CDATA[public function getSupportedSearchProviderIds(): array {]]></code>
+      <code><![CDATA[public function getTitle(): string {]]></code>
+      <code><![CDATA[public function matchReference(string $referenceText): bool {]]></code>
+      <code><![CDATA[public function resolveReference(string $referenceText): ?IReference {]]></code>
+    </MissingOverrideAttribute>
+    <UndefinedClass>
+      <code><![CDATA[$this->referenceManager]]></code>
+      <code><![CDATA[private]]></code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Search/JiraSearchProvider.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getId(): string {]]></code>
+      <code><![CDATA[public function getName(): string {]]></code>
+      <code><![CDATA[public function getOrder(string $route, array $routeParameters): int {]]></code>
+      <code><![CDATA[public function search(IUser $user, ISearchQuery $query): SearchResult {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="lib/Service/JiraAPIService.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[$this->client->get($imageUrl, $options)->getBody()]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[?string]]></code>
+    </InvalidReturnType>
+  </file>
+  <file src="lib/Service/NetworkService.php">
+    <InvalidArgument>
+      <code><![CDATA[$expiresAt]]></code>
+    </InvalidArgument>
+    <InvalidOperand>
+      <code><![CDATA[$key]]></code>
+    </InvalidOperand>
+  </file>
+  <file src="lib/Settings/Admin.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getForm(): TemplateResponse {]]></code>
+      <code><![CDATA[public function getPriority(): int {]]></code>
+      <code><![CDATA[public function getSection(): string {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="lib/Settings/AdminSection.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getID(): string {]]></code>
+      <code><![CDATA[public function getIcon(): string {]]></code>
+      <code><![CDATA[public function getName(): string {]]></code>
+      <code><![CDATA[public function getPriority(): int {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="lib/Settings/Personal.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getForm(): TemplateResponse {]]></code>
+      <code><![CDATA[public function getPriority(): int {]]></code>
+      <code><![CDATA[public function getSection(): string {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="lib/Settings/PersonalSection.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getID(): string {]]></code>
+      <code><![CDATA[public function getIcon(): string {]]></code>
+      <code><![CDATA[public function getName(): string {]]></code>
+      <code><![CDATA[public function getPriority(): int {]]></code>
+    </MissingOverrideAttribute>
+  </file>
+</files>

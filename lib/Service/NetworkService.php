@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -35,7 +36,7 @@ class NetworkService {
 		IClientService $clientService,
 		private LoggerInterface $logger,
 		private ICrypto $crypto,
-		private IL10N $l10n
+		private IL10N $l10n,
 	) {
 		$this->client = $clientService->newClient();
 	}
@@ -131,11 +132,11 @@ class NetworkService {
 				return json_decode($body, true, flags: JSON_UNESCAPED_UNICODE);
 			}
 			return $body;
-		} catch (ServerException | ClientException $e) {
+		} catch (ServerException|ClientException $e) {
 			$body = $e->getResponse()->getBody();
 			$this->logger->warning('Network API error : ' . $body, ['app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
-		} catch (Exception | Throwable $e) {
+		} catch (Exception|Throwable $e) {
 			$this->logger->warning('Network API error', ['exception' => $e, 'app' => Application::APP_ID]);
 			return ['error' => $e->getMessage()];
 		}
@@ -189,7 +190,7 @@ class NetworkService {
 		$expireAt = $this->config->getUserValue($userId, Application::APP_ID, 'token_expires_at');
 		if ($refreshToken !== '' && $expireAt !== '') {
 			$nowTs = (new Datetime())->getTimestamp();
-			$expireAt = (int) $expireAt;
+			$expireAt = (int)$expireAt;
 			// if token expires in less than a minute or is already expired
 			if ($nowTs > $expireAt - 60) {
 				$this->refreshToken($userId);
@@ -228,7 +229,7 @@ class NetworkService {
 			$this->config->setUserValue($userId, Application::APP_ID, 'refresh_token', $encryptedRefreshToken);
 			if (isset($result['expires_in'])) {
 				$nowTs = (new Datetime())->getTimestamp();
-				$expiresAt = $nowTs + (int) $result['expires_in'];
+				$expiresAt = $nowTs + (int)$result['expires_in'];
 				$this->config->setUserValue($userId, Application::APP_ID, 'token_expires_at', $expiresAt);
 			}
 			return true;

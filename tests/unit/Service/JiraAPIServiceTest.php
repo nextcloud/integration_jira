@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -60,7 +61,7 @@ class JiraAPIServiceTest extends TestCase {
 
 	public function testSearch() {
 		$this->networkService->method('oauthRequest')->willReturnCallback(function (
-			string $userId, string $endPoint, array $params = [], string $method = 'GET'
+			string $userId, string $endPoint, array $params = [], string $method = 'GET',
 		) {
 			if (str_contains($endPoint, 'rest/api/2/search')) {
 				return json_decode(file_get_contents('tests/data/search.json'), true);
@@ -69,7 +70,7 @@ class JiraAPIServiceTest extends TestCase {
 		});
 
 		$this->config->method('getUserValue')->willReturnCallback(function (
-			$userId, $appName, $key, $default = ''
+			$userId, $appName, $key, $default = '',
 		) {
 			if ($key === 'url') {
 				return 'jira_url';

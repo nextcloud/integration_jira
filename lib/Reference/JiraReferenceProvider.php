@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -32,7 +33,8 @@ class JiraReferenceProvider extends ADiscoverableReferenceProvider implements IS
 		private IURLGenerator $urlGenerator,
 		private ReferenceManager $referenceManager,
 		private LinkReferenceProvider $linkReferenceProvider,
-		private ?string $userId) {
+		private ?string $userId,
+	) {
 	}
 
 	/**
@@ -103,7 +105,7 @@ class JiraReferenceProvider extends ADiscoverableReferenceProvider implements IS
 					$issueInfo
 				);
 				return $reference;
-			} catch (Exception | Throwable $e) {
+			} catch (Exception|Throwable $e) {
 				// fallback to opengraph
 				return $this->linkReferenceProvider->resolveReference($referenceText);
 			}

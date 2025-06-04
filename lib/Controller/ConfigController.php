@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -32,7 +33,7 @@ class ConfigController extends Controller {
 		private IURLGenerator $urlGenerator,
 		private IL10N $l,
 		private NetworkService $networkService,
-		private ICrypto	$crypto,
+		private ICrypto $crypto,
 		private ?string $userId,
 	) {
 		parent::__construct($appName, $request);
@@ -166,7 +167,7 @@ class ConfigController extends Controller {
 				$this->config->setUserValue($this->userId, Application::APP_ID, 'refresh_token', $encryptedRefreshToken);
 				if (isset($result['expires_in'])) {
 					$nowTs = (new Datetime())->getTimestamp();
-					$expiresAt = $nowTs + (int) $result['expires_in'];
+					$expiresAt = $nowTs + (int)$result['expires_in'];
 					$this->config->setUserValue($this->userId, Application::APP_ID, 'token_expires_at', $expiresAt);
 				}
 				// get accessible resources
