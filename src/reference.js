@@ -5,9 +5,9 @@
 
 import { registerWidget } from '@nextcloud/vue/dist/Components/NcRichText.js'
 import { linkTo } from '@nextcloud/router'
-import { getRequestToken } from '@nextcloud/auth'
+import { getCSPNonce } from '@nextcloud/auth'
 
-__webpack_nonce__ = btoa(getRequestToken()) // eslint-disable-line
+__webpack_nonce__ = getCSPNonce()  // eslint-disable-line
 __webpack_public_path__ = linkTo('integration_jira', 'js/') // eslint-disable-line
 
 registerWidget('integration_jira_search', async (el, { richObjectType, richObject, accessible }) => {
