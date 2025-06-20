@@ -4,6 +4,7 @@ OC.L10N.register(
     "Unassigned" : "Hakukabidhiwa",
     "Type" : "Aina",
     "Status" : "Wadhifa",
-    "Created" : "Imetengenezwa"
+    "Created" : "Imetengenezwa",
+    "Password" : "Nenosiri"
 },
 "nplurals=2; plural=(n != 1);");
