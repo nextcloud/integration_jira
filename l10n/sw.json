@@ -1,8 +1,15 @@
 { "translations": {
+    "Error during OAuth exchanges" : "Hitilafu wakati wa kubadilishana OAuth",
+    "Bad HTTP method" : "Njia mbaya ya HTTP ",
+    "Bad credentials" : "Sifa mbaya",
+    "Connected accounts" : "Akaunti zilizounganishwa",
+    "Client ID" : "Kitambulisho cha mteja",
+    "Client secret" : "Siri ya mteja",
     "Unassigned" : "Hakukabidhiwa",
     "Type" : "Aina",
     "Status" : "Wadhifa",
     "Created" : "Imetengenezwa",
+    "Connected as {username}" : "Imeunganishwa kama {username}",
     "Password" : "Nenosiri"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
