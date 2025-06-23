@@ -11,6 +11,7 @@ OC.L10N.register(
     "Unassigned" : "Hakukabidhiwa",
     "Type" : "Aina",
     "Status" : "Wadhifa",
+    "Priority" : "Kipaumbele",
     "Created" : "Imetengenezwa",
     "Connected as {username}" : "Imeunganishwa kama {username}",
     "Password" : "Nenosiri"

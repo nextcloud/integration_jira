@@ -28,6 +28,7 @@ OC.L10N.register(
     "Your application secret" : "Votre secret application",
     "Restrict self hosted URL to" : "Limiter l'URL auto-hébergée à",
     "Instance address" : "Adresse de l'instance",
+    "Enable link previews" : "Activer la prévisualisation des liens",
     "Unassigned" : "Non assigné(s)",
     "Type" : "Type",
     "Status" : "État",
