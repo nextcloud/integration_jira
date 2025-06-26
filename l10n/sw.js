@@ -14,6 +14,7 @@ OC.L10N.register(
     "Priority" : "Kipaumbele",
     "Created" : "Imetengenezwa",
     "Connected as {username}" : "Imeunganishwa kama {username}",
+    "User" : "Mtumiaji",
     "Password" : "Nenosiri"
 },
 "nplurals=2; plural=(n != 1);");
