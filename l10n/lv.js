@@ -9,6 +9,7 @@ OC.L10N.register(
     "Type" : "Veids",
     "Priority" : "Prioritāte",
     "Updated" : "Atjaunināta",
+    "Connected as {username}" : "Savienojies kā {username}",
     "User" : "Lietotājs",
     "Password" : "Parole",
     "Jira password" : "Jira parole",
