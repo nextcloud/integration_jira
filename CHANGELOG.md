@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.4.0 - 2025-07-20
+
+### Changed
+
+- Update npm packages
+- Added support for NC 32, removed support for NC 28 and NC 29
+
 ## 1.3.0 - 2025-03-13
 
 ### Added
