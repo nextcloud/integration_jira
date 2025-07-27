@@ -8,11 +8,13 @@ OC.L10N.register(
     "Connected accounts" : "Akaunti zilizounganishwa",
     "Client ID" : "Kitambulisho cha mteja",
     "Client secret" : "Siri ya mteja",
+    "Instance address" : "Instance address",
     "Unassigned" : "Hakukabidhiwa",
     "Type" : "Aina",
     "Status" : "Wadhifa",
     "Priority" : "Kipaumbele",
     "Created" : "Imetengenezwa",
+    "OAuth access token could not be obtained:" : "OAuth access token could not be obtained:",
     "Connected as {username}" : "Imeunganishwa kama {username}",
     "User" : "Mtumiaji",
     "Password" : "Nenosiri"
