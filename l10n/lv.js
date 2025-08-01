@@ -7,7 +7,7 @@ OC.L10N.register(
     "Client ID" : "Klienta ID",
     "ID of your application" : "Lietotnes Id",
     "Type" : "Veids",
-    "Priority" : "Prioritāte",
+    "Priority" : "Svarīgums",
     "Updated" : "Atjaunināta",
     "Connected as {username}" : "Savienojies kā {username}",
     "User" : "Lietotājs",
