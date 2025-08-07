@@ -7,6 +7,7 @@ OC.L10N.register(
     "Bad credentials" : "Sifa mbaya",
     "Connected accounts" : "Akaunti zilizounganishwa",
     "Client ID" : "Kitambulisho cha mteja",
+    "ID of your application" : "ID of your application",
     "Client secret" : "Siri ya mteja",
     "Instance address" : "Instance address",
     "Unassigned" : "Hakukabidhiwa",
@@ -16,6 +17,8 @@ OC.L10N.register(
     "Created" : "Imetengenezwa",
     "OAuth access token could not be obtained:" : "OAuth access token could not be obtained:",
     "Connected as {username}" : "Imeunganishwa kama {username}",
+    "Enable unified search for tickets" : "Enable unified search for tickets",
+    "Enable notifications for open tickets" : "Enable notifications for open tickets",
     "User" : "Mtumiaji",
     "Password" : "Nenosiri"
 },
