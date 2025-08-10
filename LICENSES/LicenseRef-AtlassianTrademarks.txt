@@ -1,0 +1,68 @@
+Trademark Guidelines
+
+We’ve developed these Atlassian Trademark Guidelines (“Guidelines”) to ensure our company trademarks are properly displayed and remain undiluted across our customer, partner, and plugin ecosystems. These Guidelines are intended to guide partners, resellers, customers, developers, consultants, publishers, and/or any other third party that wishes to use or display our trademarks in any manner. All uses of Atlassian’s trademarks must abide by these Guidelines, and any other terms that may apply, as specified, in any separate agreement you may have with Atlassian, including but not limited to the Atlassian Marketplace Partner Agreement. Our Guidelines are important because: 
+
+    We want our brand and brand names to be associated with awesome tools that help every team unleash their full potential. The more focused the use of the brand, the more powerful it will be in the community.
+    More people and companies are building plugins and becoming partners or ambassadors of Atlassian and our products. They are asking for additional guidance around how to market, design and brand their plugins and products so they (1) complement the Atlassian product “family”, and (2) are distinct from Atlassian products and brands while remaining part of the Atlassian community.
+    We want to avoid potential conflicts. If your brand is not clearly differentiated, customers may struggle to identify who to work with or what to buy. To protect our brands and serve the best interests of our third party developers and customers, we are publishing these expanded Guidelines.
+
+Our Trademarks
+
+Atlassian uses a number of terms and logos as active trademarks in branding its products and services including, but not limited to, those displayed in the chart below.  Atlassian has also registered or applied for registration of some of these trademarks in Australia, the United States, and other countries around the world. We have done this to protect and preserve the trademarks for our community of customers, developers, partners, and supporters, thereby benefiting everyone involved with Atlassian. By this, we mean that people should be able to easily identify genuine Atlassian products. 
+
+Your use of the Atlassian trademarks must be consistent with these Trademark Guidelines, which include additional guidelines that may apply to you based on your relationship with Atlassian.  If you wish to use an Atlassian logo, the logo should be sourced from an official Atlassian site (e.g., Atlassian press kit and  Atlassian design site), used without modification, and follow relevant usage guidelines (e.g., Atlassian logo guidelines). By using an Atlassian trademark, you are acknowledging and agree that Atlassian is the sole owner of the trademark and that you will not otherwise interfere with Atlassian’s rights in the trademark, will not challenge or assist others in challenging Atlassian’s use, registration of, or application to register such trademark, alone or in combination with other words, anywhere in the world, and will not harm, misuse, or bring into disrepute any Atlassian trademark. Any and all goodwill derived from your use of an Atlassian trademark exclusively inures to the benefit of Atlassian.
+
+Although many of Atlassian’s trademarks are illustrated below for convenience, Atlassian’s trademark rights are not limited to the marks contained in the chart.  Atlassian actively monitors the use of its trademarks and reserves the right to request that third parties modify or terminate any use that violates these Guidelines, creates a likelihood of confusion, or dilutes Atlassian’s trademarks.
+
+
+For Our Customers and the General Public
+
+Atlassian embraces “fair use” of its trademarks.  As such, you may use the foregoing trademarks to the extent necessary to identify Atlassian and its family of products, for example, in your website, blog, news article, or product review, without our written consent, as long as you use them without modification or deceptive intent and do not cause a likelihood of confusion between your brand(s) and Atlassian’s brands.
+
+If you have a question regarding your use of the Atlassian trademarks, including requests to use the Atlassian trademarks, please click here: Trademark Usage Request 
+For Our Partners and Vendors
+
+Atlassian recognizes that there is a large ecosystem of authorized partners and vendors whose businesses are intertwined with the Atlassian brand.  Accordingly, Atlassian provides these Guidelines to ensure that all parties are clear as to permissible uses of Atlassian’s trademarks.  As a general matter, if you are an authorized partner or vendor, you have permission to use Atlassian’s trademarks to promote Atlassian and its products or to identify and describe that your own products are designed for and compatible with Atlassian’s products, provided that the trademarks are used in unmodified form in accordance with these Guidelines, without deceptive intent, and without creating a likelihood of confusion between your brand(s) and Atlassian’s brands.  Permission to use Atlassian’s trademarks does not extend to any of Atlassian’s slogans or taglines, such as “Impossible Alone.”
+
+Logos. Atlassian logos are distinctive graphic renditions. You may use the Atlassian logo or product logos to promote Atlassian and its products or to identify that your own products are designed for and compatible with Atlassian’s products, provided that the logos are depicted exactly as shown in the preceding link, without any modification (aside from re-sizing), and without combining, transposing, or incorporating Atlassian’s logo with your own logo. You should also review the aforementioned logo usage guidelines to make sure the specifics of your use are appropriate. All other usages of the Atlassian logos require the written approval of Atlassian.
+
+Naming. Within the Atlassian ecosystem or in references thereto,  Atlassian product names may be used by authorized partners in the names of compatible third party products if such use complies with the following requirements: :
+
+    The use of Atlassian’s trademark(s) in your product name is part of a referential phrase, i.e. the product name comprises a referential phrase such as “for,” “for use with,” or “compatible with,” followed by an Atlassian trademark. 
+    It must be clear that your product is a third party product and not a product offered or otherwise sponsored by Atlassian. For example: “Acme plugin for Jira®” is okay, whereas “Jira® plugin for Acme” is not. The former connotes a  third party plugin for Jira®, the latter connotes an Atlassian-developed tool.
+    In any depiction of your product name, Atlassian’s trademark must be no more prominent than the rest of the product name.
+    The reference to Atlassian or its trademarks does not create a false or misleading impression of endorsement, sponsorship, or association with Atlassian or its products or services.
+    The use of Atlassian’s trademark does not represent Atlassian or its products in a false or derogatory light.
+
+
+Additional information about naming can be found in the Atlassian Brand Guidelines for Marketplace Partners.
+
+If Atlassian determines, in its sole judgment, that the use of Atlassian’s trademarks in a product name does not comply with the foregoing requirements, or that such use is likely to cause confusion between your brand(s) and Atlassian’s brands, then Atlassian may request that you change your use or immediately and permanently cease use of Atlassian’s trademarks. In addition, Atlassian may modify or revoke any right to use or display Atlassian’s trademarks at any time in its sole discretion.
+
+Unless explicitly authorized by Atlassian, you may not use any Atlassian trademark in any company name, trade name, or house mark.
+
+
+Domains. Atlassian’s trademarks (or similar terms) should not be used in your domain name. This is misleading because it represents you as Atlassian. You may, however, use Atlassian trademarks in the URL path. Examples of approved third party domains include: vendordomain.com and vendordomain.com/atlassian. Examples of third party domains that are not approved include: atlassian.vendordomain.com, vendordomain.atlassian.com, vendor-atlassian.com, confluence-vendorname.com, and jiraforagile.com.
+
+Moreover, your website should look like your own website, not ours. It should not borrow heavily from or closely resemble Atlassian’s website or web properties. For the sake of customers and consumers, clearly distinguishable websites help everyone.
+
+Additional Guidelines.  Please note that, depending on your relationship with Atlassian, additional limitations may apply to your use of Atlassian’s trademarks.  In particular, Atlassian marketplace vendors are subject to the Atlassian Marketplace Partner Agreement (note section 16) and the Atlassian Brand Guidelines for Marketplace Partners. Atlassian authorized partners should review the terms of their agreements with Atlassian as well as the Partner Brand Guidelines posted on the Partner Portal for any additional limitations that may apply to the use of Atlassian trademarks.  Atlassian’s authorized partners and vendors are also subject to its Adwords Trademark Policy governing the use of Atlassian trademarks as keywords in search advertising.  The Atlassian Brand Guidelines for Marketplace Partners, Partner Brand Guidelines, and Adwords Trademark Policy, as amended by Atlassian from time to time, are incorporated by reference into these Guidelines in their entirety. 
+
+Filing for Trademark Protection.
+
+While authorized Atlassian partners and vendors may use Atlassian trademarks and logos, subject to these and any other applicable Guidelines, to promote Atlassian and identify compatibility, any such permissible use does not confer any ownership over the Atlassian trademarks. As such,  no party, including authorized partners and vendors, should file for legal protection for any trademark that contains, or is confusingly similar to, any Atlassian trademark or logo. For example, a marketplace app vendor may not file for a trademark for the name “Vendor App for Jira."
+Atlassian style
+
+In addition to trademarks, Atlassian has developed artwork, screenshots, and imagery for our website and other web properties.  Atlassian’s website “look” or “feel” should not be reproduced or mimicked for the same reasons cited above:  consumers can be confused about whether they’re dealing with Atlassian or another company.  Similarly, Atlassian’s proprietary Charlie Sans font should not be used by third parties, including partners or vendors, unless it is included in materials provided by Atlassian and approved for third party use.  The Atlassian website and creative works embodied therein are the intellectual property of Atlassian.  Reproduction or “creative borrowing” of the website or of individual artworks, screenshots, or imagery without permission is a violation of Atlassian’s copyright. 
+Grandfathering
+
+These Guidelines were introduced at a point in time when some companies and individuals had already created product names that include the Atlassian trademarks in a manner that is not compliant with the Guidelines. Companies and individuals using the Atlassian product trademarks by or before July 31, 2017 will not be required to change their already existing product names to comply with these Guidelines now or in the future. However, we do request that these companies and individuals give proper notice and attribution of the Atlassian trademarks, and that any new product name will follow these Guidelines.  Continued use of Atlassian trademarks, historical or otherwise, does not grant a waiver to continue non-compliant use.
+Policy Applicability and Updates
+
+Atlassian reserves the right to update, modify, or revise these Guidelines at any time in its sole discretion.
+
+These Guidelines are not intended to set out an exhaustive list of Atlassian’s trademark rights. Atlassian reserves all rights in its intellectual property, including trademark rights not expressly described in these Guidelines. If you have any questions about the use of Atlassian trademarks or logos, please contact us at trademarks@atlassian.com.
+
+
+A copy can be found at https://www.atlassian.com/legal/trademark#our-trademarks
+Logo resources can b found at https://atlassian.design/foundations/logos#download-the-logos
