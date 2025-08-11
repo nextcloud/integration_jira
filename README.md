@@ -4,6 +4,8 @@
 -->
 # Jira Nextcloud application
 
+[![REUSE status](https://api.reuse.software/badge/github.com/nextcloud/integration_jira)](https://api.reuse.software/info/github.com/nextcloud/integration_jira)
+
 🟦 Jira integration provides a dashboard widget displaying your important notifications,
 a unified search provider to search for issues, link previews for issues,
 and Nextcloud notifications about recent activity related to your assigned issues.
