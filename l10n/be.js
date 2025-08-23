@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Client ID" : "Ідэнтыфікатар кліента",
     "Type" : "Тып",
     "Status" : "Стан",
     "User" : "Карыстальнік",
