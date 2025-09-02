@@ -11,10 +11,12 @@
     "Type" : "類型",
     "Status" : "狀態",
     "Priority" : "優先",
+    "Assignee" : "受託人",
     "Created" : "已建立",
     "Updated" : "已更新",
     "OAuth access token could not be obtained:" : "無法取得 OAuth 存取權杖：",
     "Connected as {username}" : "以 {username} 身份連結",
+    "Enable unified search for tickets" : "啟用工單的統一搜尋",
     "User" : "使用者",
     "Password" : "密碼"
 },"pluralForm" :"nplurals=1; plural=0;"
