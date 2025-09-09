@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Client ID" : "Ідэнтыфікатар кліента",
     "Type" : "Тып",
-    "Status" : "Стан",
+    "Status" : "Статус",
     "User" : "Карыстальнік",
     "Jira user name" : "Імя карыстальніка Jira",
     "Password" : "Пароль"
