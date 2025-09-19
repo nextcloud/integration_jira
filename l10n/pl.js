@@ -32,6 +32,7 @@ OC.L10N.register(
     "Status" : "Status",
     "Priority" : "Priorytet",
     "Labels" : "Etykiety",
+    "Assignee" : "Osoba przypisana",
     "Created" : "Utworzono",
     "Updated" : "Zaktualizowano",
     "Successfully connected to Jira!" : "Pomyślnie połączono z Jirą!",
