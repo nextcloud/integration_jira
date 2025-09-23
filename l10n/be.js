@@ -1,9 +1,11 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error getting OAuth access token." : "Памылка атрымання токена доступу OAuth.",
     "Client ID" : "Ідэнтыфікатар кліента",
     "Type" : "Тып",
     "Status" : "Статус",
+    "OAuth access token could not be obtained:" : "Немагчыма атрымаць токен доступу OAuth:",
     "User" : "Карыстальнік",
     "Jira user name" : "Імя карыстальніка Jira",
     "Password" : "Пароль"
