@@ -44,7 +44,7 @@ OC.L10N.register(
     "Failed to save Jira options" : "Falha ao salvar as opções do Jira",
     "Failed to get Jira projects" : "Falha ao obter projetos do Jira",
     "Impossible to connect to Jira instance" : "Não é possível conectar à instância do Jira",
-    "Login/password are invalid or account is locked" : "Login/senha são inválidos ou conta está bloqueada",
+    "Login/password are invalid or account is locked" : "Login/senha são inválidos ou conta está trancada",
     "Failed to connect to Jira Software" : "Falha ao conectar ao software Jira",
     "Failed to save Jira OAuth state" : "Falha ao salvar o estado OAuth do Jira",
     "Connected as {username}" : "Conectado como {username}",
