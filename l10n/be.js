@@ -6,6 +6,7 @@ OC.L10N.register(
     "Type" : "Тып",
     "Status" : "Статус",
     "OAuth access token could not be obtained:" : "Немагчыма атрымаць токен доступу OAuth:",
+    "Enable unified search for tickets" : "Уключыць уніфікаваны пошук білетаў",
     "User" : "Карыстальнік",
     "Jira user name" : "Імя карыстальніка Jira",
     "Password" : "Пароль"
