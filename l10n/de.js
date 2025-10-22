@@ -8,7 +8,7 @@ OC.L10N.register(
     "Jira filtered notifications" : "Gefilterte Jira-Benachrichtigungen",
     "Jira" : "Jira",
     "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Du hast %s offenen Fehler mit den jüngsten Aktivitäten in Jira.","Du hast %s offene Fehler mit den jüngsten Aktivitäten in Jira."],
-    "Jira issues" : "Jira-Probleme",
+    "Jira issues" : "Jira-Issues",
     "Bad HTTP method" : "Ungültige HTTP-Methode",
     "Bad credentials" : "Falsche Anmeldeinformationen",
     "Connected accounts" : "Verbundene Konten",
