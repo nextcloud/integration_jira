@@ -53,7 +53,7 @@
     "Enable notifications for open tickets" : "Benachrichtigungen für offene Tickets aktivieren",
     "Select Jira projects for Dashboard widget" : "Jira-Projekte für das Dashboard-Widget auswählen",
     "Select Jira projects" : "Jira-Projekte auswählen",
-    "Only projects available to your Jira account are listed." : "Nur Projekte die für Ihr Jira-Konto verfügbar sind, werden aufgelistet.",
+    "Only projects available to your Jira account are listed." : "Es werden nur Projekte aufgelistet, die für Dein Jira-Konto verfügbar sind.",
     "Jira Cloud" : "Jira Cloud",
     "Connect to Jira Cloud" : "Mit Jira Cloud verbinden",
     "Ask your Nextcloud administrator to configure a Jira Cloud OAuth app in order to be able to connect to this service." : "Bitte deine Nextcloud-Administration, eine Jira Cloud OAuth-App einzurichten, damit du eine Verbindung zu diesem Dienst herstellen kannst.",
