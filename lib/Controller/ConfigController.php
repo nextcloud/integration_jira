@@ -184,8 +184,8 @@ class ConfigController extends Controller {
 						$this->config->setUserValue($this->userId, Application::APP_ID, 'user_account_id', $info['accountId']);
 					}
 					return new RedirectResponse(
-						$this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'connected-accounts']) .
-						'?jiraToken=success'
+						$this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'connected-accounts'])
+						. '?jiraToken=success'
 					);
 				} else {
 					$result = $this->l->t('Error getting OAuth accessible resource list.') . ' ' . $resources['error'];
@@ -197,8 +197,8 @@ class ConfigController extends Controller {
 			$result = $this->l->t('Error during OAuth exchanges');
 		}
 		return new RedirectResponse(
-			$this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'connected-accounts']) .
-			'?jiraToken=error&message=' . urlencode($result)
+			$this->urlGenerator->linkToRoute('settings.PersonalSettings.index', ['section' => 'connected-accounts'])
+			. '?jiraToken=error&message=' . urlencode($result)
 		);
 	}
 }
