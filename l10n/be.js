@@ -5,6 +5,7 @@ OC.L10N.register(
     "Client ID" : "Ідэнтыфікатар кліента",
     "Type" : "Тып",
     "Status" : "Статус",
+    "Priority" : "Прыярытэт",
     "OAuth access token could not be obtained:" : "Немагчыма атрымаць токен доступу OAuth:",
     "Enable unified search for tickets" : "Уключыць уніфікаваны пошук білетаў",
     "User" : "Карыстальнік",
