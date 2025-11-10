@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.4.1 - 2025-11-10
+
+### Changed
+
+- Added support for Nextcloud 33
+- Update dependencies & translatetions
+
 ## 1.4.0 - 2025-07-20
 
 ### Changed
