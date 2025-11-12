@@ -13,7 +13,7 @@ OC.L10N.register(
     "Bad credentials" : "Falsche Anmeldeinformationen",
     "Connected accounts" : "Verbundene Konten",
     "Jira integration" : "Jira-Einbindung",
-    "Integration of Jira user support/ticketing solution" : "Integration der Jira User Support/Ticketing-Lösung",
+    "Integration of Jira user support/ticketing solution" : "Einbindung der Jira User Support/Ticketing-Lösung",
     "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Die GitHub-Einbindung bietet ein Dashboard-Widget mit wichtigen Benachrichtigungen und einen einheitlichen Suchanbieter für die Suche nach Issues und Benachrichtigungen über kürzliche Aktivitäten im Zusammenhang mit den Ihnen zugewiesenen Themen. ",
     "Jira admin options saved" : "Jira-Administrationseinstellungen gespeichert",
     "Failed to save Jira admin options" : "Jira-Administrationseinstellungen konnten nicht gespeichert werden",
