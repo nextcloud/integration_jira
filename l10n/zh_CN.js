@@ -32,6 +32,7 @@ OC.L10N.register(
     "Status" : "状态",
     "Priority" : "优先级",
     "Labels" : "标签",
+    "Assignee" : "受理人",
     "Created" : "已创建",
     "Updated" : "更新",
     "Successfully connected to Jira!" : "已成功连接到 Jira！",
