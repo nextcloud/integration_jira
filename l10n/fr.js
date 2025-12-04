@@ -32,7 +32,7 @@ OC.L10N.register(
     "Enable link previews" : "Activer la prévisualisation des liens",
     "Unassigned" : "Non assigné(s)",
     "Type" : "Type",
-    "Status" : "État",
+    "Status" : "Statut",
     "Priority" : "Priorité",
     "Labels" : "Étiquettes",
     "Assignee" : "Assigné",
