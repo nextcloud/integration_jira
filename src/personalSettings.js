@@ -1,19 +1,12 @@
-/* jshint esversion: 6 */
-
 /**
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import Vue from 'vue'
-import './bootstrap.js'
+import { createApp } from 'vue'
 import PersonalSettings from './components/PersonalSettings.vue'
 
-// eslint-disable-next-line
-'use strict'
+const app = createApp(PersonalSettings)
 
-// eslint-disable-next-line
-new Vue({
-	el: '#jira_prefs',
-	render: h => h(PersonalSettings),
-})
+app.mixin({ methods: { t, n } })
+app.mount('#jira_prefs')

@@ -74,8 +74,8 @@
 			</div>
 			<div class="line">
 				<NcCheckboxRadioSwitch
-					:checked.sync="state.link_preview_enabled"
-					@update:checked="onInput()">
+					v-model="state.link_preview_enabled"
+					@update:model-value="onInput()">
 					{{ t('integration_jira', 'Enable link previews') }}
 				</NcCheckboxRadioSwitch>
 			</div>
@@ -96,7 +96,7 @@ import axios from '@nextcloud/axios'
 import { delay } from '../utils.js'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import { confirmPassword } from '@nextcloud/password-confirmation'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 
 export default {
 	name: 'AdminSettings',

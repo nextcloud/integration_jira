@@ -86,7 +86,7 @@
 <script>
 import moment from '@nextcloud/moment'
 
-import NcIconSvgWrapper from '@nextcloud/vue/dist/Components/NcIconSvgWrapper.js'
+import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
 
 import {
 	mdiCircle,

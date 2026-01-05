@@ -26,13 +26,13 @@
 
 				<div id="jira-search-block">
 					<NcCheckboxRadioSwitch
-						:checked.sync="state.search_enabled"
-						@update:checked="onCheckboxChanged($event, 'search_enabled')">
+						v-model="state.search_enabled"
+						@update:model-value="onCheckboxChanged($event, 'search_enabled')">
 						{{ t('integration_jira', 'Enable unified search for tickets') }}
 					</NcCheckboxRadioSwitch>
 					<NcCheckboxRadioSwitch
-						:checked.sync="state.link_preview_enabled"
-						@update:checked="onCheckboxChanged($event, 'link_preview_enabled')">
+						v-model="state.link_preview_enabled"
+						@update:model-value="onCheckboxChanged($event, 'link_preview_enabled')">
 						{{ t('integration_jira', 'Enable user link preview') }}
 					</NcCheckboxRadioSwitch>
 					<br>
@@ -41,8 +41,8 @@
 						{{ t('integration_jira', 'Warning, everything you type in the search bar will be sent to Jira.') }}
 					</p>
 					<NcCheckboxRadioSwitch
-						:checked.sync="state.notification_enabled"
-						@update:checked="onCheckboxChanged($event, 'notification_enabled')">
+						v-model="state.notification_enabled"
+						@update:model-value="onCheckboxChanged($event, 'notification_enabled')">
 						{{ t('integration_jira', 'Enable notifications for open tickets') }}
 					</NcCheckboxRadioSwitch>
 				</div>
@@ -60,7 +60,7 @@
 						:placeholder="t('integration_jira', 'Select Jira projects')"
 						:loading="loadingJiraProjects"
 						:disabled="loadingJiraProjects"
-						@input="onJiraSelectedProjectsChanged" />
+						@update:model-value="onJiraSelectedProjectsChanged" />
 					<br>
 				</div>
 				<p class="settings-hint">
@@ -163,9 +163,9 @@ import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
 
 export default {
 	name: 'PersonalSettings',
