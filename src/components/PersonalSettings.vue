@@ -13,7 +13,7 @@
 			<div v-if="connected">
 				<div class="line">
 					<label>
-						<CheckIcon :size="20" class="icon" />
+						<CheckIcon :size="20" />
 						{{ t('integration_jira', 'Connected as {username}', { username: state.user_name }) }}
 					</label>
 					<NcButton @click="onLogoutClick">
@@ -25,52 +25,45 @@
 				</div>
 
 				<div id="jira-search-block">
-					<NcCheckboxRadioSwitch
-						v-model="state.search_enabled"
-						@update:model-value="onCheckboxChanged($event, 'search_enabled')">
-						{{ t('integration_jira', 'Enable unified search for tickets') }}
-					</NcCheckboxRadioSwitch>
-					<NcCheckboxRadioSwitch
-						v-model="state.link_preview_enabled"
-						@update:model-value="onCheckboxChanged($event, 'link_preview_enabled')">
-						{{ t('integration_jira', 'Enable user link preview') }}
-					</NcCheckboxRadioSwitch>
-					<br>
-					<p v-if="state.search_enabled" class="settings-hint">
-						<InformationOutlineIcon :size="20" class="icon" />
+					<NcFormBox>
+						<NcFormBoxSwitch
+							v-model="state.search_enabled"
+							@update:model-value="onCheckboxChanged($event, 'search_enabled')">
+							{{ t('integration_jira', 'Enable unified search for tickets') }}
+						</NcFormBoxSwitch>
+						<NcFormBoxSwitch
+							v-model="state.link_preview_enabled"
+							@update:model-value="onCheckboxChanged($event, 'link_preview_enabled')">
+							{{ t('integration_jira', 'Enable user link preview') }}
+						</NcFormBoxSwitch>
+						<NcFormBoxSwitch
+							v-model="state.notification_enabled"
+							@update:model-value="onCheckboxChanged($event, 'notification_enabled')">
+							{{ t('integration_jira', 'Enable notifications for open tickets') }}
+						</NcFormBoxSwitch>
+					</NcFormBox>
+					<NcNoteCard v-if="state.search_enabled" type="warning">
 						{{ t('integration_jira', 'Warning, everything you type in the search bar will be sent to Jira.') }}
-					</p>
-					<NcCheckboxRadioSwitch
-						v-model="state.notification_enabled"
-						@update:model-value="onCheckboxChanged($event, 'notification_enabled')">
-						{{ t('integration_jira', 'Enable notifications for open tickets') }}
-					</NcCheckboxRadioSwitch>
+					</NcNoteCard>
 				</div>
 
-				<div class="line">
-					<label>
-						{{ t('integration_jira', 'Select Jira projects for Dashboard widget') }}
-					</label>
-					<NcSelect
-						v-model="selectedProjects"
-						:options="jiraProjectsOptions"
-						:multiple="true"
-						:label-outside="true"
-						:no-wrap="true"
-						:placeholder="t('integration_jira', 'Select Jira projects')"
-						:loading="loadingJiraProjects"
-						:disabled="loadingJiraProjects"
-						@update:model-value="onJiraSelectedProjectsChanged" />
-					<br>
-				</div>
-				<p class="settings-hint">
-					<InformationOutlineIcon :size="20" class="icon" />
+				<NcSelect
+					v-model="selectedProjects"
+					:options="jiraProjectsOptions"
+					:multiple="true"
+					:input-label="t('integration_jira', 'Select Jira projects for the Dashboard widget')"
+					:no-wrap="true"
+					:placeholder="t('integration_jira', 'Select Jira projects')"
+					:loading="loadingJiraProjects"
+					:disabled="loadingJiraProjects"
+					@update:model-value="onJiraSelectedProjectsChanged" />
+				<NcNoteCard type="info">
 					{{ t('integration_jira', 'Only projects available to your Jira account are listed.') }}
-				</p>
+				</NcNoteCard>
 			</div>
-			<div v-else>
+			<div v-else class="form">
 				<h3>
-					<span class="icon icon-timezone" />
+					<WebIcon :size="20" />
 					{{ t('integration_jira', 'Jira Cloud') }}
 				</h3>
 				<div v-if="showOAuth">
@@ -85,52 +78,51 @@
 					<br><br>
 				</div>
 				<div v-else>
-					<p class="settings-hint">
+					<NcNoteCard type="info">
 						{{ t('integration_jira', 'Ask your Nextcloud administrator to configure a Jira Cloud OAuth app in order to be able to connect to this service.') }}
-					</p>
+					</NcNoteCard>
 					<br>
 				</div>
 				<h3>
-					<HomeIcon :size="20" class="icon" />
+					<HomeIcon :size="20" />
 					{{ t('integration_jira', 'Self-hosted Jira Software') }}
 				</h3>
-				<div class="line">
-					<label>
-						<EarthIcon :size="20" class="icon" />
-						{{ t('integration_jira', 'Jira self-hosted instance address') }}
-					</label>
-					<input v-if="state.forced_instance_url"
-						type="text"
-						:value="state.forced_instance_url"
-						:disabled="true"
-						:placeholder="t('integration_jira', 'Jira address')">
-					<input v-else
-						v-model="state.url"
-						type="text"
-						:placeholder="t('integration_jira', 'Jira address')">
-				</div>
-				<div class="line">
-					<label v-show="state.forced_instance_url || state.url">
-						<AccountIcon :size="20" class="icon" />
-						{{ t('integration_jira', 'User') }}
-					</label>
-					<input v-show="state.forced_instance_url || state.url"
-						v-model="login"
-						type="text"
-						:placeholder="t('integration_jira', 'Jira user name')"
-						@keyup.enter="onSelfHostedAuth">
-				</div>
-				<div class="line">
-					<label v-show="state.forced_instance_url || state.url">
-						<LockIcon :size="20" class="icon" />
-						{{ t('integration_jira', 'Password') }}
-					</label>
-					<input v-show="state.forced_instance_url || state.url"
-						v-model="password"
-						type="password"
-						:placeholder="t('integration_jira', 'Jira password')"
-						@keyup.enter="onSelfHostedAuth">
-				</div>
+				<NcTextField v-if="state.forced_instance_url"
+					:model-value="state.forced_instance_url"
+					:label="t('integration_jira', 'Jira self-hosted instance address')"
+					:placeholder="t('integration_jira', 'Jira address')"
+					:disabled="true">
+					<template #icon>
+						<EarthIcon :size="20" />
+					</template>
+				</NcTextField>
+				<NcTextField v-else
+					v-model="state.url"
+					:label="t('integration_jira', 'Jira self-hosted instance address')"
+					:placeholder="t('integration_jira', 'Jira address')">
+					<template #icon>
+						<EarthIcon :size="20" />
+					</template>
+				</NcTextField>
+				<NcTextField v-show="state.forced_instance_url || state.url"
+					v-model="login"
+					:label="t('integration_jira', 'User')"
+					:placeholder="t('integration_jira', 'Jira user name')"
+					@keyup.enter="onSelfHostedAuth">
+					<template #icon>
+						<AccountIcon :size="20" />
+					</template>
+				</NcTextField>
+				<NcTextField v-show="state.forced_instance_url || state.url"
+					v-model="password"
+					type="password"
+					:label="t('integration_jira', 'Password')"
+					:placeholder="t('integration_jira', 'Jira password')"
+					@keyup.enter="onSelfHostedAuth">
+					<template #icon>
+						<KeyOutlineIcon :size="20" />
+					</template>
+				</NcTextField>
 
 				<NcButton v-show="state.forced_instance_url || state.url"
 					:class="{ loading: connecting }"
@@ -147,25 +139,28 @@
 </template>
 
 <script>
-import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
 import CheckIcon from 'vue-material-design-icons/Check.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
-import LockIcon from 'vue-material-design-icons/Lock.vue'
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
 import HomeIcon from 'vue-material-design-icons/Home.vue'
 import AccountIcon from 'vue-material-design-icons/Account.vue'
+import WebIcon from 'vue-material-design-icons/Web.vue'
+import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
 
 import JiraIcon from './icons/JiraIcon.vue'
+
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
+import NcFormBox from '@nextcloud/vue/components/NcFormBox'
+import NcFormBoxSwitch from '@nextcloud/vue/components/NcFormBoxSwitch'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
 
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
 import { showSuccess, showError } from '@nextcloud/dialogs'
-
-import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcSelect from '@nextcloud/vue/components/NcSelect'
 
 export default {
 	name: 'PersonalSettings',
@@ -173,16 +168,19 @@ export default {
 	components: {
 		NcButton,
 		NcSelect,
-		NcCheckboxRadioSwitch,
+		NcNoteCard,
+		NcFormBox,
+		NcFormBoxSwitch,
+		NcTextField,
 		JiraIcon,
 		CheckIcon,
 		CloseIcon,
 		OpenInNewIcon,
-		InformationOutlineIcon,
 		EarthIcon,
 		HomeIcon,
-		LockIcon,
 		AccountIcon,
+		WebIcon,
+		KeyOutlineIcon,
 	},
 
 	props: [],
@@ -373,37 +371,42 @@ export default {
 #jira_prefs {
 	#jira-content {
 		margin-left: 40px;
+		display: flex;
+		flex-direction: column;
+		max-width: 800px;
+		gap: 4px;
+	}
+
+	h2 {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		justify-content: start;
 	}
 
 	h3 {
 		font-weight: bold;
-	}
-
-	h2,
-	h3,
-	.line,
-	.settings-hint {
 		display: flex;
 		align-items: center;
-		.icon {
-			margin-right: 4px;
-		}
+		gap: 8px;
 	}
 
-	h2 .icon {
-		margin-right: 8px;
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
 	}
 
 	.line {
 		margin-bottom: 5px;
+		display: flex;
+		align-items: center;
+		gap: 8px;
 
 		> label {
-			width: 300px;
 			display: flex;
 			align-items: center;
-		}
-		> input {
-			width: 300px;
+			gap: 4px;
 		}
 	}
 }
