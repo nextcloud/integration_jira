@@ -9,86 +9,78 @@
 			<JiraIcon class="icon" />
 			{{ t('integration_jira', 'Jira integration') }}
 		</h2>
-		<p class="settings-hint">
-			{{ t('integration_jira', 'If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here.') }}
-		</p>
-		<a class="external" href="https://developer.atlassian.com">
-			{{ t('integration_jira', 'Jira app settings') }}
-		</a>
-		<br><br>
-		<p class="settings-hint">
-			<InformationOutlineIcon :size="20" class="icon" />
-			{{ t('integration_jira', 'Make sure you set the redirection/callback URL to') }}
-		</p>
-		<strong>{{ redirect_uri }}</strong>
-		<br><br>
-		<p class="settings-hint">
-			<InformationOutlineIcon :size="20" class="icon" />
-			{{ t('integration_jira', 'Don\'t forget to make your Jira OAuth application public.') }}
-		</p>
-		<a class="external" href="https://developer.atlassian.com/cloud/jira/platform/oauth-2-authorization-code-grants-3lo-for-apps/#publishing-your-oauth-2-0--3lo--app">
-			{{ t('integration_jira', 'How to make Jira OAuth public') }}
-		</a>
-		<br><br>
-		<p class="settings-hint">
-			{{ t('integration_jira', 'Put the "Client ID" and "Client secret" below. Your Nextcloud users will then see a "Connect to Jira" button in their personal settings.') }}
-		</p>
 		<div id="jira-content">
-			<div class="line">
-				<label for="jira-client-id">
-					<KeyIcon :size="20" class="icon" />
-					{{ t('integration_jira', 'Client ID') }}
-				</label>
-				<input id="jira-client-id"
-					v-model="state.client_id"
-					type="password"
-					:readonly="readonly"
-					:placeholder="t('integration_jira', 'ID of your application')"
-					@focus="readonly = false"
-					@input="onInput">
-			</div>
-			<div class="line">
-				<label for="jira-client-secret">
-					<KeyIcon :size="20" class="icon" />
-					{{ t('integration_jira', 'Client secret') }}
-				</label>
-				<input id="jira-client-secret"
-					v-model="state.client_secret"
-					type="password"
-					:readonly="readonly"
-					:placeholder="t('integration_jira', 'Your application secret')"
-					@focus="readonly = false"
-					@input="onInput">
-			</div>
+			<NcNoteCard type="info">
+				{{ t('integration_jira', 'If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here.') }}
+				<br>
+				<a class="external" href="https://developer.atlassian.com">
+					{{ t('integration_jira', 'Jira app settings') }}
+				</a>
+				<br><br>
+				{{ t('integration_jira', 'Make sure you set the redirection/callback URL to') }}
+				<br>
+				<strong>{{ redirect_uri }}</strong>
+				<br><br>
+				{{ t('integration_jira', 'Don\'t forget to make your Jira OAuth application public.') }}
+				<br>
+				<a class="external" href="https://developer.atlassian.com/cloud/jira/platform/oauth-2-authorization-code-grants-3lo-for-apps/#publishing-your-oauth-2-0--3lo--app">
+					{{ t('integration_jira', 'How to make Jira OAuth public') }}
+				</a>
+				<br><br>
+				{{ t('integration_jira', 'Put the "Client ID" and "Client secret" below. Your Nextcloud users will then see a "Connect to Jira" button in their personal settings.') }}
+			</NcNoteCard>
+			<NcTextField
+				v-model="state.client_id"
+				type="password"
+				:label="t('integration_jira', 'Client ID')"
+				:placeholder="t('integration_jira', 'ID of your application')"
+				:readonly="readonly"
+				@focus="readonly = false"
+				@update:model-value="onInput">
+				<template #icon>
+					<KeyOutlineIcon :size="20" />
+				</template>
+			</NcTextField>
+			<NcTextField
+				v-model="state.client_secret"
+				type="password"
+				:label="t('integration_jira', 'Client secret')"
+				:placeholder="t('integration_jira', 'Your application secret')"
+				:readonly="readonly"
+				@focus="readonly = false"
+				@update:model-value="onInput">
+				<template #icon>
+					<KeyOutlineIcon :size="20" />
+				</template>
+			</NcTextField>
 			<br>
-			<div class="line">
-				<label for="jira-forced-instance">
-					<EarthIcon :size="20" class="icon" />
-					{{ t('integration_jira', 'Restrict self hosted URL to') }}
-				</label>
-				<input id="jira-forced-instance"
-					v-model="state.forced_instance_url"
-					type="text"
-					:placeholder="t('integration_jira', 'Instance address')"
-					@input="onInput">
-			</div>
-			<div class="line">
-				<NcCheckboxRadioSwitch
-					:checked.sync="state.link_preview_enabled"
-					@update:checked="onInput()">
-					{{ t('integration_jira', 'Enable link previews') }}
-				</NcCheckboxRadioSwitch>
-			</div>
+			<NcTextField
+				v-model="state.forced_instance_url"
+				:label="t('integration_jira', 'Restrict self hosted URL to')"
+				:placeholder="t('integration_jira', 'Instance address')"
+				@update:model-value="onInput">
+				<template #icon>
+					<EarthIcon :size="20" />
+				</template>
+			</NcTextField>
+			<NcFormBoxSwitch
+				v-model="state.link_preview_enabled"
+				@update:model-value="onInput()">
+				{{ t('integration_jira', 'Enable link previews') }}
+			</NcFormBoxSwitch>
 		</div>
 	</div>
 </template>
 
 <script>
-import InformationOutlineIcon from 'vue-material-design-icons/InformationOutline.vue'
-import KeyIcon from 'vue-material-design-icons/Key.vue'
+import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
 
 import JiraIcon from './icons/JiraIcon.vue'
+
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
+import NcFormBoxSwitch from '@nextcloud/vue/components/NcFormBoxSwitch'
 
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl } from '@nextcloud/router'
@@ -96,16 +88,16 @@ import axios from '@nextcloud/axios'
 import { delay } from '../utils.js'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 import { confirmPassword } from '@nextcloud/password-confirmation'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 
 export default {
 	name: 'AdminSettings',
 
 	components: {
-		NcCheckboxRadioSwitch,
+		NcNoteCard,
+		NcTextField,
+		NcFormBoxSwitch,
 		JiraIcon,
-		InformationOutlineIcon,
-		KeyIcon,
+		KeyOutlineIcon,
 		EarthIcon,
 	},
 
@@ -172,30 +164,28 @@ export default {
 #jira_prefs {
 	#jira-content {
 		margin-left: 40px;
+		max-width: 800px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
 	}
 
-	h2,
-	.line,
-	.settings-hint {
+	h2 {
 		display: flex;
 		align-items: center;
-		.icon {
-			margin-right: 4px;
-		}
-	}
-
-	h2 .icon {
-		margin-right: 8px;
+		justify-content: start;
+		gap: 8px;
 	}
 
 	.line {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+
 		> label {
-			width: 300px;
 			display: flex;
 			align-items: center;
-		}
-		> input {
-			width: 300px;
+			gap: 4px;
 		}
 	}
 }

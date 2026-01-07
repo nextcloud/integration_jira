@@ -15,11 +15,11 @@ use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUser;
-use OCP\Search\IProvider;
+use OCP\Search\IExternalProvider;
 use OCP\Search\ISearchQuery;
 use OCP\Search\SearchResult;
 
-class JiraSearchProvider implements IProvider {
+class JiraSearchProvider implements IExternalProvider {
 
 	private IAppManager $appManager;
 	private IL10N $l10n;
@@ -60,6 +60,13 @@ class JiraSearchProvider implements IProvider {
 	 */
 	public function getName(): string {
 		return $this->l10n->t('Jira');
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function isExternalProvider(): bool {
+		return true;
 	}
 
 	/**
