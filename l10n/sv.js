@@ -20,8 +20,8 @@ OC.L10N.register(
     "OAuth access token could not be obtained:" : "OAuth-åtkomsttoken kunde inte erhållas:",
     "Connected as {username}" : "Ansluten som {user}",
     "Enable unified search for tickets" : "Aktivera enhetlig sökning efter ärenden",
-    "Warning, everything you type in the search bar will be sent to Jira." : "Varning, allt du skriver i sökfältet skickas till Jira.",
     "Enable notifications for open tickets" : "Aktivera aviseringar för öppna ärenden",
+    "Warning, everything you type in the search bar will be sent to Jira." : "Varning, allt du skriver i sökfältet skickas till Jira.",
     "User" : "Användare",
     "Password" : "Lösenord"
 },
