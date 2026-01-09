@@ -53,6 +53,7 @@ OC.L10N.register(
     "Enable user link preview" : "Vorschau für Benutzerlinks aktivieren",
     "Enable notifications for open tickets" : "Benachrichtigungen für offene Tickets aktivieren",
     "Warning, everything you type in the search bar will be sent to Jira." : "Achtung, alles, was Sie in die Suchleiste eingeben, wird an Jira gesendet.",
+    "Select Jira projects for the Dashboard widget" : "Jira-Projekte für das Dashboard-Widget auswählen",
     "Select Jira projects" : "Jira-Projekte auswählen",
     "Only projects available to your Jira account are listed." : "Es werden nur Projekte aufgelistet, die für Ihr Jira-Konto verfügbar sind.",
     "Jira Cloud" : "Jira Cloud",
