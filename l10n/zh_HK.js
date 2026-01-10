@@ -53,6 +53,7 @@ OC.L10N.register(
     "Enable user link preview" : "啟用用戶連結預覽",
     "Enable notifications for open tickets" : "啟用未決票證通知",
     "Warning, everything you type in the search bar will be sent to Jira." : "警告，您在搜尋欄中輸入的所有內容都會傳送給 Jira。",
+    "Select Jira projects for the Dashboard widget" : "選擇 Jira 項目以用於儀表板小工具",
     "Select Jira projects" : "選擇 Jira 專案",
     "Only projects available to your Jira account are listed." : "只有您 Jira 帳戶可用的專案會被列出。",
     "Jira Cloud" : "Jira 雲端",

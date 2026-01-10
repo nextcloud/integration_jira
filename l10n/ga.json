@@ -51,6 +51,7 @@
     "Enable user link preview" : "Cumasaigh réamhamharc nasc úsáideora",
     "Enable notifications for open tickets" : "Cumasaigh fógraí le haghaidh ticéid oscailte",
     "Warning, everything you type in the search bar will be sent to Jira." : "Rabhadh, seolfar gach rud a chlóscríobhann tú sa bharra cuardaigh chuig Jira.",
+    "Select Jira projects for the Dashboard widget" : "Roghnaigh tionscadail Jira don ghiuirléid Painéil",
     "Select Jira projects" : "Roghnaigh tionscadail Jira",
     "Only projects available to your Jira account are listed." : "Ní liostaítear ach na tionscadail atá ar fáil do do chuntas Jira.",
     "Jira Cloud" : "Scamall Jira",
