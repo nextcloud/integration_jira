@@ -51,6 +51,7 @@
     "Enable user link preview" : "Activar a vista previa das ligazóns a usuarios",
     "Enable notifications for open tickets" : "Activar as notificacións de billetes abertos.",
     "Warning, everything you type in the search bar will be sent to Jira." : "Advertencia, todo o que escriba na barra de buscas enviarase a Jira.",
+    "Select Jira projects for the Dashboard widget" : "Seleccionar os proxectos de Jira para o trebello do Taboleiro",
     "Select Jira projects" : "Seleccione os proxectos de Jira",
     "Only projects available to your Jira account are listed." : "Só se listan os proxectos dispoñíbeis para a súa conta de Jira.",
     "Jira Cloud" : "Jira Cloud",
