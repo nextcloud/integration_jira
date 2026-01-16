@@ -53,6 +53,7 @@ OC.L10N.register(
     "Enable user link preview" : "Kullanıcı bağlantıları ön izlenebilsin",
     "Enable notifications for open tickets" : "Açık destek kayıtları için bildirimler kullanılsın",
     "Warning, everything you type in the search bar will be sent to Jira." : "Uyarı, arama çubuğuna yazdığınız her şey Jira üzerine gönderilecek.",
+    "Select Jira projects for the Dashboard widget" : "Pano bileşeni için Jira projelerini seçin",
     "Select Jira projects" : "Jira projelerini seçin",
     "Only projects available to your Jira account are listed." : "Yalnızca Jira hesabınız ile kullanılabilecek projeler listeleniyor.",
     "Jira Cloud" : "Jira Cloud",
