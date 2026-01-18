@@ -51,6 +51,7 @@
     "Enable user link preview" : "Enable user link preview",
     "Enable notifications for open tickets" : "Enable notifications for open tickets",
     "Warning, everything you type in the search bar will be sent to Jira." : "Warning, everything you type in the search bar will be sent to Jira.",
+    "Select Jira projects for the Dashboard widget" : "Select Jira projects for the Dashboard widget",
     "Select Jira projects" : "Select Jira projects",
     "Only projects available to your Jira account are listed." : "Only projects available to your Jira account are listed.",
     "Jira Cloud" : "Jira Cloud",
