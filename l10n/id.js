@@ -10,6 +10,7 @@ OC.L10N.register(
     "Instance address" : "Alamat server",
     "Unassigned" : "Belum ditugaskan",
     "Type" : "tipe",
+    "Status" : "Status",
     "Created" : "Dibuat",
     "Updated" : "Diperbarui",
     "User" : "Pengguna",
