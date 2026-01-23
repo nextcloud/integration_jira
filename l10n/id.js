@@ -11,6 +11,7 @@ OC.L10N.register(
     "Unassigned" : "Belum ditugaskan",
     "Type" : "tipe",
     "Status" : "Status",
+    "Priority" : "Prioritas",
     "Created" : "Dibuat",
     "Updated" : "Diperbarui",
     "User" : "Pengguna",
