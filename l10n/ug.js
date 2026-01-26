@@ -47,7 +47,7 @@ OC.L10N.register(
     "Login/password are invalid or account is locked" : "كىرىش / پارول ئىناۋەتسىز ياكى ھېسابات قۇلۇپلانغان",
     "Failed to connect to Jira Software" : "Jira يۇمشاق دېتالىغا ئۇلىنالمىدى",
     "Failed to save Jira OAuth state" : "Jira OAuth ھالىتىنى قۇتۇلدۇرالمىدى",
-    "Connected as {username}" : "{username} ئىسمى as قىلىپ ئۇلاندى",
+    "Connected as {username}" : "{username} قىلىپ ئۇلاندى",
     "Disconnect from Jira" : "جىرادىن ئۈزۈڭ",
     "Enable unified search for tickets" : "بېلەتنى بىر تۇتاش ئىزدەشنى قوزغىتىڭ",
     "Enable user link preview" : "ئىشلەتكۈچى ئۇلىنىشنى ئالدىن-كۆرۈشنى قوزغات",
