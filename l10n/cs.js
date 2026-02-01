@@ -53,6 +53,7 @@ OC.L10N.register(
     "Enable user link preview" : "Zapnout náhled odkazu na uživatele",
     "Enable notifications for open tickets" : "Zapnout upozornění na otevřená hlášení požadavků",
     "Warning, everything you type in the search bar will be sent to Jira." : "Varování – cokoli zadáte do kolonky vyhledávání bude odesláno do Jira.",
+    "Select Jira projects for the Dashboard widget" : "Vyberte projekty v Jira pro ovládací prvek na nástěnce",
     "Select Jira projects" : "Vybrat projekty v Jira",
     "Only projects available to your Jira account are listed." : "Vypsané jsou pouze ty projekty, které jsou přístupné vašemu účtu v Jira.",
     "Jira Cloud" : "Jira v cloudu",
