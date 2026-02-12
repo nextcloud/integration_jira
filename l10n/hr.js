@@ -32,6 +32,7 @@ OC.L10N.register(
     "Status" : "Status",
     "Priority" : "Prioritet",
     "Labels" : "Oznake",
+    "Created" : "Stvoreno",
     "Updated" : "Ažurirana",
     "Successfully connected to Jira!" : "Uspješno povezivanje s Jirom!",
     "OAuth access token could not be obtained:" : "Nije moguće dohvatiti token za pristup OAuth:",
