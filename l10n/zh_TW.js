@@ -13,6 +13,7 @@ OC.L10N.register(
     "Type" : "類型",
     "Status" : "狀態",
     "Priority" : "優先",
+    "Labels" : "標籤",
     "Assignee" : "受託人",
     "Created" : "已建立",
     "Updated" : "已更新",
