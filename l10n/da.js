@@ -11,7 +11,7 @@ OC.L10N.register(
     "Type" : "Type",
     "Status" : "Status",
     "Priority" : "Prioritet",
-    "Labels" : "Labels",
+    "Labels" : "Mærkater",
     "Created" : "Oprettet",
     "Updated" : "Opdateret",
     "OAuth access token could not be obtained:" : "OAuth adgangsnøgle kunne ikke skaffes:",
