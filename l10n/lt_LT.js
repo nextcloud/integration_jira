@@ -21,6 +21,7 @@ OC.L10N.register(
     "Status" : "Būsena",
     "Priority" : "Pirmenybė",
     "Labels" : "Etiketės",
+    "Created" : "Sukurta",
     "Updated" : "Atnaujintas",
     "Impossible to connect to Jira instance" : "Neįmanoma prisijungti prie „Jira“ egzemplioriaus",
     "Connected as {username}" : "Prisijungta kaip {username}",
