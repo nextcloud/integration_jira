@@ -17,6 +17,7 @@ OC.L10N.register(
     "Client secret" : "Kliento paslaptis",
     "Your application secret" : "Jūsų programos paslaptis",
     "Instance address" : "Egzemplioriaus adresas",
+    "Unassigned" : "Nepriskirta",
     "Type" : "Tipas",
     "Status" : "Būsena",
     "Priority" : "Pirmenybė",
