@@ -6,6 +6,8 @@
     "Unassigned" : "Tayinlanmagan",
     "Type" : "Turi",
     "Status" : "Holat",
+    "Labels" : "Yorliqlar",
+    "User" : "Foydalanuvchi",
     "Password" : "Password"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

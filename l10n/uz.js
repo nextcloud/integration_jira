@@ -8,6 +8,8 @@ OC.L10N.register(
     "Unassigned" : "Tayinlanmagan",
     "Type" : "Turi",
     "Status" : "Holat",
+    "Labels" : "Yorliqlar",
+    "User" : "Foydalanuvchi",
     "Password" : "Password"
 },
 "nplurals=1; plural=0;");
