@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.4.2
+
+### Fixed
+
+- Stop spamming the log with `\InvalidArgumentException` deprecation warnings from the notifier; throw `OCP\Notification\UnknownNotificationException` instead for unknown notifications.
+
 ## 1.4.1 - 2025-11-10
 
 ### Changed
