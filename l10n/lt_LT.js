@@ -24,6 +24,7 @@ OC.L10N.register(
     "Labels" : "Etiketės",
     "Created" : "Sukurta",
     "Updated" : "Atnaujintas",
+    "OAuth access token could not be obtained:" : "Nepavyko gauti „OAuth“ prieigos rakto:",
     "Impossible to connect to Jira instance" : "Neįmanoma prisijungti prie „Jira“ egzemplioriaus",
     "Connected as {username}" : "Prisijungta kaip {username}",
     "Disconnect from Jira" : "Atsijungti nuo „Jira“",
