@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 - Stop spamming the log with `\InvalidArgumentException` deprecation warnings from the notifier; throw `OCP\Notification\UnknownNotificationException` instead for unknown notifications.
+- Fix `ValueError` from `vsprintf()` that broke notifications for non-English users.
 
 ## 1.4.1 - 2025-11-10
 

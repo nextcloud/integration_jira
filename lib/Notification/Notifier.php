@@ -80,7 +80,7 @@ class Notifier implements INotifier {
 			case 'new_open_tickets':
 				$p = $notification->getSubjectParameters();
 				$nbOpen = (int)($p['nbOpen'] ?? 0);
-				$content = $l->n('You have %s open issue with recent activity in Jira.', 'You have %s open issues with recent activity in Jira.', $nbOpen, [$nbOpen]);
+				$content = $l->n('You have %n open issue with recent activity in Jira.', 'You have %n open issues with recent activity in Jira.', $nbOpen);
 
 				//$theme = $this->config->getUserValue($userId, 'accessibility', 'theme', '');
 				//$iconUrl = ($theme === 'dark')
