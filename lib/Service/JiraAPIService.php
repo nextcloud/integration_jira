@@ -169,13 +169,17 @@ class JiraAPIService {
 				}
 			}
 		} else {
-			// Jira cloud
+			// Jira cloud — /rest/api/2/search was removed (CHANGE-2046),
+			// must use the new /rest/api/3/search/jql endpoint which requires
+			// an explicit JQL and an explicit fields list.
+			$endPoint = 'rest/api/3/search/jql';
+			$params = ['jql' => 'assignee = currentUser()', 'fields' => '*all'];
 			$resources = $this->getJiraResources($userId);
 
 			foreach ($resources as $resource) {
 				$cloudId = $resource['id'];
 				$jiraUrl = $resource['url'];
-				$issuesResult = $this->networkService->oauthRequest($userId, 'ex/jira/' . $cloudId . '/' . $endPoint);
+				$issuesResult = $this->networkService->oauthRequest($userId, 'ex/jira/' . $cloudId . '/' . $endPoint, $params);
 				if (!isset($issuesResult['error']) && isset($issuesResult['issues'])) {
 					foreach ($issuesResult['issues'] as $k => $issue) {
 						$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
@@ -324,7 +328,11 @@ class JiraAPIService {
 				$myIssues[] = $issuesResult['issues'][$k];
 			}
 		} else {
-			// Jira cloud
+			// Jira cloud — /rest/api/2/search was removed (CHANGE-2046),
+			// must use the new /rest/api/3/search/jql endpoint which requires
+			// an explicit fields list.
+			$endPoint = 'rest/api/3/search/jql';
+			$params['fields'] = '*all';
 			$resources = $this->getJiraResources($userId);
 
 			foreach ($resources as $resource) {

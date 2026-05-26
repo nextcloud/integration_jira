@@ -63,7 +63,8 @@ class JiraAPIServiceTest extends TestCase {
 		$this->networkService->method('oauthRequest')->willReturnCallback(function (
 			string $userId, string $endPoint, array $params = [], string $method = 'GET',
 		) {
-			if (str_contains($endPoint, 'rest/api/2/search')) {
+			if (str_contains($endPoint, 'rest/api/3/search/jql')) {
+				$this->assertSame('*all', $params['fields'] ?? null);
 				return json_decode(file_get_contents('tests/data/search.json'), true);
 			}
 			return 'dummy';

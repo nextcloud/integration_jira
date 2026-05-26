@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Stop spamming the log with `\InvalidArgumentException` deprecation warnings from the notifier; throw `OCP\Notification\UnknownNotificationException` instead for unknown notifications.
 - Fix `ValueError` from `vsprintf()` that broke notifications for non-English users.
+- Migrate Jira Cloud search and notification calls to `/rest/api/3/search/jql`; the legacy `/rest/api/2/search` endpoint was removed by Atlassian (CHANGE-2046) and Cloud users were getting `410 Gone`. Self-hosted Jira (Server / Data Center) is unaffected and keeps the v2 endpoint (#122).
 
 ## 1.4.1 - 2025-11-10
 
