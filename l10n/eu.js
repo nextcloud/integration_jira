@@ -6,7 +6,6 @@ OC.L10N.register(
     "Error during OAuth exchanges" : "Errorea QAuth trukeak egitean",
     "Jira notifications" : "Jira jakinarazpenak",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["%sarazo ireki dituzu azkenaldiko jarduerekin Jiran.","%sarazo ireki dituzu azkenaldiko jarduerekin Jiran."],
     "Bad HTTP method" : "HTTP metodo okerra",
     "Bad credentials" : "Kredentzial okerrak",
     "Connected accounts" : "Konektaturiko kontuak",

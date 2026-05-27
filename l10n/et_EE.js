@@ -7,7 +7,6 @@ OC.L10N.register(
     "Jira notifications" : "Jira teavitused",
     "Jira filtered notifications" : "Jira filtreeritud teavitused",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Sul on %s lugemata Jira teavitus viimaste tegevuste kohta.","Sul on %s lugemata Jira teavitust viimaste tegevuste kohta."],
     "Jira issues" : "Jira veahaldus",
     "Bad HTTP method" : "Vigane HTTP-meetod",
     "Bad credentials" : "Vale kasutajanimi, salasõna või tunnusluba",

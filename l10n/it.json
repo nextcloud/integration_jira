@@ -4,7 +4,6 @@
     "Error during OAuth exchanges" : "Errore durante le negoziazioni OAuth",
     "Jira notifications" : "Notifiche Jira",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Hai %s problema aperto con attività recente in Jira.","Hai %s problemi aperti con attività recente in Jira.","Hai %s problemi aperti con attività recente in Jira."],
     "Bad HTTP method" : "Metodo HTTP non corretto",
     "Bad credentials" : "Credenziali non valide",
     "Connected accounts" : "Account connessi",

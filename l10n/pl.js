@@ -6,7 +6,6 @@ OC.L10N.register(
     "Error during OAuth exchanges" : "Błąd podczas zamiany OAuth",
     "Jira notifications" : "Powiadomienia Jira",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Masz %s otwarty problem od ostatniej aktywności w Jira.","Masz %s otwarte problemy od ostatniej aktywności w Jira.","Masz %s otwartych problemów od ostatniej aktywności w Jira.","Masz %s otwartych problemów od ostatniej aktywności w Jira."],
     "Bad HTTP method" : "Zła metoda HTTP",
     "Bad credentials" : "Złe poświadczenia",
     "Connected accounts" : "Połączone konta",

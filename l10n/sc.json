@@ -4,7 +4,6 @@
     "Error during OAuth exchanges" : "Errore cuncambiende OAuth",
     "Jira notifications" : "Notìficas de Jira",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Tenes %s problema abertu cun s'atividade retzente in Jira","Tenes %s problemas abertos cun s'atividade retzente in Jira"],
     "Bad HTTP method" : "Mètodu HTTP malu",
     "Bad credentials" : "Credentziales non bàlidas",
     "Connected accounts" : "Contos connètidos",

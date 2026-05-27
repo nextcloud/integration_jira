@@ -5,7 +5,6 @@
     "Jira notifications" : "Notificaciones de Jira",
     "Jira filtered notifications" : "Notificaciones de Jira filtradas",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Tiene %s incidencia abierta con actividad reciente en Jira.","Tiene %s incidencias abiertas con actividad reciente en Jira.","Tiene %s incidencias abiertas con actividad reciente en Jira."],
     "Jira issues" : "Incidencias de Jira",
     "Bad HTTP method" : "Método HTTP incorrecto",
     "Bad credentials" : "Credenciales incorrectas",

@@ -5,7 +5,6 @@
     "Jira notifications" : "Arifa za jira",
     "Jira filtered notifications" : "Jira ilichuja arifa",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["You have %s open issue with recent activity in Jira.","Una masuala %s ambayo hayajafunguliwa na shughuli za hivi karibuni huko Jira."],
     "Jira issues" : "Masuala ya Jira",
     "Bad HTTP method" : "Njia mbaya ya HTTP ",
     "Bad credentials" : "Sifa mbaya",

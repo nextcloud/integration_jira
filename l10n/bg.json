@@ -4,7 +4,6 @@
     "Error during OAuth exchanges" : "Грешка по време на обмен на OAuth",
     "Jira notifications" : "Известия на Jira",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Имате %s отворени проблема със скорошна активност в Jira.","Имате %s отворени проблема със скорошна активност в Jira."],
     "Bad HTTP method" : "Лош HTTP метод",
     "Bad credentials" : "Лоши идентификационни данни",
     "Connected accounts" : "Свързани профили",

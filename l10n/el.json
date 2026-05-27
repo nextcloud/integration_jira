@@ -5,7 +5,6 @@
     "Jira notifications" : "Ειδοποιήσεις Jira",
     "Jira filtered notifications" : "Φιλτραρισμένες ειδοποιήσεις Jira",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Έχετε %s ανοιχτό ζήτημα από την τελευταία δραστηριότητα στο Jira.","Έχετε %s ανοιχτά ζητήματα από την τελευταία δραστηριότητα στο Jira."],
     "Jira issues" : "Ζητήματα Jira",
     "Bad HTTP method" : "Κακή μέθοδος HTTP",
     "Bad credentials" : "Εσφαλμένα διαπιστευτήρια",

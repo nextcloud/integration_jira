@@ -6,7 +6,6 @@ OC.L10N.register(
     "Error during OAuth exchanges" : "خطا در هنگام تبادل OAuth",
     "Jira notifications" : "اعلان‌های Jira",
     "Jira" : "جیرا",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["شما%s با فعالیت اخیر در Jira مسائل باز دارید.","شما  %sبا فعالیت اخیر در Jira مسائل باز دارید."],
     "Bad HTTP method" : "روش HTTP بد",
     "Bad credentials" : "اعتبارنامه بد",
     "Connected accounts" : "حساب‌های متصل",

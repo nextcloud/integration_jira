@@ -7,7 +7,6 @@ OC.L10N.register(
     "Jira notifications" : "ການແຈ້ງເຕືອນ Jira",
     "Jira filtered notifications" : "ການແຈ້ງເຕືອນ Jira ທີ່ຖືກກັ່ນຕອງ",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["ທ່ານມີ %s ບັນຫາທີ່ເປີດຢູ່ ແລະ ມີການເຄື່ອນໄຫວຫຼ້າສຸດໃນ Jira."],
     "Jira issues" : "ບັນຫາຕ່າງໆໃນ Jira",
     "Bad HTTP method" : "HTTP method ບໍ່ຖືກຕ້ອງ",
     "Bad credentials" : "ຂໍ້ມູນຢືນຢັນຕົວຕົນບໍ່ຖືກຕ້ອງ",

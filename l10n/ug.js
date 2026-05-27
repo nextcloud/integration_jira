@@ -7,7 +7,6 @@ OC.L10N.register(
     "Jira notifications" : "جىرا ئۇقتۇرۇشى",
     "Jira filtered notifications" : "Jira سۈزۈلگەن ئۇقتۇرۇشلار",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Jira دىكى يېقىنقى پائالىيتىڭىزدە %s ئوچۇق مەسىلىڭىز بار","Jira دىكى يېقىنقى پائالىيتىڭىزدە %s ئوچۇق مەسىلىڭىز بار"],
     "Jira issues" : "Jira مەسىلىلىرى",
     "Bad HTTP method" : "ناچار HTTP ئۇسۇلى",
     "Bad credentials" : "ناچار كىنىشكا",

@@ -5,7 +5,6 @@
     "Jira notifications" : "Сповіщення Jira",
     "Jira filtered notifications" : "Фільтровані сповіщення Jira",
     "Jira" : "Джиро.",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["У вас є %s відкритих проблем з нещодавніми діями у Jira.","У вас є %s відкритих проблем з нещодавніми діями у Jira.","У вас є %s відкритих проблем з нещодавніми діями у Jira.","У вас є %s відкритих проблем з нещодавніми діями у Jira."],
     "Jira issues" : "Проблеми з Jira",
     "Bad HTTP method" : "Поганий метод HTTP",
     "Bad credentials" : "Погані облікові дані",

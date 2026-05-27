@@ -4,7 +4,6 @@
     "Error during OAuth exchanges" : "交换 OAuth 时出错",
     "Jira notifications" : "Jira通知",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["你在Jira近期活动中有%s有效的请求"],
     "Bad HTTP method" : "错误的HTTP方法",
     "Bad credentials" : "不好的证书",
     "Connected accounts" : "关联账号",

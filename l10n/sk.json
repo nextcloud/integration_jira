@@ -5,7 +5,6 @@
     "Jira notifications" : "Oznámenia Jira",
     "Jira filtered notifications" : "Filtrované oznámenia Jira",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Máte otvorený %s problém s nedávnou aktivitou v Jire.","Máte otvorených %s problémov s nedávnou aktivitou v Jire.","Máte otvorených %s problémov s nedávnou aktivitou v Jire.","Máte otvorených %s problémov s nedávnou aktivitou v Jire."],
     "Jira issues" : "Jira hlásenie problémov",
     "Bad HTTP method" : "Zlá metóda HTTP",
     "Bad credentials" : "Nesprávne prihlasovacie údaje",

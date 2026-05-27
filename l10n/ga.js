@@ -7,7 +7,6 @@ OC.L10N.register(
     "Jira notifications" : "Fógraí Jira",
     "Jira filtered notifications" : "Fógraí scagtha Jira",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Tá %s fadhb oscailte agat le gníomhaíocht le déanaí i Jira.","Tá %s fadhbanna oscailte agat le gníomhaíocht le déanaí i Jira.","Tá %s fadhbanna oscailte agat le gníomhaíocht le déanaí i Jira.","Tá %s fadhbanna oscailte agat le gníomhaíocht le déanaí i Jira.","Tá %s fadhbanna oscailte agat le gníomhaíocht le déanaí i Jira."],
     "Jira issues" : "Saincheisteanna Jira",
     "Bad HTTP method" : "Droch-mhodh HTTP",
     "Bad credentials" : "Dintiúir dona",

@@ -6,7 +6,6 @@ OC.L10N.register(
     "Error during OAuth exchanges" : "Feil ved utveksling av OAuth",
     "Jira notifications" : "Jira-varsler",
     "Jira" : "Jira",
-    "_You have %s open issue with recent activity in Jira._::_You have %s open issues with recent activity in Jira._" : ["Du har %s åpent problem med nylig aktivitet i Jira.","Du har %s åpne problemer med nylig aktivitet i Jira."],
     "Bad HTTP method" : "HTTP-metode er feil",
     "Bad credentials" : "Påloggingsdetaljene er feil",
     "Connected accounts" : "Tilknyttede kontoer",
