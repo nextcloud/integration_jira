@@ -7,6 +7,7 @@ OC.L10N.register(
     "Jira notifications" : "Jira bildirimleri",
     "Jira filtered notifications" : "Jira tarafından süzülmüş bildirimler",
     "Jira" : "Jira",
+    "_You have %n open issue with recent activity in Jira._::_You have %n open issues with recent activity in Jira._" : ["Jira üzerinde son etkinlikle ilgili %n açık sorununuz var.","Jira üzerinde son etkinlikle ilgili %n açık sorununuz var."],
     "Jira issues" : "Jira sorunları",
     "Bad HTTP method" : "HTTP yöntemi hatalı",
     "Bad credentials" : "Kimlik doğrulama bilgileri hatalı",
