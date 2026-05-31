@@ -7,6 +7,7 @@ OC.L10N.register(
     "Jira notifications" : "Jira 通告",
     "Jira filtered notifications" : "Jira 過濾通知",
     "Jira" : "Jira",
+    "_You have %n open issue with recent activity in Jira._::_You have %n open issues with recent activity in Jira._" : ["您在Jira的近期活動中有%n個未解決的問題。"],
     "Jira issues" : "Jira 問題",
     "Bad HTTP method" : "不正確的 HTTP 方法",
     "Bad credentials" : "錯誤的身分驗證",
