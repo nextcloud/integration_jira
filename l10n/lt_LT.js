@@ -2,7 +2,7 @@ OC.L10N.register(
     "integration_jira",
     {
     "Error getting OAuth accessible resource list." : "Klaida gaunant „OAuth“ pasiekiamų išteklių sąrašą.",
-    "Error getting OAuth access token." : "Klaida gaunant „OAuth“ prieigos raktą.",
+    "Error getting OAuth access token." : "Klaida gaunant „OAuth“ prieigos žymenį.",
     "Error during OAuth exchanges" : "Klaida „OAuth“ apsikeitimo metu",
     "Jira notifications" : "„Jira“ pranešimai",
     "Jira filtered notifications" : "„Jira“ filtruoti pranešimai",
@@ -39,7 +39,7 @@ OC.L10N.register(
     "Created" : "Sukurta",
     "Updated" : "Atnaujintas",
     "Successfully connected to Jira!" : "Sėkmingai prisijungta prie „Jira“!",
-    "OAuth access token could not be obtained:" : "Nepavyko gauti „OAuth“ prieigos rakto:",
+    "OAuth access token could not be obtained:" : "Nepavyko gauti „OAuth“ prieigos žymens:",
     "Jira options saved" : "„Jira“ parinktys išsaugotos",
     "Failed to save Jira options" : "Nepavyko išsaugoti „Jira“ parinkčių",
     "Failed to get Jira projects" : "Nepavyko gauti „Jira“ projektų",
