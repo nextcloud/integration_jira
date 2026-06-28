@@ -1,16 +1,22 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error getting OAuth access token." : "Erro ao obter o token de acesso OAuth.",
     "Error during OAuth exchanges" : "Erro durante trocas com o OAuth",
     "Bad HTTP method" : "Método HTTP incorreto",
     "Bad credentials" : "Credenciais inválidas",
+    "Connected accounts" : "Contas conectadas",
+    "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "A integração do Jira fornece um widget de painel que exibe suas notificações importantes,\num provedor de pesquisa unificado para localizar problemas\ne notificações sobre atividades recentes relacionadas aos seus problemas atribuídos.",
     "Client ID" : "Id. do Cliente",
     "Client secret" : "Segredo do cliente\\\\",
     "Type" : "Tipo",
     "Priority" : "Prioridade",
     "Created" : "Criado",
     "Updated" : "Atualizado",
+    "Successfully connected to Jira!" : "Conectado com sucesso ao Jira!",
+    "Impossible to connect to Jira instance" : "Não é possível conectar à instância do Jira",
     "User" : "Utilizador",
-    "Password" : "Palavra-passe"
+    "Password" : "Palavra-passe",
+    "Failed to get Jira notifications" : "Falha ao obter notificações do Jira"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
