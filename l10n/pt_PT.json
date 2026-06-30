@@ -16,6 +16,7 @@
     "Created" : "Criado",
     "Updated" : "Atualizado",
     "Successfully connected to Jira!" : "Conectado com sucesso ao Jira!",
+    "OAuth access token could not be obtained:" : "Não foi possível obter o token de acesso OAuth:",
     "Failed to get Jira projects" : "Falha ao obter projetos do Jira",
     "Impossible to connect to Jira instance" : "Não é possível conectar à instância do Jira",
     "User" : "Utilizador",
