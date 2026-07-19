@@ -5,6 +5,7 @@
     "Jira notifications" : "Jira notifications",
     "Jira filtered notifications" : "Jira filtered notifications",
     "Jira" : "Jira",
+    "_You have %n open issue with recent activity in Jira._::_You have %n open issues with recent activity in Jira._" : ["You have %n open issue with recent activity in Jira.","You have %n open issues with recent activity in Jira."],
     "Jira issues" : "Jira issues",
     "Bad HTTP method" : "Bad HTTP method",
     "Bad credentials" : "Bad credentials",
