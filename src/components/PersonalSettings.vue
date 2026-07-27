@@ -84,7 +84,7 @@
 					<br>
 				</div>
 				<h3>
-					<HomeIcon :size="20" />
+					<HomeOutlineIcon :size="20" />
 					{{ t('integration_jira', 'Self-hosted Jira Software') }}
 				</h3>
 				<NcTextField v-if="state.forced_instance_url"
@@ -110,7 +110,7 @@
 					:placeholder="t('integration_jira', 'Jira user name')"
 					@keyup.enter="onSelfHostedAuth">
 					<template #icon>
-						<AccountIcon :size="20" />
+						<AccountOutlineIcon :size="20" />
 					</template>
 				</NcTextField>
 				<NcTextField v-show="state.forced_instance_url || state.url"
@@ -143,8 +143,8 @@ import CheckIcon from 'vue-material-design-icons/Check.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
-import HomeIcon from 'vue-material-design-icons/Home.vue'
-import AccountIcon from 'vue-material-design-icons/Account.vue'
+import HomeOutlineIcon from 'vue-material-design-icons/HomeOutline.vue'
+import AccountOutlineIcon from 'vue-material-design-icons/AccountOutline.vue'
 import WebIcon from 'vue-material-design-icons/Web.vue'
 import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
 
@@ -177,8 +177,8 @@ export default {
 		CloseIcon,
 		OpenInNewIcon,
 		EarthIcon,
-		HomeIcon,
-		AccountIcon,
+		HomeOutlineIcon,
+		AccountOutlineIcon,
 		WebIcon,
 		KeyOutlineIcon,
 	},
