@@ -11,7 +11,6 @@ namespace OCA\Jira\BackgroundJob;
 use OCA\Jira\Service\JiraAPIService;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\TimedJob;
-
 use Psr\Log\LoggerInterface;
 
 /**
