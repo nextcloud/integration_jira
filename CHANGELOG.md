@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.4.3
+
+### Changed
+
+- Use the outline style for the home and account icons in the personal settings
+- Update Psalm to 6.16 and nextcloud/coding-standard to 1.5
+- Build the frontend in CI for dependency updates, and lint all style files
+- Update dependencies & translations
+
 ## 1.4.2 - 2026-05-27
 
 ### Fixed
