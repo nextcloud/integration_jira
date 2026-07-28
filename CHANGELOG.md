@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## 1.4.3
+## 1.4.3 - 2026-07-27
 
 ### Changed
 
