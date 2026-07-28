@@ -12,7 +12,6 @@ use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use OCA\Jira\AppInfo\Application;
-
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
 use OCP\Http\Client\IResponse;
@@ -21,7 +20,6 @@ use OCP\IL10N;
 use OCP\PreConditionNotMetException;
 use OCP\Security\ICrypto;
 use Psr\Log\LoggerInterface;
-
 use Throwable;
 
 /**

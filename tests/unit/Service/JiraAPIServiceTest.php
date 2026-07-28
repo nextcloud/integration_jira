@@ -16,7 +16,6 @@ use OCP\IConfig;
 use OCP\IUserManager;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Security\ICrypto;
-
 use PHPUnit\Framework\TestCase;
 
 class JiraAPIServiceTest extends TestCase {

@@ -10,9 +10,9 @@
 	"minimum-stability": "stable",
 	"require-dev": {
 		"nextcloud/ocp": "dev-master",
-		"nextcloud/coding-standard": "^1.1",
+		"nextcloud/coding-standard": "^1.5",
 		"phpunit/phpunit": "^10",
-		"psalm/phar": "6.7.x"
+		"psalm/phar": "^6.16"
 	},
 	"require": {
 		"php": ">=8.2.0"

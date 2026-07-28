@@ -92,7 +92,6 @@ class Notifier implements INotifier {
 					->setIcon($this->url->getAbsoluteURL($this->url->imagePath(Application::APP_ID, 'app-dark.svg')));
 				//->setIcon($this->url->getAbsoluteURL($iconUrl));
 				return $notification;
-
 			default:
 				// Unknown subject => Unknown notification => throw
 				throw new UnknownNotificationException();
