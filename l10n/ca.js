@@ -27,6 +27,7 @@ OC.L10N.register(
     "Instance address" : "Adreça de la instància",
     "Unassigned" : "Sense assignar",
     "Type" : "Tipus",
+    "Status" : "Estat",
     "Priority" : "Prioritat",
     "Labels" : "Etiqueta",
     "Created" : "S'ha creat",
