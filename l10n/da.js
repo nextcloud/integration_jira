@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error getting OAuth access token." : "Fejl ved at få adgang til OAuth token.",
     "Error during OAuth exchanges" : "Fejl under OAuth-udvekslinger",
     "Bad HTTP method" : "Dårlig HTTPmetode",
     "Bad credentials" : "Forkerte legitimationsoplysninger",
