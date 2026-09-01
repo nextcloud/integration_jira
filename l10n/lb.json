@@ -1,7 +1,10 @@
 { "translations": {
+    "Jira" : "Jira",
     "Client ID" : "Client ID",
+    "Unassigned" : "Net zougewisen",
     "Type" : "Typ",
-    "User" : "User",
+    "Status" : "Status",
+    "User" : "Benotzer",
     "Password" : "Passwuert"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
