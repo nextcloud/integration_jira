@@ -8,6 +8,7 @@ OC.L10N.register(
     "Client secret" : "Leynilykill biðlara",
     "Unassigned" : "Ekki úthlutað",
     "Type" : "Tegund",
+    "Status" : "Staða",
     "Priority" : "Forgangur",
     "Labels" : "Skýringar",
     "Created" : "Búið til þann",
