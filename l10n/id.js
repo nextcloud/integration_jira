@@ -12,8 +12,10 @@ OC.L10N.register(
     "Type" : "tipe",
     "Status" : "Status",
     "Priority" : "Prioritas",
+    "Labels" : "Label",
     "Created" : "Dibuat",
     "Updated" : "Diperbarui",
+    "Connected as {username}" : "Terhubung sebagai {username}",
     "User" : "Pengguna",
     "Password" : "Kata kunci"
 },
