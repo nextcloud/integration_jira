@@ -16,6 +16,7 @@ OC.L10N.register(
     "Created" : "Oprettet",
     "Updated" : "Opdateret",
     "OAuth access token could not be obtained:" : "OAuth adgangsnøgle kunne ikke skaffes:",
+    "Connected as {username}" : "Forbundet som {username}",
     "User" : "Bruger",
     "Password" : "Adgangskode"
 },
