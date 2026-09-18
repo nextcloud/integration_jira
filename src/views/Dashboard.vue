@@ -10,12 +10,12 @@
 		:loading="state === 'loading'">
 		<template #empty-content>
 			<NcEmptyContent
-				v-if="emptyContentMessage">
+				v-if="emptyContentMessage"
+				:description="emptyContentMessage">
 				<template #icon>
 					<component :is="emptyContentIcon" />
 				</template>
-				<template #desc>
-					{{ emptyContentMessage }}
+				<template #action>
 					<div v-if="state === 'no-token' || state === 'error'" class="connect-button">
 						<a :href="settingsUrl">
 							<NcButton>
@@ -80,8 +80,6 @@ export default {
 			loop: null,
 			state: 'loading',
 			settingsUrl: generateUrl('/settings/user/connected-accounts'),
-			themingColor: OCA.Theming ? OCA.Theming.color.replace('#', '') : '0082C9',
-			darkThemeColor: OCA.Accessibility?.theme === 'dark' ? 'ffffff' : '181818',
 			windowVisibility: true,
 		}
 	},

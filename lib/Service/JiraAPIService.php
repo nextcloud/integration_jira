@@ -126,6 +126,14 @@ class JiraAPIService {
 	}
 
 	/**
+	 * Whether the user connected a Jira account, with OAuth for Jira Cloud or with basic auth for a self-hosted Jira
+	 */
+	public function isUserConnected(string $userId): bool {
+		return $this->config->getUserValue($userId, Application::APP_ID, 'token') !== ''
+			|| $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header') !== '';
+	}
+
+	/**
 	 * @param string $userId
 	 * @param ?string $since
 	 * @param ?int $limit
