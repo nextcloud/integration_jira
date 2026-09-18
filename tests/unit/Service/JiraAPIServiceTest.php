@@ -85,4 +85,29 @@ class JiraAPIServiceTest extends TestCase {
 		$this->assertEquals(1, sizeof($expected));
 		$this->assertEquals('FIRST-1', $expected[0]['key']);
 	}
+
+	private function stubUserConfig(string $token, string $basicAuthHeader): void {
+		$this->config->method('getUserValue')->willReturnCallback(
+			fn ($userId, $appName, $key, $default = '') => match ($key) {
+				'token' => $token,
+				'basic_auth_header' => $basicAuthHeader,
+				default => $default,
+			}
+		);
+	}
+
+	public function testUserWithoutAnyJiraAccountIsNotConnected(): void {
+		$this->stubUserConfig('', '');
+		$this->assertFalse($this->apiService->isUserConnected('user1'));
+	}
+
+	public function testUserWithAJiraCloudTokenIsConnected(): void {
+		$this->stubUserConfig('encrypted-token', '');
+		$this->assertTrue($this->apiService->isUserConnected('user1'));
+	}
+
+	public function testUserWithSelfHostedJiraCredentialsIsConnected(): void {
+		$this->stubUserConfig('', 'encrypted-basic-auth-header');
+		$this->assertTrue($this->apiService->isUserConnected('user1'));
+	}
 }

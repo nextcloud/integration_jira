@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Added support for Nextcloud 36
 
+### Fixed
+
+- Show the content of the dashboard widgets again, they stayed empty because of an error when loading
+- Ask users who did not connect a Jira account to connect one in the dashboard widgets, instead of telling them there are no notifications
+
 ## 1.4.3 - 2026-07-27
 
 ### Changed

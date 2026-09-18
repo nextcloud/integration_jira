@@ -56,6 +56,10 @@ class JiraAPIController extends Controller {
 	 * @return DataResponse
 	 */
 	public function getNotifications(?string $since = null, bool $filterProjects = false): DataResponse {
+		if (!$this->jiraAPIService->isUserConnected($this->userId)) {
+			// the dashboard widget shows its "connect" prompt on 400
+			return new DataResponse([], 400);
+		}
 		$result = $this->jiraAPIService->getNotifications($this->userId, $since, 7, $filterProjects);
 		if (!isset($result['error'])) {
 			$response = new DataResponse($result);
