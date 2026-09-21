@@ -36,3 +36,7 @@
 /stylelint.config.js
 /webpack.*
 tests
+/playwright
+/playwright.config.ts
+/test-results
+/playwright-report
