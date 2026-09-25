@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import { registerWidget } from '@nextcloud/vue/components/NcRichText'
-import { linkTo } from '@nextcloud/router'
 import { getCSPNonce } from '@nextcloud/auth'
+import { linkTo } from '@nextcloud/router'
+import { registerWidget } from '@nextcloud/vue/components/NcRichText'
 
 __webpack_nonce__ = getCSPNonce()  // eslint-disable-line
 __webpack_public_path__ = linkTo('integration_jira', 'js/') // eslint-disable-line
