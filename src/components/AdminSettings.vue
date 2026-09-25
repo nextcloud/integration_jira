@@ -36,7 +36,7 @@
 				:placeholder="t('integration_jira', 'ID of your application')"
 				:readonly="readonly"
 				@focus="readonly = false"
-				@update:model-value="onInput">
+				@update:modelValue="onInput">
 				<template #icon>
 					<KeyOutlineIcon :size="20" />
 				</template>
@@ -48,7 +48,7 @@
 				:placeholder="t('integration_jira', 'Your application secret')"
 				:readonly="readonly"
 				@focus="readonly = false"
-				@update:model-value="onInput">
+				@update:modelValue="onInput">
 				<template #icon>
 					<KeyOutlineIcon :size="20" />
 				</template>
@@ -58,14 +58,14 @@
 				v-model="state.forced_instance_url"
 				:label="t('integration_jira', 'Restrict self hosted URL to')"
 				:placeholder="t('integration_jira', 'Instance address')"
-				@update:model-value="onInput">
+				@update:modelValue="onInput">
 				<template #icon>
 					<EarthIcon :size="20" />
 				</template>
 			</NcTextField>
 			<NcFormBoxSwitch
 				v-model="state.link_preview_enabled"
-				@update:model-value="onInput()">
+				@update:modelValue="onInput()">
 				{{ t('integration_jira', 'Enable link previews') }}
 			</NcFormBoxSwitch>
 		</div>
@@ -73,21 +73,18 @@
 </template>
 
 <script>
-import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
-import EarthIcon from 'vue-material-design-icons/Earth.vue'
-
-import JiraIcon from './icons/JiraIcon.vue'
-
+import axios from '@nextcloud/axios'
+import { showError, showSuccess } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
+import { confirmPassword } from '@nextcloud/password-confirmation'
+import { generateUrl } from '@nextcloud/router'
+import NcFormBoxSwitch from '@nextcloud/vue/components/NcFormBoxSwitch'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import NcTextField from '@nextcloud/vue/components/NcTextField'
-import NcFormBoxSwitch from '@nextcloud/vue/components/NcFormBoxSwitch'
-
-import { loadState } from '@nextcloud/initial-state'
-import { generateUrl } from '@nextcloud/router'
-import axios from '@nextcloud/axios'
+import EarthIcon from 'vue-material-design-icons/Earth.vue'
+import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
+import JiraIcon from './icons/JiraIcon.vue'
 import { delay } from '../utils.js'
-import { showSuccess, showError } from '@nextcloud/dialogs'
-import { confirmPassword } from '@nextcloud/password-confirmation'
 
 export default {
 	name: 'AdminSettings',
@@ -132,6 +129,7 @@ export default {
 				this.saveOptions(values, true)
 			}, 2000)()
 		},
+
 		async saveOptions(values, sensitive = false) {
 			if (sensitive) {
 				await confirmPassword()
@@ -144,14 +142,12 @@ export default {
 				: generateUrl('/apps/integration_jira/admin-config')
 
 			axios.put(url, req)
-				.then((response) => {
+				.then(() => {
 					showSuccess(t('integration_jira', 'Jira admin options saved'))
 				})
 				.catch((error) => {
-					showError(
-						t('integration_jira', 'Failed to save Jira admin options')
-						+ ': ' + error.response.request.responseText,
-					)
+					showError(t('integration_jira', 'Failed to save Jira admin options')
+						+ ': ' + error.response.request.responseText)
 				})
 				.then(() => {
 				})

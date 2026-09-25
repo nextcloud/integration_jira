@@ -28,17 +28,17 @@
 					<NcFormBox>
 						<NcFormBoxSwitch
 							v-model="state.search_enabled"
-							@update:model-value="onCheckboxChanged($event, 'search_enabled')">
+							@update:modelValue="onCheckboxChanged($event, 'search_enabled')">
 							{{ t('integration_jira', 'Enable unified search for tickets') }}
 						</NcFormBoxSwitch>
 						<NcFormBoxSwitch
 							v-model="state.link_preview_enabled"
-							@update:model-value="onCheckboxChanged($event, 'link_preview_enabled')">
+							@update:modelValue="onCheckboxChanged($event, 'link_preview_enabled')">
 							{{ t('integration_jira', 'Enable user link preview') }}
 						</NcFormBoxSwitch>
 						<NcFormBoxSwitch
 							v-model="state.notification_enabled"
-							@update:model-value="onCheckboxChanged($event, 'notification_enabled')">
+							@update:modelValue="onCheckboxChanged($event, 'notification_enabled')">
 							{{ t('integration_jira', 'Enable notifications for open tickets') }}
 						</NcFormBoxSwitch>
 					</NcFormBox>
@@ -51,12 +51,12 @@
 					v-model="selectedProjects"
 					:options="jiraProjectsOptions"
 					:multiple="true"
-					:input-label="t('integration_jira', 'Select Jira projects for the Dashboard widget')"
-					:no-wrap="true"
+					:inputLabel="t('integration_jira', 'Select Jira projects for the Dashboard widget')"
+					:noWrap="true"
 					:placeholder="t('integration_jira', 'Select Jira projects')"
 					:loading="loadingJiraProjects"
 					:disabled="loadingJiraProjects"
-					@update:model-value="onJiraSelectedProjectsChanged" />
+					@update:modelValue="onJiraSelectedProjectsChanged" />
 				<NcNoteCard type="info">
 					{{ t('integration_jira', 'Only projects available to your Jira account are listed.') }}
 				</NcNoteCard>
@@ -88,7 +88,7 @@
 					{{ t('integration_jira', 'Self-hosted Jira Software') }}
 				</h3>
 				<NcTextField v-if="state.forced_instance_url"
-					:model-value="state.forced_instance_url"
+					:modelValue="state.forced_instance_url"
 					:label="t('integration_jira', 'Jira self-hosted instance address')"
 					:placeholder="t('integration_jira', 'Jira address')"
 					:disabled="true">
@@ -139,28 +139,25 @@
 </template>
 
 <script>
-import CheckIcon from 'vue-material-design-icons/Check.vue'
-import CloseIcon from 'vue-material-design-icons/Close.vue'
-import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
-import EarthIcon from 'vue-material-design-icons/Earth.vue'
-import HomeOutlineIcon from 'vue-material-design-icons/HomeOutline.vue'
-import AccountOutlineIcon from 'vue-material-design-icons/AccountOutline.vue'
-import WebIcon from 'vue-material-design-icons/Web.vue'
-import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
-
-import JiraIcon from './icons/JiraIcon.vue'
-
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcSelect from '@nextcloud/vue/components/NcSelect'
-import NcFormBox from '@nextcloud/vue/components/NcFormBox'
-import NcFormBoxSwitch from '@nextcloud/vue/components/NcFormBoxSwitch'
-import NcTextField from '@nextcloud/vue/components/NcTextField'
-
+import axios from '@nextcloud/axios'
+import { showError, showSuccess } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl } from '@nextcloud/router'
-import axios from '@nextcloud/axios'
-import { showSuccess, showError } from '@nextcloud/dialogs'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcFormBox from '@nextcloud/vue/components/NcFormBox'
+import NcFormBoxSwitch from '@nextcloud/vue/components/NcFormBoxSwitch'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
+import AccountOutlineIcon from 'vue-material-design-icons/AccountOutline.vue'
+import CheckIcon from 'vue-material-design-icons/Check.vue'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
+import EarthIcon from 'vue-material-design-icons/Earth.vue'
+import HomeOutlineIcon from 'vue-material-design-icons/HomeOutline.vue'
+import KeyOutlineIcon from 'vue-material-design-icons/KeyOutline.vue'
+import OpenInNewIcon from 'vue-material-design-icons/OpenInNew.vue'
+import WebIcon from 'vue-material-design-icons/Web.vue'
+import JiraIcon from './icons/JiraIcon.vue'
 
 export default {
 	name: 'PersonalSettings',
@@ -203,9 +200,11 @@ export default {
 		showOAuth() {
 			return this.state.client_id && this.state.client_secret
 		},
+
 		connected() {
 			return this.state.user_name && this.state.user_name !== ''
 		},
+
 		jiraProjectsOptions() {
 			return this.jiraProjects.map((project) => ({
 				value: project.id,
@@ -219,7 +218,7 @@ export default {
 
 	mounted() {
 		const paramString = window.location.search.slice(1)
-		// eslint-disable-next-line
+
 		const urlParams = new URLSearchParams(paramString)
 		const zmToken = urlParams.get('jiraToken')
 		if (zmToken === 'success') {
@@ -235,38 +234,42 @@ export default {
 			this.state.user_name = ''
 			this.saveOptions({ user_name: '' })
 		},
+
 		onNotificationChange(e) {
 			this.state.notification_enabled = e.target.checked
 			this.saveOptions({ notification_enabled: this.state.notification_enabled ? '1' : '0' })
 		},
+
 		onSearchChange(e) {
 			this.state.search_enabled = e.target.checked
 			this.saveOptions({ search_enabled: this.state.search_enabled ? '1' : '0' })
 		},
+
 		onCheckboxChanged(newValue, key) {
 			this.saveOptions({ [key]: newValue ? '1' : '0' })
 		},
+
 		onJiraSelectedProjectsChanged(newValue) {
 			this.saveOptions({ dashboard_jira_projects: JSON.stringify(newValue.map(({ value }) => value)) }) // save to array of strings
 		},
+
 		saveOptions(values) {
 			const req = {
 				values,
 			}
 			const url = generateUrl('/apps/integration_jira/config')
 			axios.put(url, req)
-				.then((response) => {
+				.then(() => {
 					showSuccess(t('integration_jira', 'Jira options saved'))
 				})
 				.catch((error) => {
-					showError(
-						t('integration_jira', 'Failed to save Jira options')
-						+ ': ' + error.response.request.responseText,
-					)
+					showError(t('integration_jira', 'Failed to save Jira options')
+						+ ': ' + error.response.request.responseText)
 				})
 				.then(() => {
 				})
 		},
+
 		fetchJiraProjects() {
 			if (!this.connected) {
 				return
@@ -285,14 +288,13 @@ export default {
 				})
 			}).catch((error) => {
 				console.debug('Failed to get Jira projects: ', error)
-				showError(
-					t('integration_jira', 'Failed to get Jira projects')
-					+ ': ' + error.response.request.responseText,
-				)
+				showError(t('integration_jira', 'Failed to get Jira projects')
+					+ ': ' + error.response.request.responseText)
 			}).finally(() => {
 				this.loadingJiraProjects = false
 			})
 		},
+
 		onSelfHostedAuth() {
 			this.connecting = true
 			const req = {
@@ -313,15 +315,14 @@ export default {
 					}
 				})
 				.catch((error) => {
-					showError(
-						t('integration_jira', 'Failed to connect to Jira Software')
-						+ ': ' + error.response?.request?.responseText,
-					)
+					showError(t('integration_jira', 'Failed to connect to Jira Software')
+						+ ': ' + error.response?.request?.responseText)
 				})
 				.then(() => {
 					this.connecting = false
 				})
 		},
+
 		onOAuthClick() {
 			const oauthState = Math.random().toString(36).substring(3)
 			const scopes = [
@@ -351,14 +352,12 @@ export default {
 			}
 			const url = generateUrl('/apps/integration_jira/config')
 			axios.put(url, req)
-				.then((response) => {
+				.then(() => {
 					window.location.replace(requestUrl)
 				})
 				.catch((error) => {
-					showError(
-						t('integration_jira', 'Failed to save Jira OAuth state')
-						+ ': ' + error.response.request.responseText,
-					)
+					showError(t('integration_jira', 'Failed to save Jira OAuth state')
+						+ ': ' + error.response.request.responseText)
 				})
 				.then(() => {
 				})

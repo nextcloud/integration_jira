@@ -5,8 +5,8 @@
 
 <template>
 	<NcDashboardWidget :items="items"
-		:show-more-url="showMoreUrl"
-		:show-more-text="title"
+		:showMoreUrl="showMoreUrl"
+		:showMoreText="title"
 		:loading="state === 'loading'">
 		<template #empty-content>
 			<NcEmptyContent
@@ -33,23 +33,20 @@
 </template>
 
 <script>
-import LoginVariantIcon from 'vue-material-design-icons/LoginVariant.vue'
-import CloseIcon from 'vue-material-design-icons/Close.vue'
-import CheckIcon from 'vue-material-design-icons/Check.vue'
-
-import JiraIcon from '../components/icons/JiraIcon.vue'
-
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcDashboardWidget from '@nextcloud/vue/components/NcDashboardWidget'
-
 import axios from '@nextcloud/axios'
-import { generateUrl, imagePath } from '@nextcloud/router'
 import { showError } from '@nextcloud/dialogs'
 import moment from '@nextcloud/moment'
+import { generateUrl, imagePath } from '@nextcloud/router'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcDashboardWidget from '@nextcloud/vue/components/NcDashboardWidget'
+import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
+import CheckIcon from 'vue-material-design-icons/Check.vue'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
+import LoginVariantIcon from 'vue-material-design-icons/LoginVariant.vue'
+import JiraIcon from '../components/icons/JiraIcon.vue'
 
 export default {
-	name: 'Dashboard',
+	name: 'JiraDashboard',
 
 	components: {
 		NcDashboardWidget,
@@ -66,6 +63,7 @@ export default {
 			type: String,
 			required: true,
 		},
+
 		filterProjects: {
 			type: Boolean,
 			required: false,
@@ -88,6 +86,7 @@ export default {
 		showMoreUrl() {
 			return this.jiraUrl
 		},
+
 		items() {
 			// only display last apparition of an issue
 			const seenKeys = []
@@ -112,13 +111,16 @@ export default {
 				}
 			})
 		},
+
 		lastDate() {
 			const nbNotif = this.notifications.length
 			return (nbNotif > 0) ? this.notifications[0].fields.updated : null
 		},
+
 		lastMoment() {
 			return moment(this.lastDate)
 		},
+
 		emptyContentMessage() {
 			if (this.state === 'no-token') {
 				return t('integration_jira', 'No Jira account connected')
@@ -129,6 +131,7 @@ export default {
 			}
 			return ''
 		},
+
 		emptyContentIcon() {
 			if (this.state === 'no-token') {
 				return JiraIcon
@@ -167,14 +170,17 @@ export default {
 		changeWindowVisibility() {
 			this.windowVisibility = !document.hidden
 		},
+
 		stopLoop() {
 			clearInterval(this.loop)
 		},
+
 		async launchLoop() {
 			// launch the loop
 			this.fetchNotifications()
 			this.loop = setInterval(() => this.fetchNotifications(), 60000)
 		},
+
 		fetchNotifications() {
 			const req = {}
 			if (this.lastDate) {
@@ -198,6 +204,7 @@ export default {
 				}
 			})
 		},
+
 		processNotifications(newNotifications) {
 			if (this.lastDate) {
 				// just add those which are more recent than our most recent one
@@ -214,18 +221,23 @@ export default {
 				this.notifications = this.filter(newNotifications)
 			}
 		},
+
 		filter(notifications) {
 			return notifications
 		},
+
 		getNotificationTarget(n) {
 			return n.jiraUrl + '/browse/' + n.key
 		},
+
 		getUniqueKey(n) {
 			return n.id + ':' + n.fields.updated
 		},
+
 		getCreatorDisplayName(n) {
 			return n.fields.creator.displayName
 		},
+
 		getCreatorAvatarUrl(n) {
 			return (n.fields.creator && n.fields.creator.avatarUrls)
 				? n.fields.creator.accountId
@@ -235,7 +247,8 @@ export default {
 						: ''
 				: ''
 		},
-		getNotificationTypeImage(n) {
+
+		getNotificationTypeImage() {
 			// if (n.type_lookup_id === 2 || n.type === 'update') {
 			// return generateUrl('/svg/integration_jira/rename?color=ffffff')
 			// } else if (n.type_lookup_id === 3 || n.type === 'create') {
@@ -243,12 +256,15 @@ export default {
 			// }
 			return imagePath('integration_jira', 'sound-border.svg')
 		},
+
 		getSubline(n) {
 			return this.getCreatorDisplayName(n) + ' #' + n.key
 		},
+
 		getTargetTitle(n) {
 			return n.fields.summary
 		},
+
 		getFormattedDate(n) {
 			return moment(n.fields.updated).format('LLL')
 		},
