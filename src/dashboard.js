@@ -7,7 +7,6 @@ import { createApp } from 'vue'
 import Dashboard from './views/Dashboard.vue'
 
 document.addEventListener('DOMContentLoaded', function() {
-
 	OCA.Dashboard.register('jira_notifications', (el, { widget }) => {
 		const app = createApp(Dashboard, {
 			title: widget.title,
@@ -24,5 +23,4 @@ document.addEventListener('DOMContentLoaded', function() {
 		app.mixin({ methods: { t, n } })
 		app.mount(el)
 	})
-
 })

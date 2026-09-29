@@ -84,20 +84,18 @@
 </template>
 
 <script>
-import moment from '@nextcloud/moment'
-
-import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
-
 import {
-	mdiCircle,
-	mdiTools,
 	mdiAccount,
-	mdiPin,
-	mdiLightningBolt,
-	mdiCalendarCheck,
 	mdiCalendarBadgeOutline,
+	mdiCalendarCheck,
+	mdiCircle,
 	mdiLabel,
+	mdiLightningBolt,
+	mdiPin,
+	mdiTools,
 } from '@mdi/js'
+import moment from '@nextcloud/moment'
+import NcIconSvgWrapper from '@nextcloud/vue/components/NcIconSvgWrapper'
 
 export default {
 	name: 'JiraReference',
@@ -111,10 +109,12 @@ export default {
 			type: String,
 			default: '',
 		},
+
 		richObject: {
 			type: Object,
 			default: null,
 		},
+
 		accessible: {
 			type: Boolean,
 			default: true,
@@ -125,70 +125,88 @@ export default {
 		displayName() {
 			return `[${this.richObject?.fields?.project.name}] ${this.richObject?.key}`
 		},
+
 		created() {
 			return this.richObject ? moment(this.richObject?.fields?.created).format('LLL') : null
 		},
+
 		updated() {
 			return this.richObject ? moment(this.richObject?.fields?.updated).format('LLL') : null
 		},
+
 		summary() {
 			return this.richObject ? this.richObject?.fields?.summary : null
 		},
+
 		name() {
 			return this.richObject ? this.richObject?.fields?.status?.name : null
 		},
+
 		type() {
 			return this.richObject ? this.richObject?.fields?.issuetype?.name : null
 		},
+
 		status() {
 			return this.richObject ? this?.richObject?.fields?.status?.name : null
 		},
+
 		priority() {
 			return this.richObject ? this.richObject?.fields?.priority?.name : null
 		},
+
 		priorityColor() {
 			switch (this.richObject?.fields?.priority?.name) {
-			case 'Highest':
-				return 'dark-red'
-			case 'High':
-				return 'orange'
-			case 'Medium':
-				return 'yellow'
-			case 'Low':
-				return 'dark-grey'
-			case 'Lowest':
-				return 'light-grey'
-			default:
-				return 'yellow'
+				case 'Highest':
+					return 'dark-red'
+				case 'High':
+					return 'orange'
+				case 'Medium':
+					return 'yellow'
+				case 'Low':
+					return 'dark-grey'
+				case 'Lowest':
+					return 'light-grey'
+				default:
+					return 'yellow'
 			}
 		},
+
 		assignedTo() {
 			return this.richObject ? this.richObject?.fields?.assignee?.displayName ?? t('integration_jira', 'Unassigned') : t('integration_jira', 'Unassigned')
 		},
+
 		labels() {
 			return this.richObject ? this.richObject?.fields?.labels : []
 		},
+
 		circleIcon() {
 			return mdiCircle
 		},
+
 		toolsIcon() {
 			return mdiTools
 		},
+
 		accountIcon() {
 			return mdiAccount
 		},
+
 		pinIcon() {
 			return mdiPin
 		},
+
 		lightningBoltIcon() {
 			return mdiLightningBolt
 		},
+
 		calendarCheckIcon() {
 			return mdiCalendarCheck
 		},
+
 		calendarUpdatedIcon() {
 			return mdiCalendarBadgeOutline
 		},
+
 		labelIcon() {
 			return mdiLabel
 		},
