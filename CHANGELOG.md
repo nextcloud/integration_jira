@@ -10,9 +10,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.5.0 - 2026-09-29
+
 ### Added
 
 - Added support for Nextcloud 36
+
+### Changed
+
+- Updated Psalm and @nextcloud/eslint-config, and synced the lint workflows
+- Updated dependencies & translations
 
 ### Fixed
 
