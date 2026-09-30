@@ -17,7 +17,7 @@ OC.L10N.register(
     "Jira integration provides a dashboard widget displaying your important notifications,\na unified search provider to search for issues\nand notifications about recent activity related to your assigned issues." : "Integrácia Jira poskytuje miniaplikáciu na paneli, ktorá vám zobrazuje dôležité oznámenia,\njednotný poskytovateľ vyhľadávania pre vyhľadávanie problémov\na oznámenia o nedávnej aktivite súvisiacej s vašimi priradenými problémami.",
     "Jira admin options saved" : "Možnosti administrátora Jira boli uložené",
     "Failed to save Jira admin options" : "Nepodarilo sa uložiť možnosti administrátora Jira",
-    "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Ak chcete umožniť užívateľom Nextcloud používať OAuth pre autentifikáciu k vami vybranej inštancii Jira, vytvorte aplikáciu v nastaveniach Jira a nastavte ID a tajný kľúč tu.",
+    "If you want to allow your Nextcloud users to use OAuth to authenticate to Jira, create an application in your Jira admin settings and set the ID and secret here." : "Ak chcete umožniť používateľom Nextcloud používať OAuth na autentifikáciu k vami vybranej inštancii Jira, vytvorte aplikáciu v nastaveniach Jira a nastavte ID a tajný kľúč tu.",
     "Jira app settings" : "Nastavenia aplikácie Jira",
     "Make sure you set the redirection/callback URL to" : "Nezabudnite nastaviť redirection/callback URL na",
     "Don't forget to make your Jira OAuth application public." : "Nezabudnite urobiť vašu Jira OAuth aplikáciu verejnú.",
