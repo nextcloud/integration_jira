@@ -13,3 +13,4 @@ node_modules
 tests/.phpunit.cache/
 /test-results/
 /playwright-report/
+/coverage/

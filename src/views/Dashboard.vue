@@ -74,32 +74,39 @@ export default {
 	data() {
 		return {
 			notifications: [],
-			jiraUrl: null,
 			loop: null,
 			state: 'loading',
+			failedPolls: 0,
 			settingsUrl: generateUrl('/settings/user/connected-accounts'),
 			windowVisibility: true,
 		}
 	},
 
 	computed: {
+		newestNotification() {
+			return this.notifications.reduce(
+				(newest, n) => (newest === null || this.updatedAfter(n, newest) ? n : newest),
+				null,
+			)
+		},
+
 		showMoreUrl() {
-			return this.jiraUrl
+			// every notification carries the instance it came from
+			return this.newestNotification?.jiraUrl ?? null
 		},
 
 		items() {
-			// only display last apparition of an issue
-			const seenKeys = []
-			const items = this.notifications.filter((n) => {
-				if (seenKeys.includes(n.key)) {
-					return false
-				} else {
-					seenKeys.push(n.key)
-					return true
+			// polls in flight can leave more than one version of an issue behind,
+			// in any order, so keep the newest of each rather than the first
+			const newest = new Map()
+			for (const n of this.notifications) {
+				const held = newest.get(n.key)
+				if (held === undefined || this.updatedAfter(n, held)) {
+					newest.set(n.key, n)
 				}
-			})
+			}
 
-			return items.map((n) => {
+			return [...newest.values()].map((n) => {
 				return {
 					id: this.getUniqueKey(n),
 					targetUrl: this.getNotificationTarget(n),
@@ -113,12 +120,7 @@ export default {
 		},
 
 		lastDate() {
-			const nbNotif = this.notifications.length
-			return (nbNotif > 0) ? this.notifications[0].fields.updated : null
-		},
-
-		lastMoment() {
-			return moment(this.lastDate)
+			return this.newestNotification?.fields?.updated ?? null
 		},
 
 		emptyContentMessage() {
@@ -126,6 +128,8 @@ export default {
 				return t('integration_jira', 'No Jira account connected')
 			} else if (this.state === 'error') {
 				return t('integration_jira', 'Error connecting to Jira')
+			} else if (this.state === 'unreachable') {
+				return t('integration_jira', 'Could not reach Jira')
 			} else if (this.state === 'ok') {
 				return t('integration_jira', 'No Jira notifications!')
 			}
@@ -135,7 +139,7 @@ export default {
 		emptyContentIcon() {
 			if (this.state === 'no-token') {
 				return JiraIcon
-			} else if (this.state === 'error') {
+			} else if (this.state === 'error' || this.state === 'unreachable') {
 				return CloseIcon
 			} else if (this.state === 'ok') {
 				return CheckIcon
@@ -155,6 +159,7 @@ export default {
 	},
 
 	beforeUnmount() {
+		this.stopLoop()
 		document.removeEventListener('visibilitychange', this.changeWindowVisibility)
 	},
 
@@ -190,16 +195,23 @@ export default {
 			}
 			axios.get(generateUrl(`/apps/integration_jira/notifications?filterProjects=${this.filterProjects}`), req).then((response) => {
 				this.processNotifications(response.data)
+				this.failedPolls = 0
 				this.state = 'ok'
 			}).catch((error) => {
-				clearInterval(this.loop)
 				if (error.response && error.response.status === 400) {
+					this.stopLoop()
 					this.state = 'no-token'
 				} else if (error.response && error.response.status === 401) {
+					this.stopLoop()
 					showError(t('integration_jira', 'Failed to get Jira notifications'))
 					this.state = 'error'
 				} else {
-					// there was an error in notif processing
+					// a transient failure: keep polling, but say something once
+					// it is clearly not transient any more
+					this.failedPolls++
+					if (this.failedPolls >= 3) {
+						this.state = 'unreachable'
+					}
 					console.debug(error)
 				}
 			})
@@ -207,13 +219,10 @@ export default {
 
 		processNotifications(newNotifications) {
 			if (this.lastDate) {
-				// just add those which are more recent than our most recent one
-				let i = 0
-				while (i < newNotifications.length && this.lastMoment.isBefore(newNotifications[i].updated_at)) {
-					i++
-				}
-				if (i > 0) {
-					const toAdd = this.filter(newNotifications.slice(0, i))
+				// the server answers a since request with what is newer than it,
+				// so everything it sends is new; items() drops a repeated issue
+				const toAdd = this.filter(newNotifications)
+				if (toAdd.length > 0) {
 					this.notifications = toAdd.concat(this.notifications)
 				}
 			} else {
@@ -235,7 +244,7 @@ export default {
 		},
 
 		getCreatorDisplayName(n) {
-			return n.fields.creator.displayName
+			return n.fields.creator?.displayName ?? ''
 		},
 
 		getCreatorAvatarUrl(n) {
@@ -258,15 +267,17 @@ export default {
 		},
 
 		getSubline(n) {
-			return this.getCreatorDisplayName(n) + ' #' + n.key
+			const creator = this.getCreatorDisplayName(n)
+			return creator === '' ? '#' + n.key : creator + ' #' + n.key
 		},
 
 		getTargetTitle(n) {
 			return n.fields.summary
 		},
 
-		getFormattedDate(n) {
-			return moment(n.fields.updated).format('LLL')
+		updatedAfter(n, other) {
+			return !!n.fields?.updated
+				&& (!other.fields?.updated || moment(other.fields.updated).isBefore(n.fields.updated))
 		},
 	},
 }

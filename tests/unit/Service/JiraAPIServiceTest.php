@@ -86,6 +86,99 @@ class JiraAPIServiceTest extends TestCase {
 		$this->assertEquals('FIRST-1', $expected[0]['key']);
 	}
 
+	/**
+	 * @dataProvider provideProjectFilters
+	 */
+	public function testSelfHostedNotificationsAreFilteredByTheSavedProjectIds(
+		string $savedProjects,
+		bool $filterProjects,
+		array $expectedKeys,
+	): void {
+		$this->crypto->method('decrypt')->willReturn('Basic dXNlcjpwYXNz');
+		// an unstubbed getAppValue answers null, which reads as a forced instance
+		$this->config->method('getAppValue')->willReturn('');
+		$this->config->method('getUserValue')->willReturnCallback(
+			fn ($userId, $appName, $key, $default = '') => match ($key) {
+				'basic_auth_header' => 'encrypted',
+				'url' => 'https://jira.example.com',
+				'dashboard_jira_projects' => $savedProjects,
+				default => $default,
+			}
+		);
+		$this->networkService->method('basicRequest')->willReturn([
+			'issues' => [
+				[
+					'key' => 'NC-1',
+					'fields' => [
+						'project' => ['id' => '10000', 'name' => 'Nextcloud'],
+						'updated' => '2026-09-18T10:00:00.000+0000',
+					],
+				],
+				[
+					'key' => 'TALK-1',
+					'fields' => [
+						'project' => ['id' => '10001', 'name' => 'Talk'],
+						'updated' => '2026-09-18T11:00:00.000+0000',
+					],
+				],
+			],
+		]);
+
+		$notifications = $this->apiService->getNotifications('admin', null, null, $filterProjects);
+
+		$this->assertSame($expectedKeys, array_column($notifications, 'key'));
+	}
+
+	public static function provideProjectFilters(): array {
+		return [
+			'one project' => ['["10000"]', true, ['NC-1']],
+			'the other project' => ['["10001"]', true, ['TALK-1']],
+			'both projects' => ['["10000","10001"]', true, ['TALK-1', 'NC-1']],
+			'nothing saved' => ['[]', true, ['TALK-1', 'NC-1']],
+			'the unfiltered widget' => ['["10000"]', false, ['TALK-1', 'NC-1']],
+		];
+	}
+
+	/**
+	 * @dataProvider provideProjectFilters
+	 */
+	public function testJiraCloudNotificationsAreFilteredByTheSavedProjectIds(
+		string $savedProjects,
+		bool $filterProjects,
+		array $expectedKeys,
+	): void {
+		$this->config->method('getUserValue')->willReturnCallback(
+			fn ($userId, $appName, $key, $default = '') => match ($key) {
+				'basic_auth_header' => '',
+				'resources' => '[{"id":"cloud-id","url":"https://ncintegration.atlassian.net"}]',
+				'dashboard_jira_projects' => $savedProjects,
+				default => $default,
+			}
+		);
+		$this->networkService->method('oauthRequest')->willReturn([
+			'issues' => [
+				[
+					'key' => 'NC-1',
+					'fields' => [
+						'project' => ['id' => '10000', 'name' => 'Nextcloud'],
+						'updated' => '2026-09-18T10:00:00.000+0000',
+					],
+				],
+				[
+					'key' => 'TALK-1',
+					'fields' => [
+						'project' => ['id' => '10001', 'name' => 'Talk'],
+						'updated' => '2026-09-18T11:00:00.000+0000',
+					],
+				],
+			],
+		]);
+
+		$notifications = $this->apiService->getNotifications('admin', null, null, $filterProjects);
+
+		$this->assertSame($expectedKeys, array_column($notifications, 'key'));
+	}
+
 	private function stubUserConfig(string $token, string $basicAuthHeader): void {
 		$this->config->method('getUserValue')->willReturnCallback(
 			fn ($userId, $appName, $key, $default = '') => match ($key) {

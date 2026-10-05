@@ -192,7 +192,7 @@ export default {
 			dashboardJiraProjectsFilter: loadState('integration_jira', 'user-config')?.dashboard_jira_projects || [],
 			jiraProjects: [],
 			loadingJiraProjects: false,
-			selectedProjects: ['Loading...'],
+			selectedProjects: [],
 		}
 	},
 
@@ -234,16 +234,6 @@ export default {
 			this.saveOptions({ user_name: '' })
 		},
 
-		onNotificationChange(e) {
-			this.state.notification_enabled = e.target.checked
-			this.saveOptions({ notification_enabled: this.state.notification_enabled ? '1' : '0' })
-		},
-
-		onSearchChange(e) {
-			this.state.search_enabled = e.target.checked
-			this.saveOptions({ search_enabled: this.state.search_enabled ? '1' : '0' })
-		},
-
 		onCheckboxChanged(newValue, key) {
 			this.saveOptions({ [key]: newValue ? '1' : '0' })
 		},
@@ -278,13 +268,14 @@ export default {
 			axios.get(generateUrl('/apps/integration_jira/projects')).then((res) => {
 				console.debug('Jira projects: ', res)
 				this.jiraProjects = res.data
-				this.selectedProjects = this.dashboardJiraProjectsFilter.map((id) => {
-					const project = this.jiraProjects.find((p) => p.id === id)
-					return {
+				// a saved project the account can no longer see is simply dropped
+				this.selectedProjects = this.dashboardJiraProjectsFilter
+					.map((id) => this.jiraProjects.find((p) => p.id === id))
+					.filter((project) => project !== undefined)
+					.map((project) => ({
 						value: project.id,
 						label: project.name,
-					}
-				})
+					}))
 			}).catch((error) => {
 				console.debug('Failed to get Jira projects: ', error)
 				showError(t('integration_jira', 'Failed to get Jira projects')
