@@ -10,6 +10,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Run the frontend unit tests in CI
+
+### Fixed
+
+- Show the link preview of an issue whose fields carry no labels or no project
+- Show no date rather than today's for an issue without a created or updated time
+- Point the dashboard widget's "show more" link at the Jira instance whose issues it shows
+- Stop the dashboard widget from polling once it has been removed
+- Keep the dashboard widget polling after a transient failure, and report once Jira cannot be reached
+- List a notification whose issue has no creator instead of emptying the widget
+- Keep a notification that arrived while a second request was still in flight
+- Show the newest version of an issue in the dashboard widget
+- Keep the project selector usable when a saved project is no longer available
+- Filter the dashboard widget by project on self-hosted Jira
+
 ## 1.5.0 - 2026-09-29
 
 ### Added

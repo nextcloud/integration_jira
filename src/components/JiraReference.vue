@@ -123,15 +123,19 @@ export default {
 
 	computed: {
 		displayName() {
-			return `[${this.richObject?.fields?.project.name}] ${this.richObject?.key}`
+			const project = this.richObject?.fields?.project?.name
+			const key = this.richObject?.key ?? ''
+			return project ? `[${project}] ${key}` : key
 		},
 
 		created() {
-			return this.richObject ? moment(this.richObject?.fields?.created).format('LLL') : null
+			const created = this.richObject?.fields?.created
+			return created ? moment(created).format('LLL') : null
 		},
 
 		updated() {
-			return this.richObject ? moment(this.richObject?.fields?.updated).format('LLL') : null
+			const updated = this.richObject?.fields?.updated
+			return updated ? moment(updated).format('LLL') : null
 		},
 
 		summary() {
@@ -176,7 +180,8 @@ export default {
 		},
 
 		labels() {
-			return this.richObject ? this.richObject?.fields?.labels : []
+			const labels = this.richObject?.fields?.labels
+			return Array.isArray(labels) ? labels : []
 		},
 
 		circleIcon() {

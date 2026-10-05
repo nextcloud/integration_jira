@@ -169,7 +169,8 @@ class JiraAPIService {
 				$issuesResult['issues'][$k]['jiraUrl'] = $jiraUrl;
 				$issuesResult['issues'][$k]['my_account_id'] = $issuesResult['my_account_id'] ?? '';
 				if ($filterProjects && count($dashboardJiraProjects) > 0) {
-					if (in_array($issuesResult['issues'][$k]['fields']['project']['name'], $dashboardJiraProjects)) {
+					// the personal settings save project ids, as the cloud branch below expects
+					if (in_array($issuesResult['issues'][$k]['fields']['project']['id'], $dashboardJiraProjects)) {
 						$myIssues[] = $issuesResult['issues'][$k];
 					}
 				} else {
