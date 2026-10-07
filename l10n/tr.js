@@ -69,6 +69,7 @@ OC.L10N.register(
     "Connect to this Jira instance" : "Bu Jira kopyası ile bağlantı kur",
     "No Jira account connected" : "Bağlı bir Jira hesabı yok",
     "Error connecting to Jira" : "Jira ile bağlantı kurulurken sorun çıktı",
+    "Could not reach Jira" : "Jira ile iletişim kurulamadı",
     "No Jira notifications!" : "Herhangi bir Jira bildirimi yok!",
     "Failed to get Jira notifications" : "Jira bildirimleri alınamadı",
     "Connect to Jira" : "Jira bağlantısı kur"

@@ -69,6 +69,7 @@ OC.L10N.register(
     "Connect to this Jira instance" : "Loo ühendus selle Jira serveriga",
     "No Jira account connected" : "Ühtegi Jira kaskutajakontot pole seotud",
     "Error connecting to Jira" : "Viga ühenduse loomisel Jira serveriga",
+    "Could not reach Jira" : "Jira server polnud leitav",
     "No Jira notifications!" : "Jira teavitusi pole!",
     "Failed to get Jira notifications" : "Jira teavituse laadimine ei õnnestunud",
     "Connect to Jira" : "Loo ühendus Jiraga"

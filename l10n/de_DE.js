@@ -69,6 +69,7 @@ OC.L10N.register(
     "Connect to this Jira instance" : "Mit dieser Jira-Instanz verbinden",
     "No Jira account connected" : "Kein Jira-Konto verbunden",
     "Error connecting to Jira" : "Fehler bei der Verbindung mit Jira",
+    "Could not reach Jira" : "Jira konnte nicht erreicht werden",
     "No Jira notifications!" : "Keine Jira-Benachrichtigungen!",
     "Failed to get Jira notifications" : "Jira-Benachrichtigungen konnten nicht abgerufen werden",
     "Connect to Jira" : "Mit Jira verbinden"
