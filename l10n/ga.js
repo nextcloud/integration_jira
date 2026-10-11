@@ -69,6 +69,7 @@ OC.L10N.register(
     "Connect to this Jira instance" : "Ceangail leis an gcás Jira seo",
     "No Jira account connected" : "Níl aon chuntas Jira ceangailte",
     "Error connecting to Jira" : "Earráid le ceangal le Jira",
+    "Could not reach Jira" : "Níorbh fhéidir teagmháil a dhéanamh le Jira",
     "No Jira notifications!" : "Gan fógraí Jira!",
     "Failed to get Jira notifications" : "Theip ar fhógraí Jira a fháil",
     "Connect to Jira" : "Ceangail le Jira"
