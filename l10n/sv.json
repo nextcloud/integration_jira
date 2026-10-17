@@ -67,6 +67,7 @@
     "Connect to this Jira instance" : "Anslut till denna Jira-instans",
     "No Jira account connected" : "Inget Jira-konto är anslutet",
     "Error connecting to Jira" : "Fel vid anslutning till Jira",
+    "Could not reach Jira" : "Det gick inte att ansluta till Jira",
     "No Jira notifications!" : "Inga Jira-aviseringar!",
     "Failed to get Jira notifications" : "Det gick inte att hämta Jira-aviseringar",
     "Connect to Jira" : "Anslut till Jira"
