@@ -9,6 +9,8 @@ OC.L10N.register(
     "Client secret" : "Secret client",
     "Unassigned" : "Nealocat",
     "Type" : "Tip",
+    "Status" : "Stare",
+    "Priority" : "Prioritate",
     "Created" : "A fost creat",
     "Updated" : "Actualizat",
     "User" : "Utilizator",
