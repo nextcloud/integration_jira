@@ -11,11 +11,13 @@ use DateTime;
 use OCA\Jira\AppInfo\Application;
 use OCA\Jira\Service\NetworkService;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\Attribute\PasswordConfirmationRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\RedirectResponse;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
@@ -28,6 +30,7 @@ class ConfigController extends Controller {
 	public function __construct(
 		string $appName,
 		IRequest $request,
+		private IAppConfig $appConfig,
 		private IConfig $config,
 		private IURLGenerator $urlGenerator,
 		private IL10N $l,
@@ -79,24 +82,45 @@ class ConfigController extends Controller {
 	 * @return DataResponse
 	 */
 	public function setAdminConfig(array $values): DataResponse {
+		if (!$this->areAdminValues($values, ['link_preview_enabled'])) {
+			return new DataResponse(['error' => 'Unknown admin setting or value'], Http::STATUS_BAD_REQUEST);
+		}
 		foreach ($values as $key => $value) {
-			if (in_array($key, ['basic_auth_header', 'token', 'refresh_token']) && $value !== '') {
-				$value = $this->crypto->encrypt($value);
-			}
-			$this->config->setAppValue(Application::APP_ID, $key, $value);
+			$this->appConfig->setAppValueString($key, $value, lazy: true);
 		}
 		return new DataResponse(1);
 	}
 
 	#[PasswordConfirmationRequired]
 	public function setSensitiveAdminConfig(array $values): DataResponse {
+		if (!$this->areAdminValues($values, ['client_id', 'client_secret', 'forced_instance_url', 'link_preview_enabled'])) {
+			return new DataResponse(['error' => 'Unknown admin setting or value'], Http::STATUS_BAD_REQUEST);
+		}
 		foreach ($values as $key => $value) {
 			if (in_array($key, ['client_secret'], true) && $value !== '') {
 				$value = $this->crypto->encrypt($value);
 			}
-			$this->config->setAppValue(Application::APP_ID, $key, $value);
+			$this->appConfig->setAppValueString($key, $value, lazy: true);
 		}
 		return new DataResponse([]);
+	}
+
+	/**
+	 * Whether every value is a string for one of the allowed keys. A lazy write of
+	 * any other key of the app, such as the server's own enabled, would hide that
+	 * row from the server.
+	 *
+	 * @param array $values
+	 * @param list<string> $allowedKeys
+	 * @return bool
+	 */
+	private function areAdminValues(array $values, array $allowedKeys): bool {
+		foreach ($values as $key => $value) {
+			if (!in_array($key, $allowedKeys, true) || !is_string($value)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -108,7 +132,7 @@ class ConfigController extends Controller {
 	 */
 	#[NoAdminRequired]
 	public function connectToSoftware(string $url, string $login, string $password): DataResponse {
-		$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
+		$forcedInstanceUrl = $this->appConfig->getAppValueString('forced_instance_url', lazy: true);
 		$targetInstanceUrl = ($forcedInstanceUrl === '')
 			? $url
 			: $forcedInstanceUrl;
@@ -141,8 +165,8 @@ class ConfigController extends Controller {
 	#[NoCSRFRequired]
 	public function oauthRedirect(string $code = '', string $state = ''): RedirectResponse {
 		$configState = $this->config->getUserValue($this->userId, Application::APP_ID, 'oauth_state');
-		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
-		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
+		$clientID = $this->appConfig->getAppValueString('client_id', lazy: true);
+		$clientSecret = $this->appConfig->getAppValueString('client_secret', lazy: true);
 		$clientSecret = $clientSecret === '' ? '' : $this->crypto->decrypt($clientSecret);
 
 		// anyway, reset state
