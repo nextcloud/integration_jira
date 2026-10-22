@@ -78,12 +78,14 @@ class JiraReferenceProvider extends ADiscoverableReferenceProvider implements IS
 	 */
 	public function matchReference(string $referenceText): bool {
 		// the server asks the providers in turn about a link in any app until one matches, so only read the settings for a Jira link
-		if ($this->getJiraIssueId($referenceText) === null) {
+		$issueLink = $this->getIssueLink($referenceText);
+		if ($issueLink === null || $this->userId === null) {
 			return false;
 		}
 		$adminLinkPreviewEnabled = $this->appConfig->getAppValueString('link_preview_enabled', '1', lazy: true) === '1';
 		$userLinkPreviewEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'link_preview_enabled', '1') === '1';
-		return $adminLinkPreviewEnabled && $userLinkPreviewEnabled;
+		return $adminLinkPreviewEnabled && $userLinkPreviewEnabled
+			&& $this->jiraAPIService->isConnectedToSite($this->userId, $issueLink['host']);
 	}
 
 	/**
@@ -92,12 +94,16 @@ class JiraReferenceProvider extends ADiscoverableReferenceProvider implements IS
 	public function resolveReference(string $referenceText): ?IReference {
 		if ($this->matchReference($referenceText)) {
 			try {
-				$issueId = $this->getJiraIssueId($referenceText);
-				if ($issueId === null) {
+				$issueLink = $this->getIssueLink($referenceText);
+				if ($issueLink === null) {
 					return $this->linkReferenceProvider->resolveReference($referenceText);
 				}
 
-				$issueInfo = $this->jiraAPIService->getIssueInfo($this->userId, $issueId);
+				$issueInfo = $this->jiraAPIService->getIssueInfo($this->userId, $issueLink['key'], $issueLink['host']);
+				if (!isset($issueInfo['fields'])) {
+					// for example an issue the user cannot see
+					return $this->linkReferenceProvider->resolveReference($referenceText);
+				}
 
 				$reference = new Reference($referenceText);
 				$reference->setTitle($this->getMainText($issueInfo));
@@ -116,12 +122,19 @@ class JiraReferenceProvider extends ADiscoverableReferenceProvider implements IS
 		return null;
 	}
 
-	private function getJiraIssueId(string $referenceText): ?string {
-		$regex = '/https:\/\/[a-zA-Z0-9.-]+\.atlassian\.net\/browse\/([A-Z]+-\d+)/';
-		if (preg_match($regex, $referenceText, $matches)) {
-			return $matches[1];
+	/**
+	 * The site host and the issue key of a link to an issue on a Jira Cloud site
+	 *
+	 * @return array{host: string, key: string}|null
+	 */
+	private function getIssueLink(string $referenceText): ?array {
+		// a project key is a letter followed by letters, digits or underscores, and the issue key adds a number;
+		// the link can go on with a path, a query, a fragment or the punctuation of the sentence it ends
+		$regex = '/^https:\/\/([a-z0-9.-]+\.atlassian\.net)\/browse\/([a-z][a-z0-9_]+-\d+)(?![a-z0-9_])/i';
+		if (preg_match($regex, $referenceText, $matches) !== 1) {
+			return null;
 		}
-		return null;
+		return ['host' => $matches[1], 'key' => $matches[2]];
 	}
 
 	/**

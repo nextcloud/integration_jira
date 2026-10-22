@@ -478,7 +478,7 @@ class JiraAPIServiceTest extends TestCase {
 			fn ($userId, $appName, $key, $default = '') => match ($key) {
 				'basic_auth_header' => 'encrypted',
 				'url' => $jiraUrl,
-				'base_url' => $storedBaseUrl,
+				'base_url' => $this->storedUserValues['base_url'] ?? $storedBaseUrl,
 				default => $default,
 			}
 		);
@@ -497,6 +497,22 @@ class JiraAPIServiceTest extends TestCase {
 				};
 			}
 		);
+	}
+
+	/**
+	 * A connection through Atlassian's API gateway that has no base URL kept gets its site's link
+	 * previews once an avatar on another host made the app ask Jira for the base URL.
+	 */
+	public function testTheBaseUrlAnAvatarAskedForNamesTheSiteOfTheLinkPreviews(): void {
+		$this->stubAvatarOfABasicAuthConnection('https://api.atlassian.com/ex/jira/cloud-a', '', ['baseUrl' => 'https://site-a.atlassian.net'], 'https://secure.gravatar.com/avatar/abc');
+		$requests = [];
+		$service = $this->serviceRecordingRequests($requests);
+
+		$this->assertFalse($service->isConnectedToSite('user1', 'site-a.atlassian.net'));
+		$service->getJiraAvatar('user1', '712020:abc', '');
+		$this->assertTrue($service->isConnectedToSite('user1', 'site-a.atlassian.net'));
+		$this->assertSame(['rest/api/2/user', 'rest/api/2/serverInfo'], $this->askedEndpoints);
+		$this->assertArrayNotHasKey('Authorization', $requests[0][1]);
 	}
 
 	public function testAKeptBaseUrlIsNotAskedAgain(): void {
@@ -671,12 +687,358 @@ class JiraAPIServiceTest extends TestCase {
 		];
 	}
 
+	private const TWO_SITES = '[{"id":"cloud-a","url":"https://site-a.atlassian.net","name":"site-a"},'
+		. '{"id":"cloud-b","url":"https://site-b.atlassian.net","name":"site-b"}]';
+
+	/**
+	 * A user connected with OAuth to the given sites (the resources Atlassian answered).
+	 */
+	private function stubOAuthConnection(string $token, string $resources): void {
+		$this->storeLazyAppValues([]);
+		$this->config->method('getUserValue')->willReturnCallback(
+			fn ($userId, $appName, $key, $default = '') => match ($key) {
+				'token' => $token,
+				'resources' => $resources,
+				default => $default,
+			}
+		);
+	}
+
+	/**
+	 * @dataProvider provideHostsOfTwoOAuthSites
+	 */
+	public function testAUserIsConnectedOnlyToTheSitesItAuthorisedWithOAuth(string $host, bool $connected): void {
+		$this->stubOAuthConnection('encrypted-token', self::TWO_SITES);
+
+		$this->assertSame($connected, $this->apiService->isConnectedToSite('user1', $host));
+	}
+
+	public static function provideHostsOfTwoOAuthSites(): array {
+		return [
+			'the first site' => ['site-a.atlassian.net', true],
+			'the second site' => ['site-b.atlassian.net', true],
+			'upper case' => ['Site-B.Atlassian.NET', true],
+			'another site' => ['site-c.atlassian.net', false],
+			'a site host inside another host' => ['site-a.atlassian.net.example.com', false],
+			'a host ending in a site host' => ['xsite-a.atlassian.net', false],
+			'the end of a site host' => ['a.atlassian.net', false],
+			'a subdomain of a site host' => ['x.site-a.atlassian.net', false],
+		];
+	}
+
+	public function testAUserWhoseOAuthTokenIsGoneIsConnectedToNoSite(): void {
+		$this->stubOAuthConnection('', self::TWO_SITES);
+
+		$this->assertFalse($this->apiService->isConnectedToSite('user1', 'site-a.atlassian.net'));
+	}
+
+	public function testSitesWithoutAnIdOrAUrlAreSkipped(): void {
+		$this->stubOAuthConnection('encrypted-token', '[{"id":"cloud-a"},{"url":"https://site-b.atlassian.net"},'
+			. '{"id":7,"url":"https://site-c.atlassian.net"},{"id":"cloud-d","url":["https://site-d.atlassian.net"]}]');
+		$this->networkService->expects($this->never())->method('oauthRequest');
+
+		foreach (['site-a', 'site-b', 'site-c', 'site-d'] as $site) {
+			$this->assertFalse($this->apiService->isConnectedToSite('user1', $site . '.atlassian.net'), $site);
+			$this->assertNull($this->apiService->getIssueInfo('user1', 'NC-1', $site . '.atlassian.net'), $site);
+		}
+	}
+
+	/**
+	 * @dataProvider provideHostsOfAnApiTokenSite
+	 */
+	public function testAUserConnectedWithAnApiTokenIsConnectedOnlyToItsSite(string $host, bool $connected): void {
+		$this->stubBasicAuthConnection('https://site-a.atlassian.net/');
+
+		$this->assertSame($connected, $this->apiService->isConnectedToSite('user1', $host));
+	}
+
+	public static function provideHostsOfAnApiTokenSite(): array {
+		return [
+			'its site' => ['site-a.atlassian.net', true],
+			'upper case' => ['SITE-A.atlassian.net', true],
+			'another site' => ['site-b.atlassian.net', false],
+			'a host ending in its site host' => ['xsite-a.atlassian.net', false],
+			'its site host inside another host' => ['site-a.atlassian.net.atlassian.net', false],
+			'a subdomain of its site host' => ['x.site-a.atlassian.net', false],
+			'the end of its site host' => ['a.atlassian.net', false],
+		];
+	}
+
+	/**
+	 * @dataProvider provideConnectedUrlsOfASite
+	 */
+	public function testTheConnectedUrlIsComparedByItsHost(string $jiraUrl): void {
+		$this->stubBasicAuthConnection($jiraUrl);
+
+		$this->assertTrue($this->apiService->isConnectedToSite('user1', 'site-a.atlassian.net'));
+	}
+
+	public static function provideConnectedUrlsOfASite(): array {
+		return [
+			'upper case' => ['https://SITE-A.Atlassian.NET'],
+			'a trailing dot' => ['https://site-a.atlassian.net./'],
+			'a path' => ['https://site-a.atlassian.net/jira'],
+		];
+	}
+
+	/**
+	 * A renamed site, for example: connected under its old name, Jira's base URL has the new one.
+	 */
+	public function testAnApiTokenIsConnectedToTheConnectedHostAndToTheBaseUrlHost(): void {
+		$this->stubApiTokenConnection('https://old-name.atlassian.net', 'https://new-name.atlassian.net');
+
+		$this->assertTrue($this->apiService->isConnectedToSite('user1', 'old-name.atlassian.net'));
+		$this->assertTrue($this->apiService->isConnectedToSite('user1', 'new-name.atlassian.net'));
+	}
+
+	public function testAConnectedHostThatOnlyStartsWithASiteHostIsNotThatSite(): void {
+		$this->stubBasicAuthConnection('https://site-a.atlassian.net.example.com');
+
+		$this->assertFalse($this->apiService->isConnectedToSite('user1', 'site-a.atlassian.net'));
+	}
+
+	public function testAnAuthorisedSiteIsComparedByTheHostOfItsUrl(): void {
+		$this->stubOAuthConnection('encrypted-token', '[{"id":"cloud-a","url":"https://Site-A.Atlassian.NET./","name":"Site A"}]');
+
+		$this->assertTrue($this->apiService->isConnectedToSite('user1', 'site-a.atlassian.net'));
+	}
+
+	/**
+	 * Gateway URLs of different sites share their host, so the forced instance is compared as a URL.
+	 */
+	private function stubGatewayConnectionWithAForcedOne(string $cloudId, string $baseUrl): void {
+		$this->storeLazyAppValues(['forced_instance_url' => 'https://api.atlassian.com/ex/jira/cloud-a']);
+		$this->crypto->method('decrypt')->with('encrypted')->willReturn('dXNlcjpwYXNz');
+		$this->config->method('getUserValue')->willReturnCallback(
+			fn ($userId, $appName, $key, $default = '') => match ($key) {
+				'basic_auth_header' => 'encrypted',
+				'url' => 'https://api.atlassian.com/ex/jira/' . $cloudId,
+				'base_url' => $baseUrl,
+				default => $default,
+			}
+		);
+	}
+
+	public function testTheForcedInstanceGetsItsIssues(): void {
+		$this->stubGatewayConnectionWithAForcedOne('cloud-a', 'https://site-a.atlassian.net');
+		$issue = ['key' => 'NC-1', 'fields' => ['summary' => 'An issue']];
+		$this->networkService->expects($this->once())
+			->method('basicRequest')
+			->with('https://api.atlassian.com/ex/jira/cloud-a', 'dXNlcjpwYXNz', 'rest/api/3/issue/NC-1')
+			->willReturn($issue);
+
+		$this->assertSame($issue, $this->apiService->getIssueInfo('user1', 'NC-1', 'site-a.atlassian.net'));
+	}
+
+	public function testAnotherGatewaySiteThanTheForcedOneIsRefused(): void {
+		$this->stubGatewayConnectionWithAForcedOne('cloud-b', 'https://site-b.atlassian.net');
+		$this->networkService->expects($this->never())->method('basicRequest');
+
+		$this->assertSame(['error' => 'Unauthorized Jira instance URL'], $this->apiService->getIssueInfo('user1', 'NC-1', 'site-b.atlassian.net'));
+	}
+
+	public function testAnApiTokenWithoutAUrlIsConnectedToNoSite(): void {
+		$this->stubBasicAuthConnection('');
+
+		$this->assertFalse($this->apiService->isConnectedToSite('user1', 'site-a.atlassian.net'));
+	}
+
+	/**
+	 * @dataProvider provideHostsOfAGatewayConnection
+	 */
+	public function testAnApiTokenIsConnectedToTheHostOfTheKeptBaseUrl(string $baseUrl, string $host, bool $connected): void {
+		$this->stubApiTokenConnection('https://api.atlassian.com/ex/jira/cloud-a', $baseUrl);
+
+		$this->assertSame($connected, $this->apiService->isConnectedToSite('user1', $host));
+	}
+
+	public static function provideHostsOfAGatewayConnection(): array {
+		return [
+			'the site of the base URL' => ['https://site-a.atlassian.net', 'site-a.atlassian.net', true],
+			'a base URL in upper case' => ['https://Site-A.Atlassian.NET/', 'site-a.atlassian.net', true],
+			'a base URL with a trailing dot' => ['https://site-a.atlassian.net./', 'site-a.atlassian.net', true],
+			'another site' => ['https://site-a.atlassian.net', 'site-b.atlassian.net', false],
+			'a host ending in the site host' => ['https://site-a.atlassian.net', 'xsite-a.atlassian.net', false],
+			'the site host inside another host' => ['https://site-a.atlassian.net', 'site-a.atlassian.net.atlassian.net', false],
+			'a subdomain of the site host' => ['https://site-a.atlassian.net', 'x.site-a.atlassian.net', false],
+			'the end of the site host' => ['https://site-a.atlassian.net', 'a.atlassian.net', false],
+			'no base URL kept' => ['', 'site-a.atlassian.net', false],
+			'no host and no base URL kept' => ['', '', false],
+		];
+	}
+
+	/**
+	 * Resources are whatever the user's settings hold, and the link preview asks for every Jira link.
+	 *
+	 * @dataProvider provideResourcesThatAreNoArray
+	 */
+	public function testResourcesThatAreNoArrayAreNoSite(string $resources): void {
+		$this->stubOAuthConnection('encrypted-token', $resources);
+
+		$this->assertFalse($this->apiService->isConnectedToSite('user1', 'site-a.atlassian.net'));
+	}
+
+	public static function provideResourcesThatAreNoArray(): array {
+		return [
+			'a number' => ['5'],
+			'true' => ['true'],
+			'a string' => ['"https://site-a.atlassian.net"'],
+			'no JSON' => ['site-a'],
+		];
+	}
+
+	public function testAUserWithoutAJiraAccountIsConnectedToNoSite(): void {
+		$this->stubUserConfig('', '');
+
+		$this->assertFalse($this->apiService->isConnectedToSite('user1', 'site-a.atlassian.net'));
+	}
+
+	/**
+	 * @dataProvider provideHostsOfTwoOAuthSitesWithTheirCloudIds
+	 */
+	public function testAnIssueIsAskedOnlyFromTheOAuthSiteOfItsLink(string $host, string $cloudId): void {
+		$this->stubOAuthConnection('encrypted-token', self::TWO_SITES);
+		$issue = ['key' => 'NC2T-1', 'fields' => ['summary' => 'An issue']];
+		$this->networkService->expects($this->once())
+			->method('oauthRequest')
+			->with('user1', 'ex/jira/' . $cloudId . '/rest/api/3/issue/NC2T-1')
+			->willReturn($issue);
+
+		$this->assertSame($issue, $this->apiService->getIssueInfo('user1', 'NC2T-1', $host));
+	}
+
+	public static function provideHostsOfTwoOAuthSitesWithTheirCloudIds(): array {
+		return [
+			'the first site' => ['site-a.atlassian.net', 'cloud-a'],
+			'the second site' => ['site-b.atlassian.net', 'cloud-b'],
+		];
+	}
+
+	public function testAnIssueOfAnotherSiteIsNotAskedWithOAuth(): void {
+		$this->stubOAuthConnection('encrypted-token', self::TWO_SITES);
+		$this->networkService->expects($this->never())->method('oauthRequest');
+
+		$this->assertNull($this->apiService->getIssueInfo('user1', 'NC-1', 'site-c.atlassian.net'));
+	}
+
+	public function testAnIssueIsAskedFromTheSiteOfAnApiToken(): void {
+		$this->stubBasicAuthConnection('https://site-a.atlassian.net');
+		$issue = ['key' => 'NC2T-1', 'fields' => ['summary' => 'An issue']];
+		$this->networkService->expects($this->once())
+			->method('basicRequest')
+			->with('https://site-a.atlassian.net', 'dXNlcjpwYXNz', 'rest/api/3/issue/NC2T-1')
+			->willReturn($issue);
+
+		$this->assertSame($issue, $this->apiService->getIssueInfo('user1', 'NC2T-1', 'site-a.atlassian.net'));
+	}
+
+	public function testAnIssueOfAnotherSiteIsNotAskedWithAnApiToken(): void {
+		$this->stubApiTokenConnection('https://site-a.atlassian.net', 'https://site-a.atlassian.net');
+		$this->networkService->expects($this->never())->method('basicRequest');
+
+		$this->assertNull($this->apiService->getIssueInfo('user1', 'NC-1', 'site-b.atlassian.net'));
+	}
+
+	/**
+	 * The link preview asks for every Jira link in every app whether the user is connected to its
+	 * site, so the answer comes from the stored values alone: no request, no decryption.
+	 *
+	 * @dataProvider provideForcedInstances
+	 */
+	public function testTheSiteCheckOfAnApiTokenAsksNothing(string $forcedInstanceUrl): void {
+		$this->storeLazyAppValues(['forced_instance_url' => $forcedInstanceUrl]);
+		$this->config->method('getUserValue')->willReturnCallback(
+			fn ($userId, $appName, $key, $default = '') => match ($key) {
+				'basic_auth_header' => 'encrypted',
+				'url' => 'https://api.atlassian.com/ex/jira/cloud-a',
+				default => $default,
+			}
+		);
+		$this->crypto->expects($this->never())->method('decrypt');
+		$this->networkService->expects($this->never())->method('basicRequest');
+
+		$this->assertFalse($this->apiService->isConnectedToSite('user1', 'site-a.atlassian.net'));
+		$this->assertTrue($this->apiService->isConnectedToSite('user1', 'api.atlassian.com'));
+	}
+
+	public static function provideForcedInstances(): array {
+		return [
+			'no forced instance' => [''],
+			'another forced instance' => ['https://forced.example.com'],
+		];
+	}
+
+	/**
+	 * A user connected with an API token to the given URL, with the base URL Jira gave and an OAuth
+	 * token as stored.
+	 */
+	private function stubApiTokenConnection(string $jiraUrl, string $baseUrl = '', string $token = ''): void {
+		$this->storeLazyAppValues([]);
+		$this->crypto->method('decrypt')->with('encrypted')->willReturn('dXNlcjpwYXNz');
+		$this->config->method('getUserValue')->willReturnCallback(
+			fn ($userId, $appName, $key, $default = '') => match ($key) {
+				'basic_auth_header' => 'encrypted',
+				'url' => $jiraUrl,
+				'base_url' => $baseUrl,
+				'token' => $token,
+				'resources' => self::TWO_SITES,
+				default => $default,
+			}
+		);
+	}
+
+	/**
+	 * Atlassian's API gateway, which scoped API tokens need, serves a Jira Cloud site under
+	 * api.atlassian.com, while its issue links name the site.
+	 */
+	public function testAnApiTokenThroughTheGatewayIsConnectedToTheSiteOfTheKeptBaseUrl(): void {
+		$this->stubApiTokenConnection('https://api.atlassian.com/ex/jira/cloud-a', 'https://site-a.atlassian.net');
+		$issue = ['key' => 'NC-1', 'fields' => ['summary' => 'An issue']];
+		$this->networkService->expects($this->once())
+			->method('basicRequest')
+			->with('https://api.atlassian.com/ex/jira/cloud-a', 'dXNlcjpwYXNz', 'rest/api/3/issue/NC-1')
+			->willReturn($issue);
+
+		$this->assertTrue($this->apiService->isConnectedToSite('user1', 'site-a.atlassian.net'));
+		$this->assertFalse($this->apiService->isConnectedToSite('user1', 'site-b.atlassian.net'));
+		$this->assertSame($issue, $this->apiService->getIssueInfo('user1', 'NC-1', 'site-a.atlassian.net'));
+	}
+
+	public function testAnApiTokenWinsOverAStoredOAuthToken(): void {
+		$this->stubApiTokenConnection('https://site-a.atlassian.net', token: 'encrypted-token');
+		$issue = ['key' => 'NC-1', 'fields' => ['summary' => 'An issue']];
+		$this->networkService->expects($this->never())->method('oauthRequest');
+		$this->networkService->expects($this->once())
+			->method('basicRequest')
+			->with('https://site-a.atlassian.net', 'dXNlcjpwYXNz', 'rest/api/3/issue/NC-1')
+			->willReturn($issue);
+
+		$this->assertSame($issue, $this->apiService->getIssueInfo('user1', 'NC-1', 'site-a.atlassian.net'));
+	}
+
+	/**
+	 * @dataProvider provideAnswersThatAreNoIssue
+	 */
+	public function testAnAnswerThatIsNoIssueIsPassedOnOnlyAsAnError(array $answer, ?array $expected): void {
+		$this->stubOAuthConnection('encrypted-token', self::TWO_SITES);
+		$this->networkService->method('oauthRequest')->willReturn($answer);
+
+		$this->assertSame($expected, $this->apiService->getIssueInfo('user1', 'NC-1', 'site-a.atlassian.net'));
+	}
+
+	public static function provideAnswersThatAreNoIssue(): array {
+		return [
+			'an error' => [['error' => 'Bad credentials'], ['error' => 'Bad credentials']],
+			'no fields' => [['key' => 'NC-1'], null],
+		];
+	}
+
 	public static function provideSelfHostedRequests(): array {
 		return [
 			'notifications' => ['getNotifications', ['user1']],
 			'projects' => ['getProjects', ['user1']],
 			'search' => ['search', ['user1', 'crash']],
-			'issue info' => ['getIssueInfo', ['user1', 'NC-1']],
+			'issue info' => ['getIssueInfo', ['user1', 'NC-1', 'jira.example.com']],
 			'account info' => ['getAccountInfo', ['user1', '', 'jdoe']],
 		];
 	}

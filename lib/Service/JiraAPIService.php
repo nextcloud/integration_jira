@@ -125,7 +125,7 @@ class JiraAPIService {
 	public function getJiraResources(string $userId): array {
 		$strRes = $this->config->getUserValue($userId, Application::APP_ID, 'resources');
 		$resources = json_decode($strRes, true);
-		return ($resources && count($resources) > 0) ? $resources : [];
+		return is_array($resources) ? $resources : [];
 	}
 
 	/**
@@ -388,8 +388,8 @@ class JiraAPIService {
 	 * Whether a host is the Jira a user connected to with login and password (or API token):
 	 * the host they connected to, or the host of the base URL Jira builds its links with, which
 	 * differs when Nextcloud reaches Jira under another name, such as an internal address. Jira
-	 * is asked for its base URL only for a host other than the connected one, and an answer it
-	 * gives is kept until the user disconnects.
+	 * is asked for its base URL when the user connects and, while none is kept, for a host other
+	 * than the connected one; an answer it gives is kept until the user disconnects or connects again.
 	 */
 	private function isJiraHost(string $userId, string $basicAuthHeader, string $host): bool {
 		if ($host === '') {
@@ -419,48 +419,72 @@ class JiraAPIService {
 		return is_string($host) ? rtrim(strtolower($host), '.') : '';
 	}
 
-	public function getIssueInfo(string $userId, string $issueId): ?array {
-		$issueInfo = null;
+	/**
+	 * Whether the user is connected to the Jira site on this host
+	 */
+	public function isConnectedToSite(string $userId, string $host): bool {
+		return $this->getSite($userId, $host) !== null;
+	}
+
+	/**
+	 * The Jira site on this host the user is connected to: for a login and password or an API token,
+	 * the host the user connected to or the host of the base URL kept from Jira (see isJiraHost),
+	 * which differs when Nextcloud reaches Jira under another name, such as Atlassian's API gateway;
+	 * for OAuth, one of the sites the user authorised. Only stored values decide, as the link preview
+	 * asks this for every Jira link.
+	 *
+	 * @return array{url: string}|array{cloudId: string}|null
+	 */
+	private function getSite(string $userId, string $host): ?array {
+		$host = strtolower($host);
+		if ($this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header') !== '') {
+			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
+			$baseUrl = $this->config->getUserValue($userId, Application::APP_ID, 'base_url');
+			$jiraHosts = array_filter([$this->getHost($jiraUrl), $this->getHost($baseUrl)], fn (string $jiraHost): bool => $jiraHost !== '');
+			return in_array($host, $jiraHosts, true) ? ['url' => $jiraUrl] : null;
+		}
+		if ($this->config->getUserValue($userId, Application::APP_ID, 'token') === '') {
+			return null;
+		}
+		foreach ($this->getJiraResources($userId) as $resource) {
+			if (is_string($resource['id'] ?? null) && is_string($resource['url'] ?? null)
+				&& $this->getHost($resource['url']) === $host) {
+				return ['cloudId' => $resource['id']];
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @param string $siteHost the host of the Jira site the issue is on
+	 */
+	public function getIssueInfo(string $userId, string $issueId, string $siteHost): ?array {
+		$site = $this->getSite($userId, $siteHost);
+		if ($site === null) {
+			return null;
+		}
 		$endPoint = 'rest/api/3/issue/' . $issueId;
 
-		$basicAuthHeader = $this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header');
-		$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->decrypt($basicAuthHeader);
-
-		// self-hosted Jira
-		if ($basicAuthHeader !== '') {
-			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
-
+		// a login and password or an API token
+		if (isset($site['url'])) {
 			// check if there is a forced instance
 			$forcedInstanceUrl = $this->appConfig->getAppValueString('forced_instance_url', lazy: true);
-			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
+			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $site['url']) {
 				return [
 					'error' => 'Unauthorized Jira instance URL',
 				];
 			}
 
-			$issuesResult = $this->networkService->basicRequest($jiraUrl, $basicAuthHeader, $endPoint);
-			if (isset($issuesResult['error'])) {
-				return $issuesResult;
-			}
-			if (isset($issuesResult['fields'])) {
-				$issueInfo = $issuesResult;
-			}
+			$basicAuthHeader = $this->crypto->decrypt($this->config->getUserValue($userId, Application::APP_ID, 'basic_auth_header'));
+			$issuesResult = $this->networkService->basicRequest($site['url'], $basicAuthHeader, $endPoint);
 		} else {
 			// Jira cloud
-			$resources = $this->getJiraResources($userId);
-
-			foreach ($resources as $resource) {
-				$cloudId = $resource['id'];
-				$issuesResult = $this->networkService->oauthRequest($userId, 'ex/jira/' . $cloudId . '/' . $endPoint);
-				if (!isset($issuesResult['error']) && isset($issuesResult['fields'])) {
-					$issueInfo = $issuesResult;
-				} else {
-					return $issuesResult;
-				}
-			}
+			$issuesResult = $this->networkService->oauthRequest($userId, 'ex/jira/' . $site['cloudId'] . '/' . $endPoint);
 		}
-
-		return $issueInfo;
+		if (isset($issuesResult['error'])) {
+			return $issuesResult;
+		}
+		return isset($issuesResult['fields']) ? $issuesResult : null;
 	}
 
 	/**

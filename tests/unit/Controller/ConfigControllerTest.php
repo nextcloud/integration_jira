@@ -73,25 +73,38 @@ class ConfigControllerTest extends TestCase {
 		);
 	}
 
+	/** @var list<string> the user values connectToSoftware deleted */
+	private array $deletedUserValues = [];
+
 	/**
 	 * @return array<string, string> the user values connectToSoftware stored
 	 */
-	private function connectToSoftwareWith(array $myself): array {
+	private function connectToSoftwareWith(array $myself, array $serverInfo = []): array {
 		$stored = [];
 		$this->config->method('setUserValue')->willReturnCallback(
 			function (string $userId, string $app, string $key, $value) use (&$stored): void {
 				$stored[$key] = $value;
 			}
 		);
+		$this->config->method('deleteUserValue')->willReturnCallback(
+			function (string $userId, string $app, string $key): void {
+				$this->deletedUserValues[] = $key;
+			}
+		);
 		$this->appConfig->method('getAppValueString')->willReturnCallback(fn (string $key, string $default = '') => $default);
-		$this->networkService->expects($this->once())
-			->method('basicRequest')
-			->with('https://jira.example.com', base64_encode('login:password'), 'rest/api/2/myself')
-			->willReturn($myself);
+		$asked = [];
+		$this->networkService->method('basicRequest')->willReturnCallback(
+			function (string $url, string $authHeader, string $endPoint) use (&$asked, $myself, $serverInfo): array {
+				$this->assertSame(['https://jira.example.com', base64_encode('login:password')], [$url, $authHeader]);
+				$asked[] = $endPoint;
+				return $endPoint === 'rest/api/2/myself' ? $myself : $serverInfo;
+			}
+		);
 
 		$response = $this->controller->connectToSoftware('https://jira.example.com', 'login', 'password');
 
 		$this->assertSame(['user_name' => 'Jane Doe'], $response->getData());
+		$this->assertSame(['rest/api/2/myself', 'rest/api/2/serverInfo'], $asked);
 		return $stored;
 	}
 
@@ -111,6 +124,46 @@ class ConfigControllerTest extends TestCase {
 
 		$this->assertSame('', $stored['user_key']);
 		$this->assertSame('712020:abc', $stored['user_account_id']);
+	}
+
+	/**
+	 * Jira's base URL names the site its issue links point to, also when the user connected
+	 * through another address, such as Atlassian's API gateway.
+	 *
+	 * @dataProvider provideBaseUrls
+	 */
+	public function testConnectingKeepsTheBaseUrlJiraGives(string $baseUrl): void {
+		$stored = $this->connectToSoftwareWith(['displayName' => 'Jane Doe'], ['baseUrl' => $baseUrl]);
+
+		$this->assertSame($baseUrl, $stored['base_url']);
+		$this->assertNotContains('base_url', $this->deletedUserValues);
+	}
+
+	public static function provideBaseUrls(): array {
+		return [
+			'a Jira Cloud site' => ['https://site-a.atlassian.net'],
+			'a self-hosted Jira over http' => ['http://jira.example.com:8080/jira'],
+			'the connected URL' => ['https://jira.example.com'],
+		];
+	}
+
+	/**
+	 * @dataProvider provideUnusableServerInfoAnswers
+	 */
+	public function testConnectingToAJiraGivingNoUsableBaseUrlForgetsAKeptOne(array $serverInfo): void {
+		$stored = $this->connectToSoftwareWith(['displayName' => 'Jane Doe'], $serverInfo);
+
+		$this->assertArrayNotHasKey('base_url', $stored);
+		$this->assertContains('base_url', $this->deletedUserValues);
+	}
+
+	public static function provideUnusableServerInfoAnswers(): array {
+		return [
+			'an error' => [['error' => 'Bad credentials']],
+			'no base URL' => [['version' => '9.12.0']],
+			'an empty base URL' => [['baseUrl' => '']],
+			'a base URL that is no string' => [['baseUrl' => ['https://site-a.atlassian.net']]],
+		];
 	}
 
 	/**
@@ -196,6 +249,25 @@ class ConfigControllerTest extends TestCase {
 		$response = $this->controller->connectToSoftware('https://jira.example.com', 'jdoe', 'password');
 
 		$this->assertSame(['user_name' => '', 'error' => 'Bad credentials'], $response->getData());
+	}
+
+	public function testConnectingToTheForcedInstanceAsksItForTheBaseUrl(): void {
+		$this->storeLazyAppValues(['forced_instance_url' => 'https://forced.example.com']);
+		$asked = [];
+		$this->networkService->method('basicRequest')->willReturnCallback(
+			function (string $url, string $authHeader, string $endPoint) use (&$asked): array {
+				$asked[] = [$url, $endPoint];
+				return $endPoint === 'rest/api/2/myself' ? ['displayName' => 'Jane Doe'] : ['baseUrl' => 'https://forced.example.com'];
+			}
+		);
+		$this->config->expects($this->atLeastOnce())->method('setUserValue');
+
+		$this->controller->connectToSoftware('https://jira.example.com', 'jdoe', 'password');
+
+		$this->assertSame([
+			['https://forced.example.com', 'rest/api/2/myself'],
+			['https://forced.example.com', 'rest/api/2/serverInfo'],
+		], $asked);
 	}
 
 	public function testConnectingToSelfHostedJiraUsesTheGivenUrlWithoutAForcedInstance(): void {
