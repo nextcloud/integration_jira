@@ -65,6 +65,7 @@ class ConfigController extends Controller {
 			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'token');
 			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'refresh_token');
 			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'url');
+			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'base_url');
 			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'user_key');
 			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'user_name');
 			$this->config->deleteUserValue($this->userId, Application::APP_ID, 'user_account_id');
@@ -142,8 +143,11 @@ class ConfigController extends Controller {
 		$info = $this->networkService->basicRequest($targetInstanceUrl, $basicAuthHeader, 'rest/api/2/myself');
 		if (isset($info['displayName'])) {
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_name', $info['displayName']);
-			// in self-hosted version, key is the only account identifier
-			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_key', strval($info['key']));
+			// self-hosted Jira identifies accounts by key, Jira Cloud (connected with an API token) by accountId
+			$this->config->setUserValue($this->userId, Application::APP_ID, 'user_key', strval($info['key'] ?? ''));
+			if (isset($info['accountId'])) {
+				$this->config->setUserValue($this->userId, Application::APP_ID, 'user_account_id', $info['accountId']);
+			}
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'url', $targetInstanceUrl);
 			$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->encrypt($basicAuthHeader);
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', $basicAuthHeader);

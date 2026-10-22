@@ -268,12 +268,18 @@ class NetworkService {
 	 */
 	public function basicRequest(string $url, string $authHeader,
 		string $endPoint, array $params = [], string $method = 'GET'): array {
-		return $this->request(
+		$result = $this->request(
 			'Basic ' . $authHeader,
 			$url . '/' . $endPoint,
 			$params,
 			$method,
 			contentType: $method === 'POST' ? 'application/json' : '',
 		);
+		if (is_array($result)) {
+			return $result;
+		}
+		// an answer that is not a JSON object or array, such as the HTML page of a proxy in front of Jira
+		$this->logger->warning('Unexpected answer from Jira to ' . $endPoint, ['app' => Application::APP_ID]);
+		return ['error' => $this->l10n->t('Unexpected answer from Jira')];
 	}
 }
