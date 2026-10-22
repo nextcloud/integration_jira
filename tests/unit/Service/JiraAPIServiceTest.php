@@ -11,17 +11,20 @@ use OC\Http\Client\ClientService;
 use OCA\Jira\AppInfo\Application;
 use OCA\Jira\Service\JiraAPIService;
 use OCA\Jira\Service\NetworkService;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\Http\Client\IClientService;
 use OCP\IConfig;
 use OCP\IUserManager;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Security\ICrypto;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class JiraAPIServiceTest extends TestCase {
 
 	private IUserManager $userManager;
 	private ICrypto $crypto;
+	private IAppConfig&MockObject $appConfig;
 	private IConfig $config;
 	private INotificationManager $notificationManager;
 	private NetworkService $networkService;
@@ -43,13 +46,18 @@ class JiraAPIServiceTest extends TestCase {
 	private function setupDummies(): void {
 		$this->userManager = $this->createMock(IUserManager::class);
 		$this->crypto = $this->createMock(ICrypto::class);
+		$this->appConfig = $this->createMock(IAppConfig::class);
+		$this->appConfig->method('getAppValue')->willReturnCallback(fn (string $key, string $default = ''): string => $default);
 		$this->config = $this->createMock(IConfig::class);
+		// a legacy read of a lazy key gets the default on the server
+		$this->config->method('getAppValue')->willReturnCallback(fn ($app, $key, $default = '') => $default);
 		$this->notificationManager = $this->createMock(INotificationManager::class);
 		$this->networkService = $this->createMock(NetworkService::class);
 		$this->clientService = $this->createMock(ClientService::class);
 
 		$this->apiService = new JiraAPIService(
 			$this->userManager,
+			$this->appConfig,
 			$this->config,
 			$this->notificationManager,
 			$this->networkService,
@@ -95,8 +103,7 @@ class JiraAPIServiceTest extends TestCase {
 		array $expectedKeys,
 	): void {
 		$this->crypto->method('decrypt')->willReturn('Basic dXNlcjpwYXNz');
-		// an unstubbed getAppValue answers null, which reads as a forced instance
-		$this->config->method('getAppValue')->willReturn('');
+		$this->storeLazyAppValues([]);
 		$this->config->method('getUserValue')->willReturnCallback(
 			fn ($userId, $appName, $key, $default = '') => match ($key) {
 				'basic_auth_header' => 'encrypted',
@@ -202,5 +209,64 @@ class JiraAPIServiceTest extends TestCase {
 	public function testUserWithSelfHostedJiraCredentialsIsConnected(): void {
 		$this->stubUserConfig('', 'encrypted-basic-auth-header');
 		$this->assertTrue($this->apiService->isUserConnected('user1'));
+	}
+
+	/**
+	 * Answer like the server once the app values are stored lazy: a read without
+	 * lazy: true only sees the non-lazy values, so it gets the default.
+	 */
+	private function storeLazyAppValues(array $values): void {
+		$this->appConfig->method('getAppValueString')->willReturnCallback(
+			fn (string $key, string $default = '', bool $lazy = false): string => $lazy ? ($values[$key] ?? $default) : $default
+		);
+	}
+
+	/**
+	 * @dataProvider provideSelfHostedRequests
+	 */
+	public function testSelfHostedRequestsAreRefusedForAnInstanceOtherThanTheForcedOne(string $method, array $arguments): void {
+		$this->storeLazyAppValues(['forced_instance_url' => 'https://forced.example.com']);
+		$this->crypto->method('decrypt')->willReturn('dXNlcjpwYXNz');
+		$this->config->method('getUserValue')->willReturnCallback(
+			fn ($userId, $appName, $key, $default = '') => match ($key) {
+				'basic_auth_header' => 'encrypted',
+				'url' => 'https://jira.example.com',
+				default => $default,
+			}
+		);
+		$this->networkService->expects($this->never())->method('basicRequest');
+
+		$this->assertSame(['error' => 'Unauthorized Jira instance URL'], $this->apiService->$method(...$arguments));
+	}
+
+	/**
+	 * @dataProvider provideSelfHostedRequests
+	 */
+	public function testSelfHostedRequestsGoToTheUsersInstanceWithoutAForcedOne(string $method, array $arguments): void {
+		$this->storeLazyAppValues([]);
+		$this->crypto->method('decrypt')->willReturn('dXNlcjpwYXNz');
+		$this->config->method('getUserValue')->willReturnCallback(
+			fn ($userId, $appName, $key, $default = '') => match ($key) {
+				'basic_auth_header' => 'encrypted',
+				'url' => 'https://jira.example.com',
+				default => $default,
+			}
+		);
+		$this->networkService->expects($this->once())
+			->method('basicRequest')
+			->with('https://jira.example.com', 'dXNlcjpwYXNz')
+			->willReturn(['error' => 'Bad credentials']);
+
+		$this->assertSame(['error' => 'Bad credentials'], $this->apiService->$method(...$arguments));
+	}
+
+	public static function provideSelfHostedRequests(): array {
+		return [
+			'notifications' => ['getNotifications', ['user1']],
+			'projects' => ['getProjects', ['user1']],
+			'search' => ['search', ['user1', 'crash']],
+			'issue info' => ['getIssueInfo', ['user1', 'NC-1']],
+			'account info' => ['getAccountInfo', ['user1', '', 'jdoe']],
+		];
 	}
 }

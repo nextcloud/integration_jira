@@ -12,6 +12,7 @@ use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use OCA\Jira\AppInfo\Application;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
 use OCP\Http\Client\IResponse;
@@ -30,6 +31,7 @@ class NetworkService {
 	private IClient $client;
 
 	public function __construct(
+		private IAppConfig $appConfig,
 		private IConfig $config,
 		IClientService $clientService,
 		private LoggerInterface $logger,
@@ -202,8 +204,8 @@ class NetworkService {
 	 * @throws PreConditionNotMetException
 	 */
 	private function refreshToken(string $userId): bool {
-		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
-		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
+		$clientID = $this->appConfig->getAppValueString('client_id', lazy: true);
+		$clientSecret = $this->appConfig->getAppValueString('client_secret', lazy: true);
 		$clientSecret = $clientSecret === '' ? '' : $this->crypto->decrypt($clientSecret);
 		$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
 		$refreshToken = $refreshToken === '' ? '' : $this->crypto->decrypt($refreshToken);

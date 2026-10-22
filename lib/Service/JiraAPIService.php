@@ -9,6 +9,7 @@ namespace OCA\Jira\Service;
 
 use DateTime;
 use OCA\Jira\AppInfo\Application;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
 use OCP\IConfig;
@@ -27,6 +28,7 @@ class JiraAPIService {
 	 */
 	public function __construct(
 		private IUserManager $userManager,
+		private IAppConfig $appConfig,
 		private IConfig $config,
 		private INotificationManager $notificationManager,
 		private NetworkService $networkService,
@@ -154,7 +156,7 @@ class JiraAPIService {
 			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 
 			// check if there is a forced instance
-			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
+			$forcedInstanceUrl = $this->appConfig->getAppValueString('forced_instance_url', lazy: true);
 			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
 				return [
 					'error' => 'Unauthorized Jira instance URL',
@@ -243,7 +245,7 @@ class JiraAPIService {
 			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 
 			// check if there is a forced instance
-			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
+			$forcedInstanceUrl = $this->appConfig->getAppValueString('forced_instance_url', lazy: true);
 			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
 				return [
 					'error' => 'Unauthorized Jira instance URL',
@@ -321,7 +323,7 @@ class JiraAPIService {
 			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 
 			// check if there is a forced instance
-			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
+			$forcedInstanceUrl = $this->appConfig->getAppValueString('forced_instance_url', lazy: true);
 			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
 				return [
 					'error' => 'Unauthorized Jira instance URL',
@@ -373,7 +375,7 @@ class JiraAPIService {
 			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 
 			// check if there is a forced instance
-			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
+			$forcedInstanceUrl = $this->appConfig->getAppValueString('forced_instance_url', lazy: true);
 			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
 				return [
 					'error' => 'Unauthorized Jira instance URL',
@@ -428,7 +430,7 @@ class JiraAPIService {
 			$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
 
 			// check if there is a forced instance
-			$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
+			$forcedInstanceUrl = $this->appConfig->getAppValueString('forced_instance_url', lazy: true);
 			if ($forcedInstanceUrl !== '' && $forcedInstanceUrl !== $jiraUrl) {
 				return [
 					'error' => 'Unauthorized Jira instance URL',
@@ -439,8 +441,6 @@ class JiraAPIService {
 		} else {
 			$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
 			$refreshToken = $this->config->getUserValue($userId, Application::APP_ID, 'refresh_token');
-			//			$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
-			//			$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
 			if ($accessToken === '' || $refreshToken === '') {
 				return ['error' => 'no credentials'];
 			}

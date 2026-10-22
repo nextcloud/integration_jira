@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Run the frontend unit tests in CI
+- Load the admin settings lazily instead of on every request
+- Accept only the app's own admin settings, as strings, on the admin endpoints
 
 ### Fixed
 

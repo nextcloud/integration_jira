@@ -9,23 +9,23 @@ namespace OCA\Jira\Settings;
 
 use OCA\Jira\AppInfo\Application;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
-use OCP\IConfig;
 use OCP\Settings\ISettings;
 
 class Admin implements ISettings {
 
 	public function __construct(
-		private IConfig $config,
+		private IAppConfig $appConfig,
 		private IInitialState $initialStateService,
 	) {
 	}
 
 	public function getForm(): TemplateResponse {
-		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
-		$clientSecret = $this->config->getAppValue(Application::APP_ID, 'client_secret');
-		$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
-		$linkPreviewEnabled = $this->config->getAppValue(Application::APP_ID, 'link_preview_enabled', '0');
+		$clientID = $this->appConfig->getAppValueString('client_id', lazy: true);
+		$clientSecret = $this->appConfig->getAppValueString('client_secret', lazy: true);
+		$forcedInstanceUrl = $this->appConfig->getAppValueString('forced_instance_url', lazy: true);
+		$linkPreviewEnabled = $this->appConfig->getAppValueString('link_preview_enabled', '0', lazy: true);
 
 		$adminConfig = [
 			'client_id' => $clientID,

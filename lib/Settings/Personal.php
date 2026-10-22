@@ -9,6 +9,7 @@ namespace OCA\Jira\Settings;
 
 use OCA\Jira\AppInfo\Application;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\IConfig;
 use OCP\Settings\ISettings;
@@ -16,6 +17,7 @@ use OCP\Settings\ISettings;
 class Personal implements ISettings {
 
 	public function __construct(
+		private IAppConfig $appConfig,
 		private IConfig $config,
 		private IInitialState $initialStateService,
 		private ?string $userId,
@@ -28,12 +30,12 @@ class Personal implements ISettings {
 		$searchEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'search_enabled', '0');
 		$notificationEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'notification_enabled', '0');
 
-		$forcedInstanceUrl = $this->config->getAppValue(Application::APP_ID, 'forced_instance_url');
+		$forcedInstanceUrl = $this->appConfig->getAppValueString('forced_instance_url', lazy: true);
 
 		// for OAuth
-		$clientID = $this->config->getAppValue(Application::APP_ID, 'client_id');
+		$clientID = $this->appConfig->getAppValueString('client_id', lazy: true);
 		// don't expose the client secret to users
-		$clientSecret = ($this->config->getAppValue(Application::APP_ID, 'client_secret') !== '');
+		$clientSecret = ($this->appConfig->getAppValueString('client_secret', lazy: true) !== '');
 
 		$linkPreviewEnabled = $this->config->getUserValue($this->userId, Application::APP_ID, 'link_preview_enabled', '1') === '1';
 		$dashboardJiraProjects = $this->config->getUserValue($this->userId, Application::APP_ID, 'dashboard_jira_projects', '[]');
