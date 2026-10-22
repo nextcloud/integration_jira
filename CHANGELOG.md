@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Run the frontend unit tests in CI
 - Load the admin settings lazily instead of on every request
 - Accept only the app's own admin settings, as strings, on the admin endpoints
+- Send the Jira credentials only to Jira itself when fetching an avatar, not to avatar hosts such as Gravatar
 
 ### Fixed
 
@@ -28,6 +29,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Show the newest version of an issue in the dashboard widget
 - Keep the project selector usable when a saved project is no longer available
 - Filter the dashboard widget by project on self-hosted Jira
+- Show the issues of a Jira Cloud site on atlassian.net connected with an API token in the dashboard widget and the search, and its open tickets notification once the site is connected again
+- Show no avatar rather than a server error when an avatar image cannot be fetched
+- Report an answer that is not a JSON object or array, such as the HTML page of a proxy in front of Jira, as an error when connected with a login and password
 
 ## 1.5.0 - 2026-09-29
 

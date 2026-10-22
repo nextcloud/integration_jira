@@ -73,6 +73,64 @@ class ConfigControllerTest extends TestCase {
 		);
 	}
 
+	/**
+	 * @return array<string, string> the user values connectToSoftware stored
+	 */
+	private function connectToSoftwareWith(array $myself): array {
+		$stored = [];
+		$this->config->method('setUserValue')->willReturnCallback(
+			function (string $userId, string $app, string $key, $value) use (&$stored): void {
+				$stored[$key] = $value;
+			}
+		);
+		$this->appConfig->method('getAppValueString')->willReturnCallback(fn (string $key, string $default = '') => $default);
+		$this->networkService->expects($this->once())
+			->method('basicRequest')
+			->with('https://jira.example.com', base64_encode('login:password'), 'rest/api/2/myself')
+			->willReturn($myself);
+
+		$response = $this->controller->connectToSoftware('https://jira.example.com', 'login', 'password');
+
+		$this->assertSame(['user_name' => 'Jane Doe'], $response->getData());
+		return $stored;
+	}
+
+	public function testConnectingToSelfHostedJiraStoresTheAccountKey(): void {
+		$stored = $this->connectToSoftwareWith(['displayName' => 'Jane Doe', 'key' => 'jdoe']);
+
+		$this->assertSame('jdoe', $stored['user_key']);
+		$this->assertArrayNotHasKey('user_account_id', $stored);
+	}
+
+	/**
+	 * Jira Cloud has no account key; without the account id the open tickets notification
+	 * finds no account to compare the assignees with.
+	 */
+	public function testConnectingToJiraCloudWithAnApiTokenStoresTheAccountId(): void {
+		$stored = $this->connectToSoftwareWith(['displayName' => 'Jane Doe', 'accountId' => '712020:abc']);
+
+		$this->assertSame('', $stored['user_key']);
+		$this->assertSame('712020:abc', $stored['user_account_id']);
+	}
+
+	/**
+	 * The base URL kept for the avatars belongs to the Jira the user disconnects from; kept, it
+	 * would let the next Jira's credentials go to that host.
+	 */
+	public function testDisconnectingForgetsTheJiraBaseUrl(): void {
+		$deleted = [];
+		$this->config->method('deleteUserValue')->willReturnCallback(
+			function (string $userId, string $app, string $key) use (&$deleted): void {
+				$deleted[] = $key;
+			}
+		);
+
+		$this->controller->setConfig(['user_name' => '']);
+
+		$this->assertContains('base_url', $deleted);
+		$this->assertContains('basic_auth_header', $deleted);
+	}
+
 	public function testSensitiveAdminValuesAreStoredLazily(): void {
 		$this->controller->setSensitiveAdminConfig([
 			'client_id' => 'the-client-id',

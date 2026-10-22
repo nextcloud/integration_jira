@@ -21,6 +21,62 @@ use Psr\Log\LoggerInterface;
 
 class NetworkServiceTest extends TestCase {
 
+	/** @var list<string> */
+	private array $warnings = [];
+
+	private function networkServiceAnswering(string $body): NetworkService {
+		$response = $this->createMock(IResponse::class);
+		$response->method('getStatusCode')->willReturn(200);
+		$response->method('getBody')->willReturn($body);
+		$client = $this->createMock(IClient::class);
+		$client->method('get')->willReturn($response);
+		$clientService = $this->createMock(IClientService::class);
+		$clientService->method('newClient')->willReturn($client);
+		$l10n = $this->createMock(IL10N::class);
+		$l10n->method('t')->willReturnArgument(0);
+		$logger = $this->createMock(LoggerInterface::class);
+		$logger->method('warning')->willReturnCallback(function (string $message): void {
+			$this->warnings[] = $message;
+		});
+		return new NetworkService(
+			$this->createMock(IAppConfig::class),
+			$this->createMock(IConfig::class),
+			$clientService,
+			$logger,
+			$this->createMock(ICrypto::class),
+			$l10n,
+		);
+	}
+
+	/**
+	 * A proxy in front of Jira can answer with an HTML page and status 200; that is no answer
+	 * from Jira, and the callers expect an array.
+	 *
+	 * @dataProvider provideAnswersThatAreNoJsonObject
+	 */
+	public function testABasicRequestAnsweredWithoutAJsonObjectIsAnError(string $body): void {
+		$result = $this->networkServiceAnswering($body)->basicRequest('https://jira.example.com', 'dXNlcjpwYXNz', 'rest/api/2/serverInfo');
+
+		$this->assertSame(['error' => 'Unexpected answer from Jira'], $result);
+		$this->assertSame(['Unexpected answer from Jira to rest/api/2/serverInfo'], $this->warnings);
+	}
+
+	public static function provideAnswersThatAreNoJsonObject(): array {
+		return [
+			'an HTML page' => ['<!DOCTYPE html><html><body>Request blocked</body></html>'],
+			'a JSON string' => ['"maintenance"'],
+			'a JSON number' => ['42'],
+			'nothing' => [''],
+		];
+	}
+
+	public function testABasicRequestAnsweredWithAJsonObjectReturnsIt(): void {
+		$result = $this->networkServiceAnswering('{"baseUrl":"https://jira.example.com"}')->basicRequest('https://jira.example.com', 'dXNlcjpwYXNz', 'rest/api/2/serverInfo');
+
+		$this->assertSame(['baseUrl' => 'https://jira.example.com'], $result);
+		$this->assertSame([], $this->warnings);
+	}
+
 	public function testAnExpiredTokenIsRefreshedWithTheStoredClientCredentials(): void {
 		// answer like the server once the app values are stored lazy: a read
 		// without lazy: true only sees the non-lazy values, so it gets the default

@@ -8,6 +8,7 @@
 namespace OCA\Jira\Service;
 
 use DateTime;
+use Exception;
 use OCA\Jira\AppInfo\Application;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\Http\Client\IClient;
@@ -163,7 +164,13 @@ class JiraAPIService {
 				];
 			}
 
-			$issuesResult = $this->networkService->basicRequest($jiraUrl, $basicAuthHeader, $endPoint);
+			$params = [];
+			if ($this->isJiraCloudUrl($jiraUrl)) {
+				// a Jira Cloud site connected with an API token: same endpoint and JQL as the OAuth branch below
+				$endPoint = 'rest/api/3/search/jql';
+				$params = ['jql' => 'assignee = currentUser()', 'fields' => '*all'];
+			}
+			$issuesResult = $this->networkService->basicRequest($jiraUrl, $basicAuthHeader, $endPoint, $params);
 			if (isset($issuesResult['error'])) {
 				return $issuesResult;
 			}
@@ -330,6 +337,11 @@ class JiraAPIService {
 				];
 			}
 
+			if ($this->isJiraCloudUrl($jiraUrl)) {
+				// a Jira Cloud site connected with an API token: same endpoint as the OAuth branch below
+				$endPoint = 'rest/api/3/search/jql';
+				$params['fields'] = '*all';
+			}
 			$issuesResult = $this->networkService->basicRequest($jiraUrl, $basicAuthHeader, $endPoint, $params);
 			if (isset($issuesResult['error'])) {
 				return $issuesResult;
@@ -361,6 +373,50 @@ class JiraAPIService {
 			}
 		}
 		return array_slice($myIssues, $offset, $limit);
+	}
+
+	/**
+	 * Whether a URL connected with login and password (or API token) is a Jira Cloud site.
+	 * Jira Cloud removed rest/api/2/search (CHANGE-2046) while self-hosted Jira only has
+	 * that one. The reference provider recognizes Jira Cloud links by the same domain.
+	 */
+	private function isJiraCloudUrl(string $url): bool {
+		return str_ends_with($this->getHost($url), '.atlassian.net');
+	}
+
+	/**
+	 * Whether a host is the Jira a user connected to with login and password (or API token):
+	 * the host they connected to, or the host of the base URL Jira builds its links with, which
+	 * differs when Nextcloud reaches Jira under another name, such as an internal address. Jira
+	 * is asked for its base URL only for a host other than the connected one, and an answer it
+	 * gives is kept until the user disconnects.
+	 */
+	private function isJiraHost(string $userId, string $basicAuthHeader, string $host): bool {
+		if ($host === '') {
+			return false;
+		}
+		$jiraUrl = $this->config->getUserValue($userId, Application::APP_ID, 'url');
+		if ($host === $this->getHost($jiraUrl)) {
+			return true;
+		}
+		$baseUrl = $this->config->getUserValue($userId, Application::APP_ID, 'base_url');
+		if ($baseUrl === '') {
+			$serverInfo = $this->networkService->basicRequest($jiraUrl, $basicAuthHeader, 'rest/api/2/serverInfo');
+			if (!isset($serverInfo['baseUrl']) || !is_string($serverInfo['baseUrl']) || $serverInfo['baseUrl'] === '') {
+				return false;
+			}
+			$baseUrl = $serverInfo['baseUrl'];
+			$this->config->setUserValue($userId, Application::APP_ID, 'base_url', $baseUrl);
+		}
+		return $host === $this->getHost($baseUrl);
+	}
+
+	/**
+	 * The host of a URL in lower case and without a trailing dot, or '' when it has none.
+	 */
+	private function getHost(string $url): string {
+		$host = parse_url($url, PHP_URL_HOST);
+		return is_string($host) ? rtrim(strtolower($host), '.') : '';
 	}
 
 	public function getIssueInfo(string $userId, string $issueId): ?array {
@@ -488,14 +544,26 @@ class JiraAPIService {
 		$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->decrypt($basicAuthHeader);
 		$accessToken = $this->config->getUserValue($userId, Application::APP_ID, 'token');
 		$accessToken = $accessToken === '' ? '' : $this->crypto->decrypt($accessToken);
+		// the credentials only go to Jira itself: Jira Cloud serves most avatars from other hosts,
+		// such as secure.gravatar.com, which need none
+		$imageHost = $this->getHost($imageUrl);
 		if ($basicAuthHeader !== '') {
-			$options['headers']['Authorization'] = 'Basic ' . $basicAuthHeader;
+			if ($this->isJiraHost($userId, $basicAuthHeader, $imageHost)) {
+				$options['headers']['Authorization'] = 'Basic ' . $basicAuthHeader;
+			}
 		} elseif ($accessToken !== '') {
-			$options['headers']['Authorization'] = 'Bearer ' . $accessToken;
+			if ($imageHost === 'api.atlassian.com') {
+				$options['headers']['Authorization'] = 'Bearer ' . $accessToken;
+			}
 		} else {
 			return null;
 		}
 
-		return $this->client->get($imageUrl, $options)->getBody();
+		try {
+			return $this->client->get($imageUrl, $options)->getBody();
+		} catch (Exception $e) {
+			// for example a host other than Jira refusing an avatar, as it gets no credentials
+			return null;
+		}
 	}
 }
