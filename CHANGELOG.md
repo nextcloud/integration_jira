@@ -48,8 +48,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Updated Psalm and @nextcloud/eslint-config, and synced the lint workflows
-- Updated dependencies & translations
+- Update Psalm and @nextcloud/eslint-config, and sync the lint workflows
+- Update dependencies & translations
 
 ### Fixed
 
@@ -67,25 +67,43 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## 1.4.2 - 2026-05-27
 
+### Added
+
+- Added support for Nextcloud 34 and 35
+
+### Removed
+
+- Nextcloud 30 to 32 and PHP 8.1 support
+
 ### Fixed
 
-- Stop spamming the log with `\InvalidArgumentException` deprecation warnings from the notifier; throw `OCP\Notification\UnknownNotificationException` instead for unknown notifications.
-- Fix `ValueError` from `vsprintf()` that broke notifications for non-English users.
-- Migrate Jira Cloud search and notification calls to `/rest/api/3/search/jql`; the legacy `/rest/api/2/search` endpoint was removed by Atlassian (CHANGE-2046) and Cloud users were getting `410 Gone`. Self-hosted Jira (Server / Data Center) is unaffected and keeps the v2 endpoint (#122).
+- Stop spamming the log with `\InvalidArgumentException` deprecation warnings from the notifier; throw `OCP\Notification\UnknownNotificationException` instead for unknown notifications
+- Fix `ValueError` from `vsprintf()` that broke notifications for non-English users
+- Migrate Jira Cloud search and notification calls to `/rest/api/3/search/jql`; the legacy `/rest/api/2/search` endpoint was removed by Atlassian (CHANGE-2046) and Cloud users were getting `410 Gone`; self-hosted Jira (Server / Data Center) is unaffected and keeps the v2 endpoint
 
 ## 1.4.1 - 2025-11-10
 
-### Changed
+### Added
 
 - Added support for Nextcloud 33
-- Update dependencies & translatetions
+
+### Changed
+
+- Update dependencies & translations
 
 ## 1.4.0 - 2025-07-20
 
+### Added
+
+- Added support for Nextcloud 32
+
 ### Changed
 
-- Update npm packages
-- Added support for NC 32, removed support for NC 28 and NC 29
+- Update dependencies
+
+### Removed
+
+- Nextcloud 28 and 29 support
 
 ## 1.3.0 - 2025-03-13
 
@@ -96,144 +114,241 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- Update npm packages
+- Update dependencies
 
 ## 1.2.1 - 2024-11-18
+
+### Added
+
+- Added support for Nextcloud 31
+
 ### Changed
-- bump js libs
+
+- Update dependencies
 
 ### Fixed
-- encrypt secrets in the database and not expose them to UI
+
+- Encrypt secrets in the database and not expose them to the UI
 
 ## 1.2.0 - 2024-07-24
+
+### Added
+
+- Added support for Nextcloud 30
+
 ### Changed
-- minimum required NC raised from v27 to v28
-- bump js libs
+
+- Update dependencies
+
+### Removed
+
+- Nextcloud 27 support
 
 ## 1.1.0 - 2024-03-07
-### Changed
-- added support of NC29, minimum required NC raised from v26 to v27
-- bump js libs
 
-## 1.0.7 – 2024-01-19
-### Changed
-- minimum required NC raised from v25 to v26
-- bump js libs
-
-### Fixed
-- invalid error handling that prevented refresh token from updating
-
-## 1.0.6 – 2023-10-24
-### Changed
-- added support of NC28
-- bump js libs
-
-## 1.0.5 – 2023-05-12
-### Changed
-- bump js libs
-
-## 1.0.4 – 2022-08-29
-### Changed
-- adjust to NC 25
-- bump js libs
-- token refresh is now based on expiration date
-
-### Fixed
-- token refresh was not storing the new refresh token
-
-## 1.0.1 – 2021-06-28
-### Changed
-- stop polling widget content when document is hidden
-- bump js libs
-- get rid of all deprecated stuff
-- bump min NC version to 22
-- cleanup backend code
-
-## 1.0.0 – 2021-01-19
-### Changed
-- bump js libs
-- add new translations
-
-## 0.0.15 – 2021-02-16
-### Changed
-- app certificate
-
-## 0.0.14 – 2021-02-14
 ### Added
-- admin setting to force self hosted Jira URL
-[#11](https://github.com/nextcloud/integration_jira/issues/11) @karl-in-office
 
-### Fixed
-- safer API requests error management
+- Added support for Nextcloud 29
 
-## 0.0.12 – 2021-02-12
 ### Changed
-- bump js libs
-- bump max NC version
 
-### Fixed
-- import nc dialog style
+- Update dependencies
 
-## 0.0.11 – 2020-12-10
+### Removed
+
+- Nextcloud 26 support
+
+## 1.0.7 - 2024-01-19
+
 ### Changed
-- bump js libs
+
+- Update dependencies
+
+### Removed
+
+- Nextcloud 25 support
 
 ### Fixed
-- crash when accessibility app is not installed
 
-## 0.0.10 – 2020-11-17
-### Fixed
-- search with non-ascii characters not working with JQL wildcard
-[#10](https://github.com/nextcloud/integration_jira/issues/10) @karl-in-office
+- Invalid error handling that prevented the refresh token from updating
 
-## 0.0.9 – 2020-11-17
-### Changed
-- bump js libs
-- automate releases
+## 1.0.6 - 2023-10-24
 
-### Fixed
-- restrict connection to Jira software to NC admins
-[#9](https://github.com/nextcloud/integration_jira/issues/9) @karl-in-office
-
-## 0.0.8 – 2020-10-20
-### Fixed
-- wrong redirect URL protocol on server side with some setups
-
-## 0.0.7 – 2020-10-19
-### Fixed
-- mismatch redirect URL between server side and browser side (possibly because of overwrite.cli.url)
-
-## 0.0.6 – 2020-10-18
-### Changed
-- use webpack 5 and style lint
-- show hint when oauth config missing for jira cloud
-
-### Fixed
-- missing background job declaration
-- avoid some warnings
-
-## 0.0.5 – 2020-10-12
-### Fixed
-- register search and widget even if oauth settings are missing
-
-## 0.0.4 – 2020-10-12
 ### Added
-- compatibility with self hosted Jira instances
+
+- Added support for Nextcloud 28
+
+### Changed
+
+- Update dependencies
+
+### Removed
+
+- Nextcloud 22 to 24 support
+
+## 1.0.5 - 2023-05-12
+
+### Added
+
+- Added support for Nextcloud 26 and 27
+
+### Changed
+
+- Update dependencies
+
+## 1.0.4 - 2022-08-29
+
+### Added
+
+- Added support for Nextcloud 24 and 25
+
+### Changed
+
+- Adjust to Nextcloud 25
+- Token refresh is now based on the expiration date
+- Update dependencies
 
 ### Fixed
-- generate avatar URL on server side
-- fix partial term search (\*word\* does not work on Jira Cloud)
-- avoid API request loop on error when token is fine
 
-## 0.0.3 – 2020-10-03
+- Token refresh was not storing the new refresh token
+
+## 1.0.1 - 2021-06-28
+
+### Added
+
+- Added support for Nextcloud 23
+
+### Changed
+
+- Stop polling the widget content when the document is hidden
+- Get rid of all deprecated stuff
+- Clean up the backend code
+- Update dependencies
+
+### Removed
+
+- Nextcloud 20 and 21 support
+
+## 1.0.0 - 2021-01-19
+
+### Changed
+
+- Update dependencies & translations
+
+## 0.0.15 - 2021-02-16
+
+### Changed
+
+- Republish to use the new app certificate
+
+## 0.0.14 - 2021-02-14
+
+### Added
+
+- Admin setting to force a self-hosted Jira URL
+
 ### Fixed
-- notification setting not being loaded
-- only save what's needed in perso settings
 
-## 0.0.2 – 2020-10-02
-### Added
-- lots of translations
+- Safer API requests error management
 
-## 0.0.1 – 2020-10-01
+## 0.0.12 - 2021-02-12
+
 ### Added
-* the app
+
+- Added support for Nextcloud 22
+
+### Changed
+
+- Update dependencies
+
+### Fixed
+
+- Import the Nextcloud dialog style
+
+## 0.0.11 - 2020-12-10
+
+### Changed
+
+- Update dependencies
+
+### Fixed
+
+- Crash when the accessibility app is not installed
+
+## 0.0.10 - 2020-11-17
+
+### Fixed
+
+- Search with non-ASCII characters not working with the JQL wildcard
+
+## 0.0.9 - 2020-11-17
+
+### Changed
+
+- Automate releases
+- Update dependencies
+
+### Fixed
+
+- Let users who are not Nextcloud admins connect to a self-hosted Jira
+
+## 0.0.8 - 2020-10-20
+
+### Fixed
+
+- Wrong redirect URL protocol on the server side with some setups
+
+## 0.0.7 - 2020-10-19
+
+### Fixed
+
+- Mismatched redirect URL between the server side and the browser side (possibly because of overwrite.cli.url)
+
+## 0.0.6 - 2020-10-18
+
+### Changed
+
+- Use webpack 5 and stylelint
+- Show a hint when the OAuth config is missing for Jira Cloud
+
+### Fixed
+
+- Missing background job declaration
+- Avoid some warnings
+
+## 0.0.5 - 2020-10-12
+
+### Fixed
+
+- Register the search and the widget even if the OAuth settings are missing
+
+## 0.0.4 - 2020-10-12
+
+### Added
+
+- Compatibility with self-hosted Jira instances
+
+### Fixed
+
+- Generate the avatar URL on the server side
+- Fix partial term search (\*word\* does not work on Jira Cloud)
+- Avoid an API request loop on error when the token is fine
+
+## 0.0.3 - 2020-10-03
+
+### Fixed
+
+- Notification setting not being loaded
+- Only save what's needed in the personal settings
+
+## 0.0.2 - 2020-10-02
+
+### Added
+
+- Lots of translations
+
+## 0.0.1 - 2020-10-01
+
+### Added
+
+- Initial release for Nextcloud 20 and 21
