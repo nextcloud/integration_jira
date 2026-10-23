@@ -1,6 +1,7 @@
 OC.L10N.register(
     "integration_jira",
     {
+    "Error getting OAuth access token." : "Eroare la obținerea tokenului de acces OAuth.",
     "Error during OAuth exchanges" : "Eroare în schimbarea OAuth",
     "Bad HTTP method" : "Metodă HTTP nepotrivită",
     "Bad credentials" : "Credențiale greșite",
@@ -13,6 +14,7 @@ OC.L10N.register(
     "Priority" : "Prioritate",
     "Created" : "A fost creat",
     "Updated" : "Actualizat",
+    "Connected as {username}" : "Conectat ca {username}",
     "User" : "Utilizator",
     "Password" : "Parolă"
 },
