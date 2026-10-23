@@ -10,31 +10,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## 1.5.1 - 2026-10-23
+
 ### Changed
 
-- Run the frontend unit tests in CI
 - Load the admin settings lazily instead of on every request
 - Accept only the app's own admin settings, as strings, on the admin endpoints
-- Send the Jira credentials only to Jira itself when fetching an avatar, not to avatar hosts such as Gravatar
+- Update dependencies & translations
 
 ### Fixed
 
 - Show the link preview of an issue whose fields carry no labels or no project
 - Show no date rather than today's for an issue without a created or updated time
 - Point the dashboard widget's "show more" link at the Jira instance whose issues it shows
-- Stop the dashboard widget from polling once it has been removed
-- Keep the dashboard widget polling after a transient failure, and report once Jira cannot be reached
+- Keep the dashboard widget polling after a network error, instead of stopping until the page is reloaded
 - List a notification whose issue has no creator instead of emptying the widget
 - Keep a notification that arrived while a second request was still in flight
 - Show the newest version of an issue in the dashboard widget
 - Keep the project selector usable when a saved project is no longer available
-- Filter the dashboard widget by project on self-hosted Jira
+- Show the issues of the selected projects in the filtered dashboard widget when connected with an API token or a login and password, instead of none
 - Show the issues of a Jira Cloud site on atlassian.net connected with an API token in the dashboard widget and the search, and its open tickets notification once the site is connected again
 - Show no avatar rather than a server error when an avatar image cannot be fetched
 - Report an answer that is not a JSON object or array, such as the HTML page of a proxy in front of Jira, as an error when connected with a login and password
 - Show the link preview of an issue whose project key contains digits, such as AB12C-345
 - Show the link preview of an issue only from the Jira site the link points to, and only for a site the user is connected to, instead of the issue with the same key on the user's own site; a Jira Cloud site connected with an API token through Atlassian's API gateway before this change shows its link previews again once it is connected again
 - Show the generic link preview without PHP warnings in the log when an issue cannot be shown, such as one the user cannot see
+
+### Security
+
+- Send the Jira credentials only to Jira itself when fetching an avatar, not to avatar hosts such as Gravatar
 
 ## 1.5.0 - 2026-09-29
 
