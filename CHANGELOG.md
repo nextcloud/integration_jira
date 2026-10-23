@@ -32,6 +32,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Show the issues of a Jira Cloud site on atlassian.net connected with an API token in the dashboard widget and the search, and its open tickets notification once the site is connected again
 - Show no avatar rather than a server error when an avatar image cannot be fetched
 - Report an answer that is not a JSON object or array, such as the HTML page of a proxy in front of Jira, as an error when connected with a login and password
+- Show the link preview of an issue whose project key contains digits, such as AB12C-345
+- Show the link preview of an issue only from the Jira site the link points to, and only for a site the user is connected to, instead of the issue with the same key on the user's own site; a Jira Cloud site connected with an API token through Atlassian's API gateway before this change shows its link previews again once it is connected again
+- Show the generic link preview without PHP warnings in the log when an issue cannot be shown, such as one the user cannot see
 
 ## 1.5.0 - 2026-09-29
 

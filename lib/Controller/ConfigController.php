@@ -149,6 +149,14 @@ class ConfigController extends Controller {
 				$this->config->setUserValue($this->userId, Application::APP_ID, 'user_account_id', $info['accountId']);
 			}
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'url', $targetInstanceUrl);
+			// the base URL Jira builds its links with, which differs when Nextcloud reaches Jira under another
+			// name, such as Atlassian's API gateway
+			$serverInfo = $this->networkService->basicRequest($targetInstanceUrl, $basicAuthHeader, 'rest/api/2/serverInfo');
+			if (isset($serverInfo['baseUrl']) && is_string($serverInfo['baseUrl']) && $serverInfo['baseUrl'] !== '') {
+				$this->config->setUserValue($this->userId, Application::APP_ID, 'base_url', $serverInfo['baseUrl']);
+			} else {
+				$this->config->deleteUserValue($this->userId, Application::APP_ID, 'base_url');
+			}
 			$basicAuthHeader = $basicAuthHeader === '' ? '' : $this->crypto->encrypt($basicAuthHeader);
 			$this->config->setUserValue($this->userId, Application::APP_ID, 'basic_auth_header', $basicAuthHeader);
 			return new DataResponse(['user_name' => $info['displayName']]);
