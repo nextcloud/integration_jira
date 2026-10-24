@@ -11,6 +11,7 @@ OC.L10N.register(
     "Jira issues" : "Jira hlásenie problémov",
     "Bad HTTP method" : "Zlá metóda HTTP",
     "Bad credentials" : "Nesprávne prihlasovacie údaje",
+    "Unexpected answer from Jira" : "Neočakávaná odpoveď od Jira",
     "Connected accounts" : "Prepojené účty",
     "Jira integration" : "Jira integrácia",
     "Integration of Jira user support/ticketing solution" : "Integrácia riešenia podpory používateľov/tiketov Jira",

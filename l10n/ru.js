@@ -11,6 +11,7 @@ OC.L10N.register(
     "Jira issues" : "Задачи в Jira",
     "Bad HTTP method" : "Неверный метод HTTP",
     "Bad credentials" : "Неверные учётные данные",
+    "Unexpected answer from Jira" : "Неожиданный ответ от Jira",
     "Connected accounts" : "Подключённые учётные записи",
     "Jira integration" : "Интеграция с Jira",
     "Integration of Jira user support/ticketing solution" : "Интеграция с системой поддержки и учёта заявок Jira",

@@ -11,6 +11,7 @@ OC.L10N.register(
     "Jira issues" : "Sager i Jira",
     "Bad HTTP method" : "Dårlig HTTPmetode",
     "Bad credentials" : "Forkerte legitimationsoplysninger",
+    "Unexpected answer from Jira" : "Uventet svar fra Jira",
     "Connected accounts" : "Forbundne konti",
     "Jira integration" : "Jira-integration",
     "Integration of Jira user support/ticketing solution" : "Integration med Jira, løsningen til brugersupport og sagsstyring",

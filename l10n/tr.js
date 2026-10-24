@@ -11,6 +11,7 @@ OC.L10N.register(
     "Jira issues" : "Jira sorunları",
     "Bad HTTP method" : "HTTP yöntemi hatalı",
     "Bad credentials" : "Kimlik doğrulama bilgileri hatalı",
+    "Unexpected answer from Jira" : "Sunucudan tarafından beklenmeyen bir yanıt alındı",
     "Connected accounts" : "Bağlı hesaplar",
     "Jira integration" : "Jira bütünleştirmesi",
     "Integration of Jira user support/ticketing solution" : "Jira kullanıcı destek kaydı açma ve destek alma çözümü",
