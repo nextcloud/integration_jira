@@ -11,6 +11,7 @@ OC.L10N.register(
     "Jira issues" : "Saincheisteanna Jira",
     "Bad HTTP method" : "Droch-mhodh HTTP",
     "Bad credentials" : "Dintiúir dona",
+    "Unexpected answer from Jira" : "Freagra gan choinne ó Jira",
     "Connected accounts" : "Cuntais nasctha",
     "Jira integration" : "Comhtháthú Jira",
     "Integration of Jira user support/ticketing solution" : "Comhtháthú réiteach tacaíochta úsáideora/ticéad Jira",
