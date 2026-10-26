@@ -9,6 +9,7 @@
     "Jira issues" : "Jira issues",
     "Bad HTTP method" : "Bad HTTP method",
     "Bad credentials" : "Bad credentials",
+    "Unexpected answer from Jira" : "Unexpected answer from Jira",
     "Connected accounts" : "Connected accounts",
     "Jira integration" : "Jira integration",
     "Integration of Jira user support/ticketing solution" : "Integration of Jira user support/ticketing solution",
@@ -67,6 +68,7 @@
     "Connect to this Jira instance" : "Connect to this Jira instance",
     "No Jira account connected" : "No Jira account connected",
     "Error connecting to Jira" : "Error connecting to Jira",
+    "Could not reach Jira" : "Could not reach Jira",
     "No Jira notifications!" : "No Jira notifications!",
     "Failed to get Jira notifications" : "Failed to get Jira notifications",
     "Connect to Jira" : "Connect to Jira"

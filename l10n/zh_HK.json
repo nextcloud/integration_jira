@@ -9,6 +9,7 @@
     "Jira issues" : "Jira 問題",
     "Bad HTTP method" : "不正確的 HTTP 方法",
     "Bad credentials" : "錯誤的身分驗證",
+    "Unexpected answer from Jira" : "Jira 傳回非預期的回應。",
     "Connected accounts" : "已連線的帳號",
     "Jira integration" : "Jira 整合",
     "Integration of Jira user support/ticketing solution" : "集成 Jira 用戶支持/票務解決方案",
@@ -67,6 +68,7 @@
     "Connect to this Jira instance" : "連線至此 Jira 站台",
     "No Jira account connected" : "未連線至 Jira 帳號",
     "Error connecting to Jira" : "連線至 Jira 時發生錯誤",
+    "Could not reach Jira" : "無法連接至 Jira",
     "No Jira notifications!" : "無 Jira 通告！",
     "Failed to get Jira notifications" : "未能獲取 Jira 通告",
     "Connect to Jira" : "連線至 Jira"
