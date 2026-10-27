@@ -5,6 +5,7 @@ OC.L10N.register(
     "Client ID" : "Klient-ID",
     "Type" : "Skriv",
     "Status" : "Status",
+    "Priority" : "Prioritet",
     "Updated" : "Oppdatert",
     "User" : "Bruker",
     "Password" : "Passord"

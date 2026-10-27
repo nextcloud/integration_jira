@@ -8,6 +8,7 @@ OC.L10N.register(
     "Unassigned" : "Tayinlanmagan",
     "Type" : "Turi",
     "Status" : "Holat",
+    "Priority" : "Ustuvorlik",
     "Labels" : "Yorliqlar",
     "User" : "Foydalanuvchi",
     "Password" : "Password"

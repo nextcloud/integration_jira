@@ -11,7 +11,7 @@ OC.L10N.register(
     "Jira issues" : "Jira veahaldus",
     "Bad HTTP method" : "Vigane HTTP-meetod",
     "Bad credentials" : "Vale kasutajanimi, salasõna või tunnusluba",
-    "Unexpected answer from Jira" : "Ootamatu vastus JIra serverist",
+    "Unexpected answer from Jira" : "Ootamatu vastus Jira serverist",
     "Connected accounts" : "Ühendatud kasutajakontod",
     "Jira integration" : "Lõiming Jira serveriga",
     "Integration of Jira user support/ticketing solution" : "Jira kasutajatoe ja probleemihalduse süsteemi lõiming",
