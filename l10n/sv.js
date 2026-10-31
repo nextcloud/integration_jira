@@ -11,6 +11,7 @@ OC.L10N.register(
     "Jira issues" : "Jira-ärenden",
     "Bad HTTP method" : "Felaktig HTTP-metod",
     "Bad credentials" : "Ogiltiga inloggningsuppgifter",
+    "Unexpected answer from Jira" : "Oväntat svar från Jira",
     "Connected accounts" : "Anslutna konton",
     "Jira integration" : "Jira-integrering",
     "Integration of Jira user support/ticketing solution" : "Integration av användarsupport- och ärendehanteringslösningen Jira",
